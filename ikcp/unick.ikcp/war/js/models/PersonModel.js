@@ -33,8 +33,6 @@ function PersonObj( modelData ) {
     this.pet = ko.observable( modelData.pet || false );
     this.vacation = ko.observable( modelData.vacation || false );
 
-
-
     // HELPER METHODS
     this.birthDate = ko.computed(function() {
         return this.birthDateDay() + "." + this.birthDateMonth() + "." + this.birthDateYear();
@@ -44,10 +42,21 @@ function PersonObj( modelData ) {
         return formatEuro( this.storno() );
     }, this);
 
-    this.summary = ko.computed(function() {
+    this.totalPersonPrice = ko.computed(function() {
         // TODO: compute summary price
-        return formatEuro( 150 * Math.random() );
+    	var spolu=10;
+    	if(this.medical()) spolu+=10;
+    	if(this.baggage()) spolu+=11.2;
+    	if(this.responsibility()) spolu+=12.3;
+    	if(this.accident()) spolu+=14.5;
+    	
+        return spolu;
     }, this);
+
+    this.totalPersonPriceText = ko.computed(function() {
+    	return formatEuro(this.totalPersonPrice());
+    }, this);
+    
 
     this.baggageEuro = ko.computed(function() {
         if ( this.baggage() ) {
@@ -56,5 +65,49 @@ function PersonObj( modelData ) {
 
         return "";
     }, this);
+
+    //error attributes
+	this.nameError = ko.computed(function(){
+
+		if( this.name() == "" ){
+			return "Zadajte meno";
+		} else {
+			return false;
+		}
+
+	}, this );
+
+	this.surnameError = ko.computed(function(){
+
+		if( this.surname() == "" || this.surname()!='aaa' ){
+			return "Zadajte priezvisko";
+		} else {
+			return false;
+		}
+
+	}, this );
+
+	this.birthDateError = ko.computed(function(){
+
+		if( this.birthDate() == "" ){
+			return "Opravte dátum narodenia";
+		} else if( !validDateSK( this.birthDate() ) ) {
+			return "Zadajte správny dátum narodenia";
+		} else if( makeDateSK( this.birthDate() ) > new Date() ) {
+			return "Dátum narodenia je v budúcnosti";
+		}
+		return false;
+
+	}, this );
+
+	this.stornoError = ko.computed(function(){
+
+		if( !validDecimalFormat(this.storno())  ){
+			return "Zadajte správnu cenu";
+		} else {
+			return false;
+		}
+
+	}, this );
 
 }

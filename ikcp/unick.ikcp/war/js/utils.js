@@ -433,3 +433,105 @@ function createDataModelFromURL() {
 
     return modelData;
 }
+
+// rodne cislo validacie
+function validFormatRC( rc ) {
+
+   var regExp = /^\s*(\d\d)(\d\d)(\d\d)[ /]*(\d\d\d)(\d?)\s*$/,
+       matches = regExp.exec( rc ),
+		now = new Date();
+
+   if ( !matches  || matches.length < 5) {
+       return false;
+   }
+
+   var c = ( typeof matches[5] == "string" ) ? matches[5]  : "",
+       year  = parseInt(matches[1],10),
+       yearOrig  = matches[1],
+       month = matches[2],
+       monthOrig = month,
+       day   = matches[3],
+       ext   = matches[4];
+
+   if ( c === '') {
+		// bez kontrolnej cislice
+
+       if( year > 54 ){
+           return false;
+       }
+   } else {
+
+       // kontrolna cislica
+       var mod = parseInt(year + "" + month + "" + day + "" + ext, 10) % 11;
+       if ( mod === 10) mod = 0;
+       if ( mod !== parseInt( c, 10 ) ) {
+           return false;
+       }
+   }
+
+   // kontrola datumu
+   if( c === '' )
+       year += 1900;
+   else {
+		//year += year < 54 ? 2000 : 1900;
+
+		if( 2000 + year > now.getFullYear() ){
+			year += 1900;
+		} else {
+			year += 2000;
+		}
+	}
+
+   month = parseInt( month, 10);
+
+   // k mesiaci moze byt pripocitane 20, 50 alebo 70
+   if( month > 70 && year > 2003) month -= 70;
+   else if ( month > 50) month -= 50;
+   else if ( month > 20 && year > 2003) month -= 20;
+
+   //kontrola datumu
+   var composedDate = new Date(year, month-1, day);
+   var valid = (composedDate.getDate() == parseInt(day,10) &&
+           composedDate.getMonth() == (month-1) &&
+           composedDate.getFullYear() == year);
+
+   return valid;
+   
+}
+
+function getDateFromRC( rc ){
+
+	if( rc && rc != "" && rc.length > 8 && validFormatRC(rc) ){
+
+		var year,
+			mon,
+			day;
+
+		year = parseInt( rc.substring(0,2), 10 );
+		mon = parseInt( rc.substring(2,4), 10 );
+		day = parseInt( rc.substring(4,6), 10 );
+
+		if( mon > 12 ){
+			mon -= 50
+		}
+
+		if( (year+2000) < new Date().getFullYear() ){
+			year += 2000;
+		} else {
+			year += 1900;
+		}
+
+		if( day < 10 ){
+			day = "0" + day;
+		}
+
+		if( mon < 10 ){
+			mon = "0" + mon;
+		}
+
+		return day + "." + mon + "." + year;
+
+	} else {
+		return "";
+	}
+};

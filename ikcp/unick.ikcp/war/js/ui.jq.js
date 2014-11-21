@@ -94,8 +94,8 @@ ko.jq.landAutocomplete = function( element ){
             $(this).val( ui.item.value ).change();
 
             $("#country").val( ui.item.area );
-            ckZajazdy.country( ui.item.area );
-            ckZajazdy.land( ui.item );
+            ikcp.country( ui.item.area );
+            ikcp.land( ui.item );
         },
         onSelect: function(){
 

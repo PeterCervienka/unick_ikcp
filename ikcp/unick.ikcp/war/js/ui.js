@@ -65,8 +65,8 @@ document.fixRawDomSelect = function(){
 document.showElementErrors = function( element ){
 
 	var error = $( element ).attr("data-error");
-
-	if( error && $( element ).hasClass("dirty") ){
+console.log(element,error,document.modelLoaded, $( element ).hasClass("dirty"));
+	if( error){
 		$( element ).parent().addClass("has-error").find("div.error").html( error );
 	} else {
 		$( element ).parent().removeClass("has-error").find("div.error").html("&nbsp;");
