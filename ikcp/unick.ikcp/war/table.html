@@ -76,47 +76,28 @@
 <tr class="has-fields">
     <td>Meno</td>
     <td></td>
-    <!--<td><input type="text" tabindex="1"/></td>
-    <td><input type="text" tabindex="4"/></td>
-    <td><input type="text" tabindex="7"/></td>
-    <td><input type="text" tabindex="10"/></td>
-    <td><input type="text" tabindex="13"/></td>
-    <td><input type="text" tabindex="16"/></td>
-    <td><input type="text" tabindex="19"/></td>
-    <td><input type="text" tabindex="22"/></td>
-    <td><input type="text" tabindex="25"/></td>-->
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="value: $data.name" type="text" tabindex="25"/></td>
+    <td><input data-bind="value: $data.name, attr: {tabindex:$index()*15+1, id:'name'+$index()}" type="text"/></td>
     <!-- /ko -->
     <td></td>
 </tr>
 <tr class="has-fields">
     <td>Priezvisko</td>
     <td></td>
-    <!--<td><input type="text" tabindex="2"/></td>
-    <td><input type="text" tabindex="5"/></td>
-    <td><input type="text" tabindex="8"/></td>
-    <td><input type="text" tabindex="11"/></td>
-    <td><input type="text" tabindex="14"/></td>
-    <td><input type="text" tabindex="17"/></td>
-    <td><input type="text" tabindex="20"/></td>
-    <td><input type="text" tabindex="23"/></td>
-    <td><input type="text" tabindex="26"/></td>-->
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="value: $data.surname" type="text"/></td>
+    <td><input data-bind="value: $data.surname, attr: {tabindex:$index()*15+2, id:'surname'+$index()}" type="text"/></td>
     <!-- /ko -->
     <td></td>
 </tr>
 <tr class="has-fields">
     <td>Dátum narodenia</td>
     <td></td>
-
     <!-- ko foreach: insuredPersons -->
     <td>
         <div class="dob">
-            <input data-bind="value: $data.birthDateDay" type="text" tabindex="3" placeholder="DD"/>
-            <input data-bind="value: $data.birthDateMonth" type="text" tabindex="3" placeholder="MM"/>
-            <input data-bind="value: $data.birthDateYear" type="text" tabindex="3" placeholder="YYYY"/>
+            <input data-bind="value: $data.birthDateDay, attr: {tabindex:$index()*15+3, id:'birthDateDay'+$index()}" type="text" placeholder="DD"/>
+            <input data-bind="value: $data.birthDateMonth, attr: {tabindex:$index()*15+4, id:'birthDateMonth'+$index()}" type="text" placeholder="MM"/>
+            <input data-bind="value: $data.birthDateYear, attr: {tabindex:$index()*15+5, id:'birthDateYear'+$index()}" type="text" placeholder="YYYY"/>
         </div>
     </td>
     <!-- /ko -->
@@ -126,7 +107,7 @@
     <td>Riziková skupina</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup"></select></td>
+    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}"></select></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -134,7 +115,7 @@
     <td>Zľavová karta</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.discountCard" type="checkbox"></td>
+    <td><input data-bind="checked: $data.discountCard, attr: {tabindex:$index()*15+7, id:'discountCard'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -150,7 +131,7 @@
     <td>Liečebné náklady v zahraničí:</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.medical" type="checkbox"></td>
+    <td><input data-bind="checked: $data.medical, attr: {tabindex:$index()*15+8, id:'medical'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -158,7 +139,7 @@
     <td>Batožina:</td>
     <td><input type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage"></select></td>
+    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage, attr: {tabindex:$index()*15+9, id:'baggage'+$index()}"></select></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -166,7 +147,7 @@
     <td>Všeobecná zodpovednosť za škodu:</td>
     <td><input type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.responsibility" type="checkbox"></td>
+    <td><input data-bind="checked: $data.responsibility, attr: {tabindex:$index()*15+10, id:'responsibility'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -174,7 +155,7 @@
     <td>Úraz:</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.accident" type="checkbox"></td>
+    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -182,7 +163,7 @@
     <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.technicalHelp" type="checkbox"></td>
+    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -198,7 +179,7 @@
     <td>Storno objednanej služby:</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><div class="price"><input data-bind="value: $data.storno" type="text" value="0"></div></td>
+    <td><div class="price"><input data-bind="value: $data.storno, attr: {tabindex:$index()*15+13, id:'storno'+$index()}" type="text" value="0"></div></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -206,7 +187,7 @@
     <td>Domáci miláčik:</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.pet" type="checkbox"></td>
+    <td><input data-bind="checked: $data.pet, attr: {tabindex:$index()*15+14, id:'pet'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
@@ -214,7 +195,7 @@
     <td>Dovolenková domácnosť:</td>
     <td><input checked type="checkbox"></td>
     <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.vacation" type="checkbox"></td>
+    <td><input data-bind="checked: $data.vacation, attr: {tabindex:$index()*15+15, id:'vacation'+$index()}" type="checkbox"></td>
     <!-- /ko -->
     <td></td>
 </tr>
