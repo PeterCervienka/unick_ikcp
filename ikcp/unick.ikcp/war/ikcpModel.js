@@ -40,4 +40,24 @@ function IkcpModel( modelData ){
         this.insuredPersons.push( new PersonObj( { name: "Jan", surname: "Gajdos" } ) ); // insurer is present by default
         this.insuredPersons.push( new PersonObj( { name: "Fero", surname: "Cech", pet: true } ) ); // insurer is present by default
     }
+    
+    // functions
+    this.addPerson=function(){
+        if(this.insuredPersons().length<9)
+        	this.insuredPersons.push( new PersonObj(  ) );
+    };
+    
+    this.showAddPerson=ko.computed(function(){
+    	return this.insuredPersons().length<9;
+    }, this);
+
+    this.removePerson=function(person){
+        if(self.insuredPersons().length>1)
+        	return self.insuredPersons.remove(person);
+    };
+
+    this.showRemovePerson=ko.computed(function(){
+    	return this.insuredPersons().length>1;
+    }, this);
+
 }

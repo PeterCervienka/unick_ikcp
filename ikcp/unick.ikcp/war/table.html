@@ -39,9 +39,9 @@
     <th class="right">Rovnaké pre všetkých</th>
     <th><span class="glyphicon glyphicon-arrow-down"></span></th>
     <!-- ko foreach: insuredPersons -->
-    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a data-bind="click: $root.removePerson, visible: $root.showRemovePerson" href="#remove" title="odobrať">Del</a></th>
     <!-- /ko -->
-    <th></th>
+    <th><a data-bind="click: addPerson, visible: showAddPerson" href="#add" title="pridat">Add</a></th>
 </tr>
 </thead>
 <tfoot>
