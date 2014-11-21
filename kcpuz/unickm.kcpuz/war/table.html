@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="us">
+<head>
+    <meta charset="utf-8">
+    <title>Individuálne komplexné cestovné poistenie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/_app.css" rel="stylesheet">
+    <script src="js/baseliner.js"></script>
+    <script>
+        window.onload = function() {
+            baseliner = new Baseliner({'gridColor': [255,0,0], 'gridOpacity': 10, 'gridHeight': 12});
+        };
+    </script>
+</head>
+<body>
+<div class="un-v1 single header">
+    <img src="assets/logo-union.svg" border="0" width="146" height="48">
+    <h1>Individuálne komplexné cestovné poistenie</h1>
+</div>
+<div class="un-v1 single">
+<div class="separator error">
+    <h2>Chyba</h2>
+    <div>Skontrolujte všetky polia označené červenou farbou.</div>
+</div>
+<div class="row-4">
+    <div class="single required calendar">
+        <label>Poistený od</label>
+        <input data-bind="value: insuredFrom, jq: 'birthDatePicker'" type="text" name="from" value="">
+    </div>
+    <div class="single required calendar has-error">
+        <label>Do</label>
+        <input data-bind="value: insuredTo, jq: 'birthDatePicker'" type="text" name="to" value="" placeholder=" ">
+        <div class="error">Doplňte dátum</div>
+    </div>
+</div>
+<table class="edit-grid">
+<thead>
+<tr>
+    <th class="right">Rovnaké pre všetkých</th>
+    <th><span class="glyphicon glyphicon-arrow-down"></span></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th><a href="#hide" title="odobrať">Del</a></th>
+    <th></th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+    <td>Za osobu:</td>
+    <td></td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td>20€</td>
+    <td></td>
+</tr>
+<tr>
+    <td><strong>Cena spolu:</strong></td>
+    <td></td>
+    <td colspan="9">
+        <strong>1200 €</strong>
+        <div class="alert">
+            Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
+        </div>
+    </td>
+</tr>
+</tfoot>
+<tbody>
+<tr class="section">
+    <td>Osoba</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr class="has-fields">
+    <td>Meno</td>
+    <td></td>
+    <td><input type="text" tabindex="1"/></td>
+    <td><input type="text" tabindex="4"/></td>
+    <td><input type="text" tabindex="7"/></td>
+    <td><input type="text" tabindex="10"/></td>
+    <td><input type="text" tabindex="13"/></td>
+    <td><input type="text" tabindex="16"/></td>
+    <td><input type="text" tabindex="19"/></td>
+    <td><input type="text" tabindex="22"/></td>
+    <td><input type="text" tabindex="25"/></td>
+    <td></td>
+</tr>
+<tr class="has-fields">
+    <td>Priezvisko</td>
+    <td></td>
+    <td><input type="text" tabindex="2"/></td>
+    <td><input type="text" tabindex="5"/></td>
+    <td><input type="text" tabindex="8"/></td>
+    <td><input type="text" tabindex="11"/></td>
+    <td><input type="text" tabindex="14"/></td>
+    <td><input type="text" tabindex="17"/></td>
+    <td><input type="text" tabindex="20"/></td>
+    <td><input type="text" tabindex="23"/></td>
+    <td><input type="text" tabindex="26"/></td>
+    <td></td>
+</tr>
+<tr class="has-fields">
+    <td>Dátum narodenia</td>
+    <td></td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td>
+        <div class="dob">
+            <input type="text" tabindex="3" placeholder="DD"/>
+            <input type="text" tabindex="3" placeholder="MM"/>
+            <input type="text" tabindex="3" placeholder="YYYY"/>
+        </div>
+    </td>
+    <td></td>
+</tr>
+<tr class="unique has-fields">
+    <td>Riziková skupina</td>
+    <td><input checked type="checkbox"></td>
+    <td><select><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Zľavová karta</td>
+    <td><input checked type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+<tr class="section">
+    <td>Poistenia</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Liečebné náklady v zahraničí:</td>
+    <td><input checked type="checkbox"></td>
+    <td><input type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+<tr class="unique has-fields">
+    <td>Batožina:</td>
+    <td><input type="checkbox"></td>
+    <td><select><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td><select disabled><option>Nie</option></select></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Všeobecná zodpovednosť za škodu:</td>
+    <td><input checked type="checkbox"></td>
+    <td><input type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Úraz:</td>
+    <td><input checked type="checkbox"></td>
+    <td><input type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
+    <td><input checked type="checkbox"></td>
+    <td><input type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+<tr class="section">
+    <td>Pripoistenia</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr class="unique has-fields">
+    <td>Storno objednanej služby:</td>
+    <td><input checked type="checkbox"></td>
+    <td><div class="price"><input type="text" value="0"></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Domáci miláčik:</td>
+    <td><input checked type="checkbox"></td>
+    <td><input type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+<tr class="unique">
+    <td>Dovolenková domácnosť:</td>
+    <td><input checked type="checkbox"></td>
+    <td><input type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td><input disabled type="checkbox"></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+<div class="cta">
+    <a href="step-2.html" class="button primary next">Ďalej</a>
+</div>
+<br/><br/>
+</div>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui-1.10.4.min.js"></script>
+<script src="js/knockout-3.2.0.js"></script>
+
+<script src="ikcpModel.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ui.jq.js"></script>
+
+<script>
+
+    var ikcp;
+
+    $(document).ready(function()	{
+
+        var model = {};
+        ikcp = new IkcpModel( model );
+
+        ko.applyBindings( ikcp );
+
+
+        //fixed table
+        var tbody_width = $("table tbody").css('width');
+        $("thead").css('width', tbody_width);
+        $("tfoot").css('width', tbody_width);
+        $("thead th").each(function()	{
+            var idx = $(this).index()+1;
+            var new_width = $("tbody tr:nth-child(2) td:nth-child("+idx+")").css('width');
+            $(this).css('width', new_width);
+            $("tfoot td:nth-child("+idx+")").css('width', new_width);
+            console.log(idx, new_width);
+        });
+
+        var move = function()	{
+            var st = $(window).scrollTop();
+            var ot = $("table.edit-grid tbody").offset().top - $("table.edit-grid thead").height();
+            var sb = st + $(window).height();
+            var ob = ot + $("table.edit-grid tbody").height() + $("table.edit-grid thead").height() + $("table.edit-grid tfoot").height();
+            console.log(ob);
+            if( st > ot && sb < ob )	{
+                $("table.edit-grid").addClass("fixed");
+            } else if( st > ot && sb > ob )	{
+                $("table.edit-grid").removeClass("fixed");
+            } else	{
+                $("table.edit-grid").removeClass("fixed");
+            }
+        }
+        move();
+        $(window).scroll(move);
+
+        //focus handling
+        $(".required input").focus(function()	{
+            $(this).parents(".required").addClass("has-focus");
+        }).blur(function()	{
+            $(this).parents(".required").removeClass("has-focus");
+        });
+        $(".dob input").focus(function()	{
+            $(this).parents(".dob").addClass("has-focus");
+        }).blur(function()	{
+            $(this).parents(".dob").removeClass("has-focus");
+        });
+        $(".price input").focus(function()	{
+            $(this).parents(".price").addClass("has-focus");
+        }).blur(function()	{
+            $(this).parents(".price").removeClass("has-focus");
+        });
+
+        //help
+        $("[href=#show-help]").click(function()	{
+            $(this).toggleClass("opened");
+            $(".table-help").toggle();
+        });
+    });
+</script>
+</body>
+</html>

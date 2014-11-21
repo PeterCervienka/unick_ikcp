@@ -18,8 +18,8 @@ ko.jq.birthDatePicker = function( element ){
     	dateFormat: 'dd.mm.yy',
     	changeMonth: true,
     	changeYear: true,
-    	minDate: '-100Y',
-    	maxDate: '+0D',
+    	minDate: '-0D',
+    	maxDate: '+100Y',
     	onSelect: function(){
     		$(this).change();
     	}
