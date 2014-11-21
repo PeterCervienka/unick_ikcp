@@ -133,155 +133,89 @@
 <tr class="unique">
     <td>Zľavová karta</td>
     <td><input checked type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.discountCard" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="section">
     <td>Poistenia</td>
     <td></td>
+    <!-- ko foreach: insuredPersons -->
     <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
     <td>Liečebné náklady v zahraničí:</td>
     <td><input checked type="checkbox"></td>
-    <td><input type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.medical" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique has-fields">
     <td>Batožina:</td>
     <td><input type="checkbox"></td>
-    <td><select><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
-    <td><select disabled><option>Nie</option></select></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage"></select></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
     <td>Všeobecná zodpovednosť za škodu:</td>
-    <td><input checked type="checkbox"></td>
     <td><input type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.responsibility" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
     <td>Úraz:</td>
     <td><input checked type="checkbox"></td>
-    <td><input type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.accident" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
     <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
     <td><input checked type="checkbox"></td>
-    <td><input type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.technicalHelp" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="section">
     <td>Pripoistenia</td>
     <td></td>
+    <!-- ko foreach: insuredPersons -->
     <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique has-fields">
     <td>Storno objednanej služby:</td>
     <td><input checked type="checkbox"></td>
-    <td><div class="price"><input type="text" value="0"></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
-    <td><div class="price disabled"><input disabled type="text" value="0"></div></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><div class="price"><input data-bind="value: $data.storno" type="text" value="0"></div></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
     <td>Domáci miláčik:</td>
     <td><input checked type="checkbox"></td>
-    <td><input type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.pet" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
     <td>Dovolenková domácnosť:</td>
     <td><input checked type="checkbox"></td>
-    <td><input type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
-    <td><input disabled type="checkbox"></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="checked: $data.vacation" type="checkbox"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 </tbody>

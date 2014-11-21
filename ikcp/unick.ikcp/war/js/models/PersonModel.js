@@ -24,7 +24,7 @@ function PersonObj( modelData ) {
 
     // insurance
     this.medical = ko.observable( modelData.medical || false );
-    this.baggage = ko.observable( modelData.baggage || "" );
+    this.baggage = ko.observable( modelData.baggage || 700 );
     this.responsibility = ko.observable( modelData.responsibility || false );
     this.accident = ko.observable( modelData.accident || false );
     this.technicalHelp = ko.observable( modelData.technicalHelp || false );
@@ -47,6 +47,14 @@ function PersonObj( modelData ) {
     this.summary = ko.computed(function() {
         // TODO: compute summary price
         return formatEuro( 150 * Math.random() );
+    }, this);
+
+    this.baggageEuro = ko.computed(function() {
+        if ( this.baggage() ) {
+            return formatEuro( this.baggage() );
+        }
+
+        return "";
     }, this);
 
 }
