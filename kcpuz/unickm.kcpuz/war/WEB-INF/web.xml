@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>kcpuz</display-name>
+	<description>unickm.kcpuz</description>
+
+	<filter>
+		<filter-name>base-filter</filter-name>
+		<filter-class>com.aston.basex.BasexFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>base-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>com.aston.basex.BasexListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>service-servlet</servlet-name>
+		<servlet-class>com.aston.basex.BasexServiceServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>service-servlet</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>service-servlet</servlet-name>
+		<url-pattern>/document/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>service-servlet</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<resource-ref>
+		<description>JDBC Connection Pool</description>
+		<res-ref-name>jdbc/uniweb</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<resource-ref>
+		<description>JDBC Connection Pool</description>
+		<res-ref-name>jdbc/wsusr</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<resource-ref>
+		<description>Mail Connection Pool</description>
+		<res-ref-name>mail/all</res-ref-name>
+		<res-type>javax.mail.Session</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+</web-app>

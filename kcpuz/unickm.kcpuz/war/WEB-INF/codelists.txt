@@ -1,0 +1,303 @@
+Titul;1;Ing.
+Titul;10;Prof.
+Titul;11;MVDr.
+Titul;12;Doc.
+Titul;13;Bc.
+Titul;14;PhMr.
+Titul;15;Akad.mal.
+Titul;16;PharmDr.
+Titul;17;Doc.Ing.
+Titul;18;Doc.Mgr.
+Titul;19;Dr.
+Titul;2;Mgr.
+Titul;20;PhD.
+Titul;21;CSc.
+Titul;22;MBA
+Titul;23;PhLic.
+Titul;24;ThLic.
+Titul;25;ml.
+Titul;26;Dipl. Ing.
+Titul;27;MDDr.
+Titul;28;Ing.arch.
+Titul;29;ArtD.
+Titul;3;RNDr.
+Titul;30;Mgr. art.
+Titul;31;ThDr.
+Titul;4;MUDr.
+Titul;5;JUDr.
+Titul;6;DrSc.
+Titul;7;PaedDr.
+Titul;8;RSDr.
+Titul;9;PhDr.
+Stat_krajina;10;Antarktída
+Stat_krajina;100;Bulharsko
+Stat_krajina;1001;EMÚ
+Stat_krajina;1002;Svet
+Stat_krajina;1003;Európa
+Stat_krajina;1004;Rusko - európska časť
+Stat_krajina;1005;Rusko - ázijská časť
+Stat_krajina;104;Myanmar
+Stat_krajina;108;Burundi
+Stat_krajina;112;Bielorusko
+Stat_krajina;116;Kambodža
+Stat_krajina;12;Alžírsko
+Stat_krajina;120;Kamerun
+Stat_krajina;124;Kanada
+Stat_krajina;132;Kapverdy
+Stat_krajina;136;Kajmanie ostrovy
+Stat_krajina;140;Stredoafrická republika
+Stat_krajina;144;Srí Lanka
+Stat_krajina;148;Čad
+Stat_krajina;152;Chile
+Stat_krajina;156;Čína
+Stat_krajina;158;Tchajwan
+Stat_krajina;16;Americká Samoa
+Stat_krajina;162;Vianočný ostrov
+Stat_krajina;166;Kokosové ostrovy
+Stat_krajina;170;Kolumbia
+Stat_krajina;174;Komory
+Stat_krajina;175;Mayotte
+Stat_krajina;178;Kongo
+Stat_krajina;180;Zair
+Stat_krajina;184;Cookove ostrovy
+Stat_krajina;188;Kostarika
+Stat_krajina;191;Chorvátsko
+Stat_krajina;192;Kuba
+Stat_krajina;196;Cyprus
+Stat_krajina;20;Andorra
+Stat_krajina;200;Československo
+Stat_krajina;203;Česko
+Stat_krajina;204;Benin
+Stat_krajina;208;Dánsko
+Stat_krajina;212;Dominika
+Stat_krajina;214;Dominikánska republika
+Stat_krajina;218;Ekvádor
+Stat_krajina;222;Salvádor
+Stat_krajina;226;Rovníková Guinea
+Stat_krajina;230;Etiópia
+Stat_krajina;231;Etiópia
+Stat_krajina;232;Eritrea
+Stat_krajina;233;Estónsko
+Stat_krajina;234;Faerské ostrovy
+Stat_krajina;238;Falklandy - Malvíny
+Stat_krajina;239;Juž. Georgia a J.S.o.
+Stat_krajina;24;Angola
+Stat_krajina;242;Fidži
+Stat_krajina;246;Fínsko
+Stat_krajina;248;Alandy
+Stat_krajina;249;Metropolitné Francúzsko
+Stat_krajina;250;Francúzsko
+Stat_krajina;254;Francúzska Guyana
+Stat_krajina;258;Francúzska Polynézia
+Stat_krajina;260;Francúzske južné územia
+Stat_krajina;262;Džibutsko
+Stat_krajina;266;Gabon
+Stat_krajina;268;Gruzínsko
+Stat_krajina;270;Gambia
+Stat_krajina;275;Palestína
+Stat_krajina;276;Nemecko
+Stat_krajina;28;Antigua a Barbuda
+Stat_krajina;288;Ghana
+Stat_krajina;292;Gibraltár
+Stat_krajina;296;Kiribati
+Stat_krajina;300;Grécko
+Stat_krajina;304;Grónsko
+Stat_krajina;308;Grenada
+Stat_krajina;31;Azerbajdžan
+Stat_krajina;312;Guadeloupe
+Stat_krajina;316;Guam
+Stat_krajina;32;Argentína
+Stat_krajina;320;Guatemala
+Stat_krajina;324;Guinea
+Stat_krajina;328;Guyana
+Stat_krajina;332;Haiti
+Stat_krajina;334;Heardov ostrov
+Stat_krajina;336;Vatikán
+Stat_krajina;340;Honduras
+Stat_krajina;344;Hongkong
+Stat_krajina;348;Maďarsko
+Stat_krajina;352;Island
+Stat_krajina;356;India
+Stat_krajina;36;Austrália
+Stat_krajina;360;Indonézia
+Stat_krajina;364;Irán
+Stat_krajina;368;Irak
+Stat_krajina;372;Írsko
+Stat_krajina;376;Izrael
+Stat_krajina;380;Taliansko
+Stat_krajina;384;Pobrežie slonoviny
+Stat_krajina;388;Jamajka
+Stat_krajina;392;Japonsko
+Stat_krajina;398;Kazachstan
+Stat_krajina;4;Afganistan
+Stat_krajina;40;Rakúsko
+Stat_krajina;400;Jordánsko
+Stat_krajina;404;Keňa
+Stat_krajina;408;Severná Kórea
+Stat_krajina;410;Južná Kórea
+Stat_krajina;414;Kuvajt
+Stat_krajina;417;Kirgizsko
+Stat_krajina;418;Laos
+Stat_krajina;422;Libanon
+Stat_krajina;426;Lesotho
+Stat_krajina;428;Lotyšsko
+Stat_krajina;430;Libéria
+Stat_krajina;434;Líbya
+Stat_krajina;438;Lichtenštajnsko
+Stat_krajina;44;Bahamy
+Stat_krajina;440;Litva
+Stat_krajina;442;Luxembursko
+Stat_krajina;446;Macao
+Stat_krajina;450;Madagaskar
+Stat_krajina;454;Malawi
+Stat_krajina;458;Malajzia
+Stat_krajina;462;Maledivy
+Stat_krajina;466;Mali
+Stat_krajina;470;Malta
+Stat_krajina;474;Martinique
+Stat_krajina;478;Mauritánia
+Stat_krajina;48;Bahrajn
+Stat_krajina;480;Maurícius
+Stat_krajina;484;Mexiko
+Stat_krajina;492;Monako
+Stat_krajina;496;Mongolsko
+Stat_krajina;498;Moldavsko
+Stat_krajina;499;Čierna Hora
+Stat_krajina;50;Bangladéš
+Stat_krajina;500;Montserrat
+Stat_krajina;504;Maroko
+Stat_krajina;508;Mozambik
+Stat_krajina;51;Arménsko
+Stat_krajina;512;Omán
+Stat_krajina;516;Namíbia
+Stat_krajina;52;Barbados
+Stat_krajina;520;Nauru
+Stat_krajina;524;Nepál
+Stat_krajina;528;Holandsko
+Stat_krajina;530;Holandské Antily
+Stat_krajina;532;Holandské Antily
+Stat_krajina;533;Aruba
+Stat_krajina;536;Neutrálne územia
+Stat_krajina;540;Nová Kaledónia
+Stat_krajina;548;Vanuatu
+Stat_krajina;554;Nový Zéland
+Stat_krajina;558;Nikaragua
+Stat_krajina;56;Belgicko
+Stat_krajina;562;Niger
+Stat_krajina;566;Nigéria
+Stat_krajina;570;Niue
+Stat_krajina;574;Ostrov Norfolk
+Stat_krajina;578;Nórsko
+Stat_krajina;580;Severné Mariány
+Stat_krajina;581;Menšie odľahlé ostr.USA
+Stat_krajina;583;Mikronézia
+Stat_krajina;584;Marshallove ostrovy
+Stat_krajina;585;Palau
+Stat_krajina;586;Pakistan
+Stat_krajina;590;Panama
+Stat_krajina;591;Panama
+Stat_krajina;598;Papua - Nová Guinea
+Stat_krajina;60;Bermudy
+Stat_krajina;600;Paraguaj
+Stat_krajina;604;Peru
+Stat_krajina;608;Filipíny
+Stat_krajina;612;Pitcairnove ostrovy
+Stat_krajina;616;Poľsko
+Stat_krajina;620;Portugalsko
+Stat_krajina;624;Guinea-Bissau
+Stat_krajina;626;Východný Timor
+Stat_krajina;630;Portoriko
+Stat_krajina;634;Katar
+Stat_krajina;638;Réunion
+Stat_krajina;64;Bhután
+Stat_krajina;642;Rumunsko
+Stat_krajina;643;Rusko
+Stat_krajina;646;Rwanda
+Stat_krajina;654;Svätá Helena
+Stat_krajina;659;Svätý Krištof
+Stat_krajina;660;Anguilla
+Stat_krajina;662;Svätá Lucia
+Stat_krajina;666;Saint Pierre a Miquelon
+Stat_krajina;670;Svätý Vincent a Grenad.
+Stat_krajina;674;San Marino
+Stat_krajina;678;Sv.Tomáš a Princov ost.
+Stat_krajina;68;Bolívia
+Stat_krajina;682;Saudská Arábia
+Stat_krajina;686;Senegal
+Stat_krajina;688;Srbsko
+Stat_krajina;690;Seychely
+Stat_krajina;694;Sierra Leone
+Stat_krajina;70;Bosna a Hercegovina
+Stat_krajina;702;Singapur
+Stat_krajina;703;Slovensko
+Stat_krajina;704;Vietnam
+Stat_krajina;705;Slovinsko
+Stat_krajina;706;Somálsko
+Stat_krajina;710;Južná Afrika
+Stat_krajina;716;Zimbabwe
+Stat_krajina;72;Botswana
+Stat_krajina;724;Španielsko
+Stat_krajina;732;Západná Sahara
+Stat_krajina;736;Sudán
+Stat_krajina;74;Bouvetov ostrov
+Stat_krajina;740;Surinam
+Stat_krajina;744;Svalbard a Jan Mayen
+Stat_krajina;748;Svazijsko
+Stat_krajina;752;Švédsko
+Stat_krajina;756;Švajčiarsko
+Stat_krajina;76;Brazília
+Stat_krajina;760;Sýria
+Stat_krajina;762;Tadžikistan
+Stat_krajina;764;Thajsko
+Stat_krajina;768;Togo
+Stat_krajina;772;Tokelau
+Stat_krajina;776;Tonga
+Stat_krajina;780;Trinidad a Tobago
+Stat_krajina;784;Spojené arabské emiráty
+Stat_krajina;788;Tunisko
+Stat_krajina;792;Turecko
+Stat_krajina;795;Turkménsko
+Stat_krajina;796;Turks a Caicos
+Stat_krajina;798;Tuvalu
+Stat_krajina;8;Albánsko
+Stat_krajina;800;Uganda
+Stat_krajina;8001;Juhoslovanská zväzová republika
+Stat_krajina;8002;Mayotte
+Stat_krajina;8003;Eritrea
+Stat_krajina;8004;Južná Georgia a Južné Sandwich ostrovy
+Stat_krajina;8005;Clearingový ECU
+Stat_krajina;8006;MFF ZPC ZDR
+Stat_krajina;8007;EMS ECU
+Stat_krajina;804;Ukrajina
+Stat_krajina;807;Macedónsko
+Stat_krajina;810;Spol.nezávislých štátov
+Stat_krajina;818;Egypt
+Stat_krajina;826;Spojené kráľovstvo
+Stat_krajina;831;Guernsey
+Stat_krajina;832;Jernsey
+Stat_krajina;833;Man
+Stat_krajina;834;Tanzánia
+Stat_krajina;84;Belize
+Stat_krajina;840;Spojené štáty americké
+Stat_krajina;850;Panenské ostrovy (USA)
+Stat_krajina;854;Burkina Faso
+Stat_krajina;858;Uruguaj
+Stat_krajina;86;Britské indickooc.t.
+Stat_krajina;860;Uzbekistan
+Stat_krajina;862;Venezuela
+Stat_krajina;876;Ostrovy Wallis a Futuna
+Stat_krajina;882;Západná Samoa
+Stat_krajina;887;Jemen
+Stat_krajina;891;Srbsko a Čierna hora
+Stat_krajina;894;Zambia
+Stat_krajina;896;Oblasti inde nešpecifik
+Stat_krajina;898;MMF
+Stat_krajina;90;Šalamúnove ostrovy
+Stat_krajina;92;Britské Pan.ostrovy
+Stat_krajina;96;Brunej
+Stat_krajina;973;Macedónsko
+Stat_krajina;9995;Alderney (Channel Islands)
+Stat_krajina;9996;Jersey (Channel Islands)
+Stat_krajina;9997;Isle of Man
+Stat_krajina;9998;Guernsey (Channel Islands)
+Stat_krajina;9999;Slovensko-Ocenenie

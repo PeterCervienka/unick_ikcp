@@ -1,0 +1,914 @@
+/*
+
+Union CSS v1
+https://wiki.aston.local/display/UNI/Union+CSS+v1+Dokumentacia
+
+*/
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?-ypmxj7');
+	src:url('../fonts/icomoon.eot?#iefix-ypmxj7') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?-ypmxj7') format('woff'),
+		url('../fonts/icomoon.ttf?-ypmxj7') format('truetype'),
+		url('../fonts/icomoon.svg?-ypmxj7#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyriadProCondBold';
+  src: url('../fonts/myriadpro-boldcond-webfont.eot');
+  src: url('../fonts/myriadpro-boldcond-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/myriadpro-boldcond-webfont.woff') format('woff'), url('../fonts/myriadpro-boldcond-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MyriadProCondRegular';
+  src: url('../fonts/myriadpro-cond-webfont.eot');
+  src: url('../fonts/myriadpro-cond-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/myriadpro-cond-webfont.woff') format('woff'), url('../fonts/myriadpro-cond-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MyriadProRegular';
+  src: url('../fonts/myriadpro-regular-webfont.eot');
+  src: url('../fonts/myriadpro-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/myriadpro-regular-webfont.woff') format('woff'), url('../fonts/myriadpro-regular-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MyriadProBold';
+  src: url('../fonts/myriadpro-bold-webfont.eot');
+  src: url('../fonts/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/myriadpro-bold-webfont.woff') format('woff'), url('../fonts/myriadpro-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body	{
+	margin: 0;
+	padding: 0;
+}
+
+/******/
+
+.un-v1	{
+	/* Enable Ligatures for icomoon====== */
+	-webkit-font-feature-settings: "liga";
+	-moz-font-feature-settings: "liga=1";
+	-moz-font-feature-settings: "liga";
+	-ms-font-feature-settings: "liga" 1;
+	-o-font-feature-settings: "liga";
+	font-feature-settings: "liga";
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.un-v1,
+.un-v1 input,
+.un-v1 select,
+.un-v1 .separator h4
+{
+	font-weight: normal;
+	font-size: 14px;
+	font-family: 'MyriadProRegular', sans-serif;
+}
+
+.un-v1 .required:not(.radio) label:after,
+.un-v1 .radio.required .label:after
+{
+	content: ':*';
+}
+
+/* grid */
+
+.un-v1.single,
+.un-v1.two-cols
+{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+.un-v1.two-cols .left	{
+	width: 58%;
+	float: left;
+}
+
+.un-v1.two-cols .right	{
+	width: 40%;
+	float: right;
+}
+
+.un-v1 .separator	{
+	width: 100%;
+}
+
+.un-v1 .row-4,
+.un-v1 .separator	{
+	clear: both;
+	overflow: hidden;
+}
+
+.un-v1 .row-4 .riskGroup {
+    padding-top: 2%;
+}
+
+.un-v1 .row-4 .single,
+.un-v1 .row-4 .half,
+.un-v1 .row-4 .double,
+.un-v1 .row-4 .extended
+{
+	width: 20%;
+	margin-right: 5%;
+	float: left;
+	overflow: hidden;
+}
+
+.un-v1 .row-4 .half	{
+	width: 10%;
+}
+
+.un-v1 .row-4 .double	{
+	width: 45%;
+}
+
+.un-v1 .row-4 .extended	{
+	width: 30%;
+}
+
+.un-v1 label,
+.un-v1 .label	{
+	display: block;
+	position: relative;
+}
+
+.un-v1 .radio.row label	{
+	float: left;
+}
+
+.un-v1 .row-4 .radio.row label	{
+	width: 20%;
+	margin-right:5%;
+	margin-bottom: 6px;
+}
+
+.un-v1 .checkbox.list label,
+.un-v1 .radio.list label
+{
+	padding-left: 22px;
+}
+
+.un-v1 .checkbox.list label input[type=checkbox],
+.un-v1 .radio.list label input[type=radio]
+{
+	margin-left: -22px;
+}
+
+/* baseline */
+
+.un-v1 .single-before,
+.un-v1.single-before	{
+	margin-top: 12px;
+}
+
+.un-v1 .single-after	{
+	margin-bottom: 12px;
+}
+
+.un-v1 .double-before	{
+	margin-top: 24px;
+}
+
+.un-v1 h1	{
+	margin: 0;
+	font-size: 32px;
+	line-height: 48px;
+}
+
+.un-v1 .glue-tables thead th	{
+	padding-top: 29px;
+}
+
+.un-v1 .no-footer {
+	margin-bottom: 5px;
+}
+
+.un-v1 .no-footer-summary {
+    margin-bottom: 12px;
+}
+
+.un-v1 div	{
+	line-height: 1žpx;
+}
+
+.un-v1 .row-1	{
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.un-v1 .row-4
+{
+	padding-top: 6px;
+	padding-bottom: 12px;
+}
+
+.un-v1 label,
+.un-v1 .label	{
+	line-height: 24px;
+	
+}
+
+.un-v1 dl	{
+	margin: 0;
+	margin-top: 6px;
+	margin-bottom: 5px;
+	padding: 0;
+	line-height: 12px;
+}
+
+
+
+.un-v1 .separator
+{
+	line-height: 12px;
+	padding-top: 8px;
+	padding-bottom: 6px;
+}
+
+.un-v1 .separator.error	{
+	line-height: 12px;
+	padding: 11px;
+	margin-top: 3px;
+	margin-bottom: 9px;
+}
+
+.un-v1 .separator.error h2	{
+	margin: 0;
+	font-size: 24px;
+	line-height: 24px;
+}
+
+.un-v1 .separator.error div	{
+	margin-top: 9px;
+	margin-bottom: 3px;
+}
+
+.un-v1 .has-error .error	{
+	margin-top: 9px;
+	line-height: 16px;
+}
+
+.un-v1 .section h2	{
+	display: inline-block;
+	margin: 8px 0px 4px 0px;
+	font-size: 2.286em;
+	font-family: 'MyriadProCondRegular';
+	font-weight: normal;
+	line-height: 36px;
+}
+
+.un-v1 table.section tr:first-child td:first-child > span {
+    font-size: 110%;
+}
+
+.un-v1 input[type=text],
+.un-v1 input[type=number],
+.un-v1 select
+{
+	margin: 0;
+	padding: 0;
+	line-height: 20px;
+	font-size: 14px;
+}
+
+.un-v1 .separator h4	{
+	margin: 0;
+	line-height: 22px;
+}
+
+.un-v1 .inline-form .row-4 label	{
+	font-size: 10px;
+	text-transform: uppercase;
+	line-height: 12px;
+	padding-bottom: 4px;
+}
+
+.un-v1 table	{
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.un-v1 table th
+{
+	padding-top: 12px;
+	line-height: 12px;
+	padding-bottom: 6px;
+	vertical-align: top;
+}
+
+.un-v1 table td
+{
+	padding: 0;
+	line-height: 23px;
+	height: 23px;
+}
+
+.un-v1 table tfoot tr.double td
+{
+	height: 48px;
+}
+
+.un-v1 .button.small	{
+	font-size: 12px;
+	line-height: 15.5px;
+	height: 18px;
+	padding: 0px;
+    font-weight: normal;
+    font-family: 'MyriadProRegular';
+}
+
+.un-v1 th .button.small	{
+	margin-top: -6px;
+	margin-bottom: -4px;
+}
+
+.un-v1 table tbody tr.inline-form td .row-4	{
+	padding-top: 5px;
+	padding-bottom: 6px;
+}
+
+.un-v1 .button	{
+	line-height: 22px;
+	font-size: 14px;
+	margin-top: 3px;
+	padding: 6px 0px 6px 0px;
+    font-weight: bold;
+    font-family: 'MyriadProBold';
+}
+
+/* box-sizing reset */
+
+.un-v1 input[type=text],
+.un-v1 input[type=number],
+.un-v1 input[type=email],
+.un-v1 input[type=tel],
+.un-v1 select,
+.un-v1 .error,
+.un-v1 .button,
+.un-v1.header
+{ 
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+/* visuals */
+
+.hide {
+    display: none;
+}
+
+.un-v1 input[type=text],
+.un-v1 input[type=number],
+.un-v1 input[type=email],
+.un-v1 input[type=tel],
+.un-v1 select
+{
+	width: 100%;
+	border: 1px solid #dddddd;
+	border-top-color: #b4b4b4;
+	border-radius: 4px;
+	padding-left: .5em;
+	padding-right: .5em;
+	height: 30px;
+	-webkit-box-shadow: inset 0px 4px 7px -3px rgba(0,0,0,0.2);
+	-moz-box-shadow: inset 0px 4px 7px -3px rgba(0,0,0,0.2);
+	box-shadow: inset 0px 4px 7px -3px rgba(0,0,0,0.2);
+}
+
+.un-v1 select {
+	padding-right: 0;
+}
+
+.un-v1 input[type=text]:focus,
+.un-v1 input[type=number]:focus,
+.un-v1 select:focus,
+.un-v1 .required input[type=text]:focus,
+.un-v1 .required input[type=number]:focus
+.un-v1 input[type=email]:focus,
+.un-v1 input[type=tel]:focus,
+.un-v1 .required input[type=email]:focus,
+.un-v1 .required input[type=tel]:focus
+
+
+{
+	outline: none;
+	border-color: #000;
+}
+
+.un-v1 .has-error input[type=text]:focus,
+.un-v1 .has-error input[type=number]:focus,
+.un-v1 .has-error select:focus,
+.un-v1 .has-error.required input[type=text]:focus,
+.un-v1 .has-error.required input[type=number]:focus
+.un-v1 .has-error input[type=email]:focus,
+.un-v1 .has-error input[type=tel]:focus,
+.un-v1 .has-error.required input[type=email]:focus,
+.un-v1 .has-error.required input[type=tel]:focus
+{
+	outline: none;
+	border-color: inherit;
+}
+
+.un-v1 .required input[type=text],
+.un-v1 .required input[type=number]
+.un-v1 .required input[type=email],
+.un-v1 .required input[type=tel]
+
+{
+	border-width: 2px;
+	border-color: inherit;
+}
+
+.un-v1 label	{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.un-v1 .required.has-focus:not(.radio),
+.un-v1 .radio.required.has-focus .label,
+.un-v1 table tfoot td	{
+	font-weight: bold;
+	font-family: 'MyriadProBold';
+}
+
+.un-v1 .separator	{
+	position: relative;
+}
+
+.un-v1 .required	{
+	border-color: #888;
+}
+
+.un-v1 .separator:not(.error):before	{
+	position: absolute;
+	top: 19px;
+	z-index: 0;
+	left: 0px;
+	width: 100%;
+	content: '';
+	border-bottom: solid 1px #eee;
+}
+
+.un-v1 .separator h4	{
+	color: #df042a;
+	display: inline-block;
+	background-color: white;
+	z-index: 1;
+	position: relative;
+	padding-right: 1em;
+	text-transform: uppercase;
+	font-size: .850em;
+	background-color: white;
+}
+
+.un-v1 table tr td:not(:last-child),
+.un-v1 table tr th:not(:last-child)	{
+	border-right: solid 1px #ddd;
+}
+
+.un-v1 table td,
+.un-v1 table th	{
+	padding-right: .5em;
+	padding-left: .5em;
+	font-size: 13px;
+	vertical-align: top;
+}
+
+.un-v1 table td:first-child,
+.un-v1 table th:first-child	{
+	text-align: left;
+	padding-left: 0px;
+}
+
+.un-v1 a.help-toggler	{
+	text-decoration: none;
+	color: inherit;
+}
+
+.un-v1 a.help-toggler:before	{
+	content: '\f05a';
+	font-family: "icomoon";
+	margin-right: 5px;
+	text-decoration: none ! important;
+}
+
+.un-v1 a.help-toggler.opened:before	{
+	content: '\f05b';
+}
+
+.un-v1 table td:last-child,
+.un-v1 table th:last-child
+{
+	padding-right: 0;
+}
+
+.un-v1 table td:not(:first-child),
+.un-v1 table th:not(:first-child)	{
+	text-align: center;
+}
+
+.un-v1 table tbody tr td,
+.un-v1 table tfoot tr:not(:last-child) td,
+.un-v1 table tr th	{
+	border-bottom: solid 1px #ddd;
+}
+
+.un-v1 table th.active	{
+	background-color: #df042a;
+	color: #fff;
+}
+
+.un-v1 table td.active	{
+	background-color: #ffffee;
+}
+
+.un-v1 .button:not(.link)	{
+	position: relative;
+	display: block;
+    width: 100%;
+	text-transform: uppercase;
+	text-decoration: none;
+	border-radius: 4px;
+	border: 1px solid #dfdfdf;
+	color: #737373;
+	background-color: #efefef;
+	background-image: -webkit-gradient(
+	 linear,
+	 left top,
+	 left bottom,
+	 color-stop(0, #FAFAFA),
+	 color-stop(1, #D9D9D9)
+	 );
+	background-image: -o-linear-gradient(bottom, #FAFAFA 0%, #D9D9D9 100%);
+	background-image: -moz-linear-gradient(bottom, #FAFAFA 0%, #D9D9D9 100%);
+	background-image: -webkit-linear-gradient(bottom, #FAFAFA 0%, #D9D9D9 100%);
+	background-image: -ms-linear-gradient(bottom, #FAFAFA 0%, #D9D9D9 100%);
+	background-image: linear-gradient(to bottom, #FAFAFA 0%, #D9D9D9 100%);
+}
+
+.un-v1 .button.primary	{
+	background-color: #df042a;
+	background-image: none;
+	border: 1px solid #b81111;
+	color: white;
+	font-weight: bold;
+	font-family: 'MyriadProBold';
+}
+
+.un-v1 .button.next	{
+	display: inline-block;
+    width: auto;
+	padding-left: 12px;
+	padding-right: 12px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-right: none;
+	position: relative;
+	margin-right: 40px;
+	height: 38px;
+}
+
+.un-v1 .button.next:before	{
+	content: '';
+	position: absolute;
+	right: -19px;
+	top: -1px;
+	border-top: 19px solid transparent;
+	border-bottom: 19px solid transparent;
+	border-left: 19px solid #b81111;
+}
+
+.un-v1 .button.next:after	{
+	content: '';
+	position: absolute;
+	right: -18px;
+	top: 0px;
+	border-top: 18px solid transparent;
+	border-bottom: 18px solid transparent;
+	border-left: 18px solid #df042a;
+}
+
+.un-v1 .button.link	{
+	color: grey;
+	text-decoration: none;
+	position: relative;
+    background:transparent none;
+    border:none;
+}
+
+.un-v1 .button.prev	{
+	margin-left: 25px;
+}
+
+.un-v1 .button.adjanced	{
+	text-align: center;
+	line-height: 16px;
+	margin-top: 28px;
+}
+
+.un-v1 .inline,
+.un-v1 .button.inline
+{
+	display: inline-block;
+	width: auto;
+	height: auto;
+	vertical-align: super;
+}
+
+.un-v1 .button.inline	{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.un-v1 table tbody tr.inline-form td,
+.un-v1 table thead tr.inline-form td{
+	background-color: #f4f4f4;
+	border-top: solid 2px #dfdfdf;
+	border-bottom: solid 2px #dfdfdf;
+	padding-left: 20px;
+}
+
+.un-v1 #summary-parameters td:last-child,
+.un-v1 #summary-product td:last-child
+{
+	width: 20%;
+}
+
+#summary-product thead tr:first-child th:nth-child(2),
+#summary-parameters td:nth-child(2)
+{
+	width: 40%;
+	text-align: left;
+}
+
+.un-v1 dl	{
+	text-align: left;
+}
+
+.un-v1 dl dt	{
+	text-transform: uppercase;
+	font-size: 12px;
+	color: gray;
+}
+
+.un-v1 dl dt,
+.un-v1 dl dd
+{
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+
+.un-v1 dl dd:not(:last-child)	{
+	padding-bottom: 12px;
+}
+
+.un-v1 table.recap thead tr th,
+.un-v1 table.recap tbody tr td
+{
+	text-align: left;
+	width: 25%;
+}
+
+.un-v1 table.recap tr td[colspan="2"]	{
+	width: 50%;
+}
+
+.un-v1 .error,
+.un-v1 .has-error	{
+	color: red;
+	border-color: red;
+}
+
+.un-v1 .has-error .error	{
+	font-family: MyriadProRegular, sans-serif;
+	font-weight: normal;
+}
+
+.un-v1 .separator.error	{
+	background-color: rgba(255,0,0,.2);
+	border: solid 1px red;
+	border-radius: 4px;
+	padding-left: 36px;
+}
+
+.un-v1 .separator.error h2	{
+	font-family: 'MyriadProCondRegular';
+	font-weight: normal;
+	position: relative;
+}
+
+.un-v1 .separator.error h2:before	{
+	content: '\f026';
+	font-family: 'icomoon';
+	position: absolute;
+	left: -28px;
+}
+
+.un-v1 input.date {
+	background-image: url(img/dateIcon.png);
+	background-repeat: no-repeat;
+	background-position: 98% 68%;
+}
+
+.un-v1 .table-help	{
+	display: none;
+	color: #555;
+	background-color: #f4f4f4;
+}
+
+.un-v1 .table-help td	{
+	border-color: #e5e5e5 ! important;
+}
+
+.un-v1 .table-help td:first-child	{
+	padding-left: 25px;
+}
+
+.un-v1 em	{
+	font-family: 'MyriadProCondRegular';
+	font-style: normal;
+	color: grey;
+	font-size: inherit;
+	line-height: 0;
+}
+
+.un-v1.header	{
+	margin-top: 6px;
+	border-bottom: solid 1px silver;
+	margin-bottom: 12px;
+}
+
+.un-v1 ul li {
+    margin-bottom: 1%;
+}
+
+@media (min-width: 1000px)	{
+	body	{
+		/*background-color: red;*/
+	}
+	
+}
+
+@media (min-width: 800px) and (max-width: 999px)	{
+	body	{
+		/*background-color: lime;*/
+	}
+	
+	.un-v1.single,
+	.un-v1.two-cols
+	{
+		width: 90%;
+	}
+}
+
+@media (min-width: 600px) and (max-width: 799px)	{
+	body	{
+		/*background-color: maroon;*/
+	}
+	
+	.un-v1.single,
+	.un-v1.two-cols
+	{
+		width: 97%;
+	}
+	
+	.un-v1 .row-4 .single,
+	.un-v1 .row-4 .half,
+	.un-v1 .row-4 .double,
+	.un-v1 .row-4 .extended
+	{
+		width: 45%;
+		margin-right: 5%;
+		padding-top: 6px;
+		padding-bottom: 12px;
+	}
+
+	.un-v1 .row-4 .half	{
+		width: 20%;
+	}
+
+	.un-v1 .row-4 .double	{
+		width: 95%;
+	}
+
+	.un-v1 .row-4 .extended	{
+		width: 70%;
+	}
+	
+	.un-v1 .row-4	{
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+
+}
+
+@media (min-width: 400px) and (max-width: 599px)	{
+	body	{
+		/*background-color: orange;*/
+	}
+	
+	.un-v1.single,
+	.un-v1.two-cols
+	{
+		width: 98%;
+	}
+	
+	.un-v1 .row-4 .single,
+	.un-v1 .row-4 .half,
+	.un-v1 .row-4 .double,
+	.un-v1 .row-4 .extended
+	{
+		width: 45%;
+		margin-right: 5%;
+		padding-top: 6px;
+		padding-bottom: 12px;
+	}
+
+	.un-v1 .row-4 .half	{
+		width: 20%;
+	}
+
+	.un-v1 .row-4 .double	{
+		width: 95%;
+	}
+
+	.un-v1 .row-4 .extended	{
+		width: 70%;
+	}
+	
+	.un-v1 .row-4	{
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	
+	.un-v1.two-cols .left,
+	.un-v1.two-cols .right
+	{
+		width: 100%;
+	}
+}
+
+@media (min-width: 0px) and (max-width: 399px)	{
+	body	{
+		/*background-color: green;*/
+	}
+	
+	.un-v1.single,
+	.un-v1.two-cols
+	{
+		width: 95%;
+	}
+	
+	.un-v1 .row-4 .single,
+	.un-v1 .row-4 .half,
+	.un-v1 .row-4 .double,
+	.un-v1 .row-4 .extended
+	{
+		width: 100%;
+		margin-right: 0%;
+		padding-top: 6px;
+		padding-bottom: 12px;
+	}
+
+	.un-v1 .row-4 .half	{
+		width: 50%;
+	}
+
+	.un-v1 .row-4 .double	{
+		width: 100%;
+	}
+
+	.un-v1 .row-4 .extended	{
+		width: 100%;
+	}
+	
+	.un-v1 .row-4	{
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	
+	.un-v1.two-cols .left,
+	.un-v1.two-cols .right
+	{
+		width: 100%;
+	}
+}

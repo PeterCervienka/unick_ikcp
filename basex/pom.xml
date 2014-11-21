@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.aston.basex</groupId>
+	<artifactId>ws_basex</artifactId>
+	<version>0.0.4-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>basex.core</module>
+		<module>basex.directdb</module>
+		<module>basex.mail</module>
+		<module>basex.pdf</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.2.4</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20140107</version>
+            </dependency>
+
+            <dependency>
+				<groupId>org.mozilla</groupId>
+				<artifactId>rhino</artifactId>
+				<version>1.7R4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.7.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.xmlgraphics</groupId>
+				<artifactId>fop</artifactId>
+				<version>1.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.avalon.framework</groupId>
+						<artifactId>avalon-framework-api</artifactId>
+					</exclusion>
+					<!-- <exclusion> <groupId>org.apache.xmlgraphics</groupId> <artifactId>batik-svg-dom</artifactId>
+						</exclusion> <exclusion> <groupId>org.apache.xmlgraphics</groupId> <artifactId>batik-bridge</artifactId>
+						</exclusion> <exclusion> <groupId>org.apache.xmlgraphics</groupId> <artifactId>batik-transcoder</artifactId>
+						</exclusion> <exclusion> <groupId>org.apache.xmlgraphics</groupId> <artifactId>batik-awt-util</artifactId>
+						</exclusion> -->
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-script</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-gvt</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-extension</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-ext</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.xmlgraphics</groupId>
+						<artifactId>batik-script</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.avalon.framework</groupId>
+				<artifactId>avalon-framework-api</artifactId>
+				<version>4.3.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.avalon.framework</groupId>
+				<artifactId>avalon-framework-impl</artifactId>
+				<version>4.3.1</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<!-- JAVASOURCES -->
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+                <version>2.3</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>deploy</phase>
+						<goals><goal>jar-no-fork</goal></goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- JAVADOC -->
+			<!--<plugin>-->
+				<!--<artifactId>maven-javadoc-plugin</artifactId>-->
+                <!--<version>2.10.1</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>attach-javadocs</id>-->
+						<!--<phase>deploy</phase>-->
+						<!--<goals><goal>jar</goal></goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<!--<version>2.5</version>-->
+				<!--<version>2.3.2</version>-->
+				<version>2.4.2</version>
+				<configuration>
+					<tagNameFormat>release-@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<!--<releaseProfiles>release</releaseProfiles>-->
+					<!--<arguments>-Prelease -Dmaven.test.skip=false</arguments>-->
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>1.8.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshot</id>
+			<url>http://nexus.dev0.aston.local/content/repositories/snapshot</url>
+		</snapshotRepository>
+		<repository>
+			<id>release</id>
+			<url>http://nexus.dev0.aston.local/content/repositories/release/</url>
+		</repository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>release</id>
+			<url>http://nexus.dev0.aston.local/content/repositories/release/</url>
+		</repository>
+		<repository>
+			<id>snapshot</id>
+			<url>http://nexus.dev0.aston.local/content/repositories/snapshot</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>plugins.release</id>
+			<url>http://nexus.dev0.aston.local/content/repositories/release/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>plugins.snapshot</id>
+			<url>http://nexus.dev0.aston.local/content/repositories/snapshot</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<scm>
+		<connection>scm:git:git@git.aston.local:aston-frameworks/basex.git</connection>
+		<developerConnection>scm:git:git@git.aston.local:aston-frameworks/basex.git</developerConnection>
+		<url>scm:git:git@git.aston.local:aston-frameworks/basex.git</url>
+		<!--<tag>HEAD</tag>-->
+	  <tag>HEAD</tag>
+  </scm>
+
+</project>

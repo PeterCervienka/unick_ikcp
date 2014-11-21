@@ -1,0 +1,22 @@
+#Ignore MAVEN settings
+target/
+
+#Ignore IDEA settings
+*.iml
+*/*.iml
+.idea/
+
+#Ignore ECLIPSE settings
+.metadata/
+.settings/
+.project
+.classpath
+Servers/
+
+*/.metadata/
+*/.settings/
+*/.project
+*/.classpath
+
+#Ignore Aston structure
+apache-tomcat/

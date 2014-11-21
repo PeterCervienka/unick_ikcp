@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<weblogic-web-app
+    xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://xmlns.oracle.com/weblogic/weblogic-web-app http://http://www.oracle.com/technology/weblogic/weblogic-web-app/1.1/weblogic-web-app.xsd">
+
+<resource-description>
+    <jndi-name>jdbc/uniweb</jndi-name>
+    <res-ref-name>jdbc/uniweb</res-ref-name>
+ </resource-description>
+
+<resource-description>
+    <jndi-name>jdbc/wsusr</jndi-name>
+    <res-ref-name>jdbc/wsusr</res-ref-name>
+ </resource-description>
+
+<resource-description>
+    <jndi-name>mail/all</jndi-name>
+    <res-ref-name>mail/all</res-ref-name>
+ </resource-description>
+
+ <container-descriptor>
+         <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
+         <prefer-web-inf-classes>true</prefer-web-inf-classes>
+ </container-descriptor>
+ 
+</weblogic-web-app>

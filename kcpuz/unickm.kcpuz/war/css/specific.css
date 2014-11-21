@@ -1,0 +1,98 @@
+/* CSS Specificke pre CK Zajazdy 2014 */
+
+.cta-panel {
+    margin: 20px 0;
+}
+
+.un-v1 table th.active,
+.un-v1 table.A th.A,
+.un-v1 table.A1 th.A1,
+.un-v1 table.A3 th.A3,
+.un-v1 table.B th.B,
+.un-v1 table.C th.C,
+.un-v1 table.D th.D {
+    background-color: #df042a;
+    color: #fff;
+}
+
+.un-v1 table td.active,
+.un-v1 table.A td.A,
+.un-v1 table.A1 td.A1,
+.un-v1 table.A3 td.A3,
+.un-v1 table.B td.B,
+.un-v1 table.C td.C,
+.un-v1 table.D td.D {
+    background-color: #ffffee;
+}
+
+.un-v1 .packagesTable.A td.A .button,
+.un-v1 .packagesTable.A1 td.A1 .button,
+.un-v1 .packagesTable.A3 td.A3 .button,
+.un-v1 .packagesTable.B td.B .button,
+.un-v1 .packagesTable.C td.C .button,
+.un-v1 .packagesTable.D td.D .button {
+    background-color: #df042a;
+    background-image: none;
+    border: 1px solid #b81111;
+    color: white;
+    font-weight: bold;
+    font-family: 'MyriadProBold';
+}
+
+
+.un-v1 .row-4 label.riskGroupRow {
+    margin-right: 0% !important;
+    margin-bottom: 6px !important;
+    float: left;
+}
+
+.packagesTable tr td,
+.packagesTable tr th {
+	width: 140px;
+}
+
+.packagesTable tr th span {
+    font-size: 85%;
+    display: block;
+}
+
+.packagesTable tr:not(.table-help) td span:not(.sumTotal) img {
+    margin-top: 2px;
+}
+
+.packagesTable tr td:first-child,
+.packagesTable tr th:first-child {
+	width: auto;
+	min-width: 330px;
+}
+
+#summary-product tr td span:not(.sumTotal) img {
+    margin-top: 2px;
+}
+
+select.insurerTypeSelect {
+	height: 30px !important;
+    margin-left: 10px !important;
+    vertical-align: middle !important;
+}
+
+.riskLeft {
+	float: left;
+    margin-right: 2.5%;
+    overflow: hidden;
+    width: 50%;
+}
+.riskRight {
+	float: left;
+    overflow: hidden;
+    width: 45.5%;
+}
+
+.button.medium {
+	padding: 3px 5px;
+	font-weight: normal;
+}
+
+.button.widthAuto {
+	width: auto !important;
+}
