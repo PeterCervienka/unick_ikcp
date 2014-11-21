@@ -2,13 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.aston.unickm</groupId>
-	<artifactId>ws_kcpuz</artifactId>
+	<artifactId>ws_ikcp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>unickm.kcpuz</module>
-		<!--<module>unickm.kcpuz.service</module>-->
+		<module>unick.ikcp</module>
 	</modules>
 
 	<properties>

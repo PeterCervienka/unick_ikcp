@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>unickm.kcpuz</artifactId>
+	<artifactId>unick.ikcp</artifactId>
 	<packaging>war</packaging>
 
 	<dependencies>
