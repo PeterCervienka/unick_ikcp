@@ -11,7 +11,24 @@ function IkcpModel( modelData ){
     this.today = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
 
     modelData = modelData || {};
+    this.risks = [
+        {value: "Turista", key: "T"},
+        {value: "Šport", key: "S"},
+        {value: "Prac. cesta - nemanuálna práca", key: "PN"},
+        {value: "Prac. cesta - manuálna práca", key: "PM"},
+    ];
 
     this.insuredFrom = ko.observable( modelData.insuredFrom || dateToSK( this.today ) );
     this.insuredTo = ko.observable( modelData.insuredTo || dateToSK( this.today ) );
+
+    if( modelData.insuredPersons && modelData.insuredPersons.length > 0 ){
+
+        this.insuredPersons = ko.observableArray( ko.utils.arrayMap( modelData.insuredPersons, function( item ){
+            return new PersonObj( item );
+        }));
+
+    } else {
+        this.insuredPersons = ko.observableArray();
+        this.insuredPersons.push( new PersonObj( { editable: true } ) ); // insurer is present by default
+    }
 }

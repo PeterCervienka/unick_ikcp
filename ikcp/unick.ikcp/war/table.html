@@ -38,15 +38,9 @@
 <tr>
     <th class="right">Rovnaké pre všetkých</th>
     <th><span class="glyphicon glyphicon-arrow-down"></span></th>
+    <!-- ko foreach: insuredPersons -->
     <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
-    <th><a href="#hide" title="odobrať">Del</a></th>
+    <!-- /ko -->
     <th></th>
 </tr>
 </thead>
@@ -54,15 +48,9 @@
 <tr>
     <td>Za osobu:</td>
     <td></td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
-    <td>20€</td>
+    <!-- ko foreach: insuredPersons -->
+    <td data-bind="html: $data.summary"></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr>
@@ -80,21 +68,15 @@
 <tr class="section">
     <td>Osoba</td>
     <td></td>
+    <!-- ko foreach: insuredPersons -->
     <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="has-fields">
     <td>Meno</td>
     <td></td>
-    <td><input type="text" tabindex="1"/></td>
+    <!--<td><input type="text" tabindex="1"/></td>
     <td><input type="text" tabindex="4"/></td>
     <td><input type="text" tabindex="7"/></td>
     <td><input type="text" tabindex="10"/></td>
@@ -102,13 +84,16 @@
     <td><input type="text" tabindex="16"/></td>
     <td><input type="text" tabindex="19"/></td>
     <td><input type="text" tabindex="22"/></td>
-    <td><input type="text" tabindex="25"/></td>
+    <td><input type="text" tabindex="25"/></td>-->
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="value: $data.name" type="text" tabindex="25"/></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="has-fields">
     <td>Priezvisko</td>
     <td></td>
-    <td><input type="text" tabindex="2"/></td>
+    <!--<td><input type="text" tabindex="2"/></td>
     <td><input type="text" tabindex="5"/></td>
     <td><input type="text" tabindex="8"/></td>
     <td><input type="text" tabindex="11"/></td>
@@ -116,89 +101,33 @@
     <td><input type="text" tabindex="17"/></td>
     <td><input type="text" tabindex="20"/></td>
     <td><input type="text" tabindex="23"/></td>
-    <td><input type="text" tabindex="26"/></td>
+    <td><input type="text" tabindex="26"/></td>-->
+    <!-- ko foreach: insuredPersons -->
+    <td><input data-bind="value: $data.surname" type="text"/></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="has-fields">
     <td>Dátum narodenia</td>
     <td></td>
+
+    <!-- ko foreach: insuredPersons -->
     <td>
         <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
+            <input data-bind="value: $data.birthDateDay" type="text" tabindex="3" placeholder="DD"/>
+            <input data-bind="value: $data.birthDateMonth" type="text" tabindex="3" placeholder="MM"/>
+            <input data-bind="value: $data.birthDateYear" type="text" tabindex="3" placeholder="YYYY"/>
         </div>
     </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
-    <td>
-        <div class="dob">
-            <input type="text" tabindex="3" placeholder="DD"/>
-            <input type="text" tabindex="3" placeholder="MM"/>
-            <input type="text" tabindex="3" placeholder="YYYY"/>
-        </div>
-    </td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique has-fields">
     <td>Riziková skupina</td>
     <td><input checked type="checkbox"></td>
-    <td><select><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
-    <td><select disabled><option>Turista</option><option>Šport</option><option>Prac. cesta - nemanuálna práca</option><option>Prac. cesta - manuálna práca</option></select></td>
+    <!-- ko foreach: insuredPersons -->
+    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup"></select></td>
+    <!-- /ko -->
     <td></td>
 </tr>
 <tr class="unique">
@@ -366,6 +295,7 @@
 <script src="js/jquery-ui-1.10.4.min.js"></script>
 <script src="js/knockout-3.2.0.js"></script>
 
+<script src="js/models/PersonModel.js"></script>
 <script src="ikcpModel.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/ui.js"></script>

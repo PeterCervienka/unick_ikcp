@@ -4,7 +4,7 @@
 
 	<parent>
 		<groupId>com.aston.unickm</groupId>
-		<artifactId>ws_kcpuz</artifactId>
+		<artifactId>ws_ikcp</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
