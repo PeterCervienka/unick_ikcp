@@ -5,12 +5,6 @@
     <title>Individuálne komplexné cestovné poistenie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/_app.css" rel="stylesheet">
-    <script src="js/baseliner.js"></script>
-    <script>
-        window.onload = function() {
-            baseliner = new Baseliner({'gridColor': [255,0,0], 'gridOpacity': 10, 'gridHeight': 12});
-        };
-    </script>
 </head>
 <body>
 <div class="un-v1 single header">
@@ -19,228 +13,191 @@
 </div>
 
 <div data-bind="visible: step() == 1" id="form-step-1" class="un-v1 single form-step">
-<div data-bind="visible: step1Invalid() == true" class="separator error">
-    <h2>Chyba</h2>
-    <div>Skontrolujte všetky polia označené červenou farbou.</div>
-</div>
-<div class="row-4">
-    <div class="single required calendar">
-        <label>Poistený od</label>
-        <input data-bind="value: insuredFrom, jq: 'birthDatePicker', error: insuredFromError" type="text" name="from" value="">
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="single required calendar">
-        <label>Do</label>
-        <input data-bind="value: insuredTo, jq: 'birthDatePicker', error: insuredToError" type="text" name="to" value="" >
-        <div class="error">&nbsp;</div>
-    </div>
-</div>
-<div class="row-4">
-    <div class="single required">
-        <label>Krajina</label>
-        <input data-bind="jq: 'landAutocomplete', error: landError, disable: landDisable" id="land" type="text" name="landError" value="">
-
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="single required">
-        <label>Územná platnosť</label>
-        <select data-bind="value: country, options: areaList, optionsText: 'label', optionsValue: 'key', error: areaError, disable: areaDisable" id="country"></select>
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="single required">
-    	<button class="button medium widthAuto" style="margin-top: 23px;" data-bind="click: changeAreaDisable">Zmeniť</button>
-    </div>
-</div>
-<table class="edit-grid">
-<thead>
-<tr>
-    <th class="right">Rovnaké pre všetkých</th>
-    <th><span class="glyphicon glyphicon-arrow-down"></span></th>
-    <!-- ko foreach: insuredPersons -->
-    <th><a data-bind="click: $root.removePerson, visible: $root.showRemovePerson" href="#remove" title="odobrať">Del</a></th>
-    <!-- /ko -->
-    <th><a data-bind="click: addPerson, visible: showAddPerson" href="#add" title="pridat">Add</a></th>
-</tr>
-</thead>
-<tfoot>
-<tr>
-    <td>Za osobu:</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td data-bind="html: $data.totalPersonPriceText"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr>
-    <td><strong>Cena spolu:</strong></td>
-    <td></td>
-    <td colspan="9">
-        <strong data-bind="html: $data.totalPriceText"></strong>
-        <div class="alert">
-            Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
-        </div>
-    </td>
-</tr>
-</tfoot>
-<tbody>
-<tr class="section">
-    <td>Osoba</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="has-fields">
-    <td>Meno</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td>
-    <input data-bind="value: $data.name, attr: {tabindex:$index()*15+1, id:'name'+$index()}, error: nameError" type="text"/>
-    <div class="error">&nbsp;</div>
-    </td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="has-fields">
-    <td>Priezvisko</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td>
-    <input data-bind="value: $data.surname, attr: {tabindex:$index()*15+2, id:'surname'+$index()}, error: surnameError" type="text" class="dirty"/>
-    <div class="error">&nbsp;</div>
-    </td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="has-fields">
-    <td>Dátum narodenia</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td>
-        <div class="dob">
-            <input data-bind="value: $data.birthDateDay, attr: {tabindex:$index()*15+3, id:'birthDateDay'+$index()}, error: birthDateError" type="text" placeholder="DD"/>
-            <input data-bind="value: $data.birthDateMonth, attr: {tabindex:$index()*15+4, id:'birthDateMonth'+$index()}, error: birthDateError" type="text" placeholder="MM"/>
-            <input data-bind="value: $data.birthDateYear, attr: {tabindex:$index()*15+5, id:'birthDateYear'+$index()}, error: birthDateError" type="text" placeholder="YYYY"/>
-        </div>
- 	    <div class="error">&nbsp;</div>
-    </td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique has-fields">
-    <td>Riziková skupina</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}"></select></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Zľavová karta</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.discountCard, attr: {tabindex:$index()*15+7, id:'discountCard'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="section">
-    <td>Poistenia</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Liečebné náklady v zahraničí:</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.medical, attr: {tabindex:$index()*15+8, id:'medical'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique has-fields">
-    <td>Batožina:</td>
-    <td><input type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage, attr: {tabindex:$index()*15+9, id:'baggage'+$index()}"></select></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Všeobecná zodpovednosť za škodu:</td>
-    <td><input type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.responsibility, attr: {tabindex:$index()*15+10, id:'responsibility'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Úraz:</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="section">
-    <td>Pripoistenia</td>
-    <td></td>
-    <!-- ko foreach: insuredPersons -->
-    <td></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique has-fields">
-    <td>Storno objednanej služby:</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td>
-    <div class="price"><input data-bind="value: $data.storno, attr: {tabindex:$index()*15+13, id:'storno'+$index()}, error: stornoError" type="text" value="0"></div>
-     <div class="error">&nbsp;</div>
-    </td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Domáci miláčik:</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.pet, attr: {tabindex:$index()*15+14, id:'pet'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-<tr class="unique">
-    <td>Dovolenková domácnosť:</td>
-    <td><input checked type="checkbox"></td>
-    <!-- ko foreach: insuredPersons -->
-    <td><input data-bind="checked: $data.vacation, attr: {tabindex:$index()*15+15, id:'vacation'+$index()}" type="checkbox"></td>
-    <!-- /ko -->
-    <td></td>
-</tr>
-</tbody>
-</table>
-<div class="cta">
-    <a data-bind="click: goToStep2" href="#" class="button primary next">Ďalej</a>
-</div>
+	<div data-bind="visible: step1Invalid() == true" class="separator error">
+	    <h2>Chyba</h2>
+	    <div>Skontrolujte všetky polia označené červenou farbou.</div>
+	</div>
+	<div class="row-4">
+	    <div class="single required calendar">
+	        <label>Poistený od</label>
+	        <input data-bind="value: insuredFrom, jq: 'birthDatePicker', error: insuredFromError" type="text" name="from" value="">
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required calendar">
+	        <label>Do</label>
+	        <input data-bind="value: insuredTo, jq: 'birthDatePicker', error: insuredToError" type="text" name="to" value="" >
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required">
+	        <label>Krajina</label>
+	        <input data-bind="jq: 'landAutocomplete', error: landError, disable: landDisable" id="land" type="text" name="landError" value="">
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required">
+	        <label>Územná platnosť</label>
+	        <select data-bind="value: country, options: areaList, optionsText: 'label', optionsValue: 'key', error: areaError, disable: areaDisable" id="country"></select>
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required">
+	    	<button class="button medium widthAuto" style="margin-top: 23px;" data-bind="click: changeAreaDisable">Zmeniť</button>
+	    </div>
+	</div>
+	<table class="edit-grid">
+	<thead>
+	<tr>
+	    <th class="right">Rovnaké pre všetkých</th>
+	    <th><span class="glyphicon glyphicon-arrow-down"></span></th>
+	    <!-- ko foreach: insuredPersons -->
+	    <th>
+		    <span data-bind="html: $data.totalPersonPriceText"></span>
+	    	<a data-bind="click: $root.removePerson, visible: $root.showRemovePerson" href="#remove" title="odobrať">Del</a>
+	    </th>
+	    <!-- /ko -->
+	    <th><a data-bind="click: addPerson, visible: showAddPerson" href="#add" title="pridat">Add</a></th>
+	</tr>
+	</thead>
+	<tfoot>
+	<tr>
+	    <td><strong>Cena spolu:</strong></td>
+	    <td></td>
+	    <td colspan="9">
+	        <strong data-bind="html: $data.totalPriceText"></strong>
+	        <div class="alert">
+	            Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
+	        </div>
+	    </td>
+	</tr>
+	</tfoot>
+	<tbody>
+	<tr class="section">
+	    <td>Osoba</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="has-fields">
+	    <td>Dieťa do 15 rokov vrátane</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique has-fields">
+	    <td>Riziková skupina</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}"></select></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Zľavová karta</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.discountCard, attr: {tabindex:$index()*15+7, id:'discountCard'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="section">
+	    <td>Poistenia</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Liečebné náklady v zahraničí:</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.medical, attr: {tabindex:$index()*15+8, id:'medical'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique has-fields">
+	    <td>Batožina:</td>
+	    <td><input type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage, attr: {tabindex:$index()*15+9, id:'baggage'+$index()}"></select></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Všeobecná zodpovednosť za škodu:</td>
+	    <td><input type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.responsibility, attr: {tabindex:$index()*15+10, id:'responsibility'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Úraz:</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="section">
+	    <td>Pripoistenia</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique has-fields">
+	    <td>Storno objednanej služby:</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td>
+	    <div class="price"><input data-bind="value: $data.storno, attr: {tabindex:$index()*15+13, id:'storno'+$index()}, error: stornoError" type="text" value="0"></div>
+	     <div class="error">&nbsp;</div>
+	    </td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Domáci miláčik:</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.pet, attr: {tabindex:$index()*15+14, id:'pet'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Dovolenková domácnosť:</td>
+	    <td><input checked type="checkbox"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.vacation, attr: {tabindex:$index()*15+15, id:'vacation'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="cta">
+	    <a data-bind="click: goToStep2" href="#" class="button primary next">Ďalej</a>
+	</div>
 </div>
 
 <div data-bind="visible: step() == 2" id="form-step-2" class="un-v1 two-cols form-step">
 
-<div data-bind="visible: step2Invalid() == true" class="separator error">
-    <h2>Chyba</h2>
+	<div data-bind="visible: step2Invalid() == true" class="separator error">
+	    <h2>Chyba</h2>
+	    <div>Skontrolujte všetky polia označené červenou farbou.</div>
+	</div>
 
-    <div>Skontrolujte všetky polia označené červenou farbou.</div>
-</div>
 	<div class="left">
 	    <div class="section">
 	        <h2>Poistník - <span>Fyzická osoba</span>
@@ -402,23 +359,48 @@
 	        </div>
 	    </div>
 
-		<div class="section single-before">
-			<h2>Poisťovaná osoba číslo 2</h2>
-			<a href="" class="button inline  small">Odobrať osobu</a>
-		</div>
-		<div class="row-4">
-			<div class="single required">
-				<label>Typ preukazu</label>
-				<select>
-					<option>ISIC</option>
-				</select>
-			</div>
-			<div class="single required">
-				<label>Číslo preukazu</label>
-				<input type="text" name="number" value="">
-			</div>
-		</div>
+	    <div data-bind="foreach: insuredPersons">
+	        <div class="section single-before">
+	            <h2>Poisťovaná osoba číslo <span data-bind="text: $index()+1"></span></h2>
+	            <button data-bind="click: $parent.removeInsuredPersonClick" class="button inline small">Odobrať osobu</button>
+	        </div>
+	        <div data-bind="visible: true" class="row-4">
+	            <div class="single required">
+	                <label>Meno</label>
+	                <input data-bind="value: name, error: nameError" type="text" name="name" value="">
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="single required">
+	                <label>Priezvisko</label>
+	                <input data-bind="value: surname, error: surnameError" type="text" name="surname" value="">	
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="single required">
+	                <label>Dátum narodenia</label>
+			        <div class="dob">
+			            <input data-bind="value: $data.birthDateDay, attr: {tabindex:$index()*15+3, id:'birthDateDay'+$index()}, error: birthDateError" type="text" placeholder="DD"/>
+			            <input data-bind="value: $data.birthDateMonth, attr: {tabindex:$index()*15+4, id:'birthDateMonth'+$index()}, error: birthDateError" type="text" placeholder="MM"/>
+			            <input data-bind="value: $data.birthDateYear, attr: {tabindex:$index()*15+5, id:'birthDateYear'+$index()}, error: birthDateError" type="text" placeholder="YYYY"/>
+			        </div>
+	                <div class="error">&nbsp;</div>
+	            </div>
+
+				<div class="single required">
+					<label>Typ preukazu</label>
+					<select>
+						<option>ISIC</option>
+					</select>
+				</div>
+				<div class="single required">
+					<label>Číslo preukazu</label>
+					<input type="text" name="number" value="">
+				</div>
+				
+	        </div>
+	    </div>
+
 	</div>
+
 	<div class="right">
 		<div class="section">
 			<h2>Poistenie</h2>

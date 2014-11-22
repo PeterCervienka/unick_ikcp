@@ -166,9 +166,6 @@ function IkcpModel( modelData ){
         if( this.areaError() ){ valid = false; }
     	for(var i=0; i<this.insuredPersons().length; i++)
     	{
-    		if( this.insuredPersons()[i].nameError() ) { valid = false; }
-    		if( this.insuredPersons()[i].surnameError()) { valid = false; }
-    		if( this.insuredPersons()[i].birthDateError() ) { valid = false; }
     		if( this.insuredPersons()[i].stornoError() ) { valid = false; }
     	}
         
@@ -258,7 +255,14 @@ function IkcpModel( modelData ){
 			}
 		}
 
-		return valid;
+    	for(var i=0; i<this.insuredPersons().length; i++)
+    	{
+    		if( this.insuredPersons()[i].nameError() ) { valid = false; }
+    		if( this.insuredPersons()[i].surnameError()) { valid = false; }
+    		if( this.insuredPersons()[i].birthDateError() ) { valid = false; }
+    	}
+
+    	return valid;
 	};
 
 	this.goToStep3 = function(){
