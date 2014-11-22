@@ -11,6 +11,7 @@ function IkcpModel( modelData ){
     this.today = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
 
     modelData = modelData || {};
+	modelData.insurer = modelData.insurer || {};
     
     this.step = ko.observable(1);
     
@@ -22,10 +23,10 @@ function IkcpModel( modelData ){
     ];
 
     this.baggages = [
-        {value: "Áno", key: 700},
-        {value: "Nie", key: 1200},
-        {value: "Maybe", key: 2000},
-        {value: "I dont know yet", key: 2400}
+        {value: "700 €", key: 700},
+        {value: "1 400 €", key: 1400},
+        {value: "2 100 €", key: 2100},
+        {value: "2 800 €", key: 2800}
     ];
 
     this.insuredFrom = ko.observable( modelData.insuredFrom || dateToSK( this.today ) );
@@ -35,6 +36,8 @@ function IkcpModel( modelData ){
 	this.country = ko.observable( modelData.country || "SR");
     this.areaDisable = ko.observable( true );
 	this.step1Invalid = ko.observable(false);
+	this.step2Invalid = ko.observable(false);
+	this.step3Invalid = ko.observable(false);
 
     if( modelData.insuredPersons && modelData.insuredPersons.length > 0 ){
 
@@ -45,8 +48,8 @@ function IkcpModel( modelData ){
     } else {
         this.insuredPersons = ko.observableArray();
         this.insuredPersons.push( new PersonObj( { editable: true } ) ); // insurer is present by default
-        this.insuredPersons.push( new PersonObj( { name: "Jan", surname: "Gajdos" } ) ); // insurer is present by default
-        this.insuredPersons.push( new PersonObj( { name: "Fero", surname: "Cech", pet: true } ) ); // insurer is present by default
+        this.insuredPersons.push( new PersonObj( {  } ) ); // insurer is present by default
+        this.insuredPersons.push( new PersonObj( {  } ) ); // insurer is present by default
     }
 
     this.totalPrice = ko.computed(function() {
@@ -62,7 +65,33 @@ function IkcpModel( modelData ){
     this.totalPriceText = ko.computed(function() {
     	return formatEuro(this.totalPrice());
     }, this);
-      
+
+    // step 2
+	this.insurerTypes = ko.observableArray([
+		{forma: "FO", text: "Fyzická osoba"},
+		{forma: "FOP", text: "Fyzická osoba - Podnikateľ"},
+		{forma: "PO", text: "Právnická osoba"}
+
+	]);
+	this.insurer = new Insurer( modelData.insurer );    
+
+	this.insurerVisiblePerson = ko.computed(function(){
+		if( this.insurer.isPerson() ){
+			return true;
+		} else {
+			return false;
+		}
+	}, this);
+	
+	this.insurerNameLabel = ko.computed(function() {
+		if (this.insurer.typ() == "FOP") {
+			return "Názov";
+		} else if (this.insurer.typ() == "PO") {
+			return "Názov spoločnosti";
+		}
+	}, this);
+
+	
     // validacie
 	this.insuredFromInvalid = function( dateFrom, dateTo, today ){
 		
@@ -146,6 +175,13 @@ function IkcpModel( modelData ){
 		return valid;
 	};
 
+	this.goToStep1 = function(){
+
+		window.location.hash = "step1";
+		this.step(1);
+
+	};
+
 	this.goToStep2 = function(){
 
 		var valid;
@@ -157,11 +193,93 @@ function IkcpModel( modelData ){
 
 			if( valid ){
 				window.location.hash = "step2";
-				//this.step(2);
+				this.step(2);
 			}
 		}
 	};
 
+	this.validateStep2 = function(){
+		var valid = true,
+			i;
+		
+		// poistnik
+		if( this.insurer.isPerson() ){
+
+			// potrebujeme aby sa spustili, v 1 ife by po prvom skoncili
+			if( this.insurer.nameError()){ valid = false; }
+			if( this.insurer.surnameError()){ valid = false; }
+			if( this.insurer.isCzechoSlovak() && this.insurer.rcError()){ valid = false; }
+			if( this.insurer.birthDateError()){ valid = false; }
+
+		} else {
+			// potrebujeme aby sa spustili, v 1 ife by po prvom skoncili
+			if( this.insurer.companyNameError() ){ valid = false; }
+			if( this.insurer.icoError() ){ valid = false; }
+			
+			// nemoze byt inak
+			this.insurer.same( false );
+		}
+
+		if( this.insurer.citizenError()){ valid = false; }
+
+		// validate persons birth dates vs. adult,elder,children count
+        if ( this.validAgeOfPersons() == false ) {
+            valid = false;
+        }
+
+		// validovat adresu
+		if( this.insurer.addressPSCError() ){
+			valid = false;
+		}
+		if( this.insurer.addressStreetError() ){
+			valid = false;
+		}
+		if( this.insurer.addressNumberError() ){
+			valid = false;
+		}
+		if( this.insurer.addressCityError() ){
+			valid = false;
+		}
+
+		// validovat korespondencnu adresu
+		if( !this.insurer.address.same() ){
+
+			if( this.insurer.postalAddressPSCError() ){
+				valid = false;
+			}
+			if( this.insurer.postalAddressStreetError() ){
+				valid = false;
+			}
+			if( this.insurer.postalAddressNumberError() ){
+				valid = false;
+			}
+			if( this.insurer.postalAddressCityError() ){
+				valid = false;
+			}
+		}
+
+		return valid;
+	};
+
+	this.goToStep3 = function(){
+
+		var valid;
+
+		if( this.step() != 3 ){
+
+			valid = this.validateStep2();
+
+			this.step2Invalid( !valid );
+
+			if( valid ){
+				self.step3Invalid(false);
+				window.location.hash = "step3";
+				this.step(3);
+			}
+		}
+	};
+
+	
 
     // functions
     this.addPerson=function(){

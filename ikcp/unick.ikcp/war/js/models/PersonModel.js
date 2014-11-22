@@ -79,7 +79,7 @@ function PersonObj( modelData ) {
 
 	this.surnameError = ko.computed(function(){
 
-		if( this.surname() == "" || this.surname()!='aaa' ){
+		if( this.surname() == "" ){
 			return "Zadajte priezvisko";
 		} else {
 			return false;
