@@ -200,10 +200,6 @@ body	{
     margin-bottom: 12px;
 }
 
-.un-v1 div	{
-	line-height: 1žpx;
-}
-
 .un-v1 .row-1	{
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -276,6 +272,8 @@ body	{
 
 .un-v1 input[type=text],
 .un-v1 input[type=number],
+.un-v1 input[type=tel],
+.un-v1 input[type=email],
 .un-v1 select
 {
 	margin: 0;
@@ -427,7 +425,6 @@ body	{
 .un-v1 .required input[type=number]
 .un-v1 .required input[type=email],
 .un-v1 .required input[type=tel]
-
 {
 	border-width: 2px;
 	border-color: inherit;

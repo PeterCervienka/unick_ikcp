@@ -111,4 +111,26 @@ function PersonObj( modelData ) {
 
 	}, this );
 
+    this.discountCardTypeError = ko.computed(function(){
+
+        if( this.discountCardType() == "" ){
+            return "Zadajte typ preukazu";
+        } else {
+            return false;
+        }
+
+    }, this );
+
+    this.discountCardCodeError = ko.computed(function(){
+
+        if( this.discountCardType() != "" && this.discountCardCode() == ""){
+            return "Zadajte číslo preukazu";
+        } else if( this.discountCardCode().length > 50){
+            return "Maximálna dĺžka čísla preukazu je 50 znakov.";
+        } else {
+            return false;
+        }
+
+    }, this );
+
 }

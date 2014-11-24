@@ -264,6 +264,8 @@ body	{
 
 .un-v1 input[type=text],
 .un-v1 input[type=number],
+.un-v1 input[type=tel],
+.un-v1 input[type=email],
 .un-v1 select
 {
 	margin: 0;
@@ -327,16 +329,20 @@ body	{
 }
 
 .un-v1 .button	{
-	line-height: 24px;
-	font-size: 14px;
-	margin-top: 3px;
-	padding: 6px 0px 6px 0px;
+    line-height: 22px;
+    font-size: 14px;
+    margin-top: 3px;
+    padding: 6px 0px 6px 0px;
+    font-weight: bold;
+    font-family: 'MyriadProBold';
 }
 
 /* box-sizing reset */
 
 .un-v1 input[type=text],
 .un-v1 input[type=number],
+.un-v1 input[type=tel],
+.un-v1 input[type=email],
 .un-v1 select,
 .un-v1 .error,
 .un-v1 .button,
@@ -351,6 +357,8 @@ body	{
 
 .un-v1 input[type=text],
 .un-v1 input[type=number],
+.un-v1 input[type=tel],
+.un-v1 input[type=email],
 .un-v1 select
 {
 	width: 100%;
@@ -367,9 +375,13 @@ body	{
 
 .un-v1 input[type=text]:focus,
 .un-v1 input[type=number]:focus,
+.un-v1 input[type=tel]:focus,
+.un-v1 input[type=email]:focus,
 .un-v1 select:focus,
 .un-v1 .required input[type=text]:focus,
 .un-v1 .required input[type=number]:focus
+.un-v1 .required input[type=tel]:focus,
+.un-v1 .required input[type=email]:focus
 {
 	outline: none;
 	border-color: #000;
@@ -377,16 +389,22 @@ body	{
 
 .un-v1 .has-error input[type=text]:focus,
 .un-v1 .has-error input[type=number]:focus,
+.un-v1 .has-error input[type=tel]:focus,
+.un-v1 .has-error input[type=email]:focus,
 .un-v1 .has-error select:focus,
 .un-v1 .has-error.required input[type=text]:focus,
 .un-v1 .has-error.required input[type=number]:focus
+.un-v1 .has-error.required input[type=tel]:focus,
+.un-v1 .has-error.required input[type=email]:focus
 {
 	outline: none;
 	border-color: inherit;
 }
 
 .un-v1 .required input[type=text],
-.un-v1 .required input[type=number]
+.un-v1 .required input[type=number],
+.un-v1 .required input[type=tel],
+.un-v1 .required input[type=email]
 {
 	border-width: 2px;
 	border-color: inherit;
@@ -564,9 +582,11 @@ body	{
 }
 
 .un-v1 .button.link	{
-	color: grey;
-	text-decoration: none;
-	position: relative;
+    color: grey;
+    text-decoration: none;
+    position: relative;
+    background:transparent none;
+    border:none;
 }
 
 .un-v1 .button.prev	{
