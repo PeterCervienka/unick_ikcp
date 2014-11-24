@@ -827,14 +827,18 @@ table.edit-grid tr td:nth-child(n+3) input[type='checkbox']	{
 	display: block;
 }
 
-table.edit-grid .dob,
+.dob,
+table.edit-grid .price
+{
+	overflow: hidden;
+	position: relative;
+	text-align: left;
+}
+
 table.edit-grid .price
 {
 	width: inherit;
 	border: solid 2px transparent;
-	overflow: hidden;
-	position: relative;
-	text-align: left;
 }
 
 table.edit-grid .price input	{
@@ -856,26 +860,26 @@ table.edit-grid .unique .price.disabled:after	{
 	color: silver;
 }
 
-table.edit-grid .dob.has-focus,
+.dob.has-focus,
 table.edit-grid .price.has-focus
 {
 	border-color: black;
 }
 
-table.edit-grid .dob input	{
+.dob input	{
 	float: left;
 	width: 30%;
 	padding-left: 0;
 	padding-right: 0;
 }
 
-table.edit-grid .dob input:focus,
+.dob input:focus,
 table.edit-grid .price input:focus
 {
 	border-color: transparent;
 }
 
-table.edit-grid .dob input:last-child	{
+.dob input:last-child	{
 	width: 40%;
 }
 
