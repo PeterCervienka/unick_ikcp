@@ -90,17 +90,17 @@
 	</tr>
 	<tr class="unique has-fields">
 	    <td>Riziková skupina</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: riskGroupSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}"></select></td>
+	    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}, disable: $index()>0 && $parent.riskGroupSame()"></select></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
 	<tr class="unique">
 	    <td>Zľavová karta</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: discountCardSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.discountCard, attr: {tabindex:$index()*15+7, id:'discountCard'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.discountCard, attr: {tabindex:$index()*15+7, id:'discountCard'+$index()}, disable: $index()>0 && $parent.discountCardSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
@@ -114,41 +114,41 @@
 	</tr>
 	<tr class="unique">
 	    <td>Liečebné náklady v zahraničí:</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: medicalSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.medical, attr: {tabindex:$index()*15+8, id:'medical'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.medical, attr: {tabindex:$index()*15+8, id:'medical'+$index()}, disable: $index()>0 && $parent.medicalSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
 	<tr class="unique has-fields">
 	    <td>Batožina:</td>
-	    <td><input type="checkbox"></td>
+	    <td><input type="checkbox" data-bind="checked: baggageSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage, attr: {tabindex:$index()*15+9, id:'baggage'+$index()}"></select></td>
+	    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage, attr: {tabindex:$index()*15+9, id:'baggage'+$index()}, disable: $index()>0 && $parent.baggageSame()"></select></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
 	<tr class="unique">
 	    <td>Všeobecná zodpovednosť za škodu:</td>
-	    <td><input type="checkbox"></td>
+	    <td><input type="checkbox" data-bind="checked: responsibilitySame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.responsibility, attr: {tabindex:$index()*15+10, id:'responsibility'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.responsibility, attr: {tabindex:$index()*15+10, id:'responsibility'+$index()}, disable: $index()>0 && $parent.responsibilitySame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
 	<tr class="unique">
 	    <td>Úraz:</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: accidentSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}, disable: $index()>0 && $parent.accidentSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
 	<tr class="unique">
 	    <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: technicalHelpSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}, disable: $index()>0 && $parent.technicalHelpSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
@@ -162,10 +162,10 @@
 	</tr>
 	<tr class="unique has-fields">
 	    <td>Storno objednanej služby:</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: stornoSame"></td>
 	    <!-- ko foreach: insuredPersons -->
 	    <td>
-	    <div class="price"><input data-bind="value: $data.storno, attr: {tabindex:$index()*15+13, id:'storno'+$index()}, error: stornoError" type="text" value="0"></div>
+	    <div class="price"><input data-bind="value: $data.storno, attr: {tabindex:$index()*15+13, id:'storno'+$index()}, error: stornoError, disable: $index()>0 && $parent.stornoSame()" type="text" value="0"></div>
 	     <div class="error">&nbsp;</div>
 	    </td>
 	    <!-- /ko -->
@@ -173,17 +173,17 @@
 	</tr>
 	<tr class="unique">
 	    <td>Domáci miláčik:</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: petSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.pet, attr: {tabindex:$index()*15+14, id:'pet'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.pet, attr: {tabindex:$index()*15+14, id:'pet'+$index()}, disable: $index()>0 && $parent.petSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
 	<tr class="unique">
 	    <td>Dovolenková domácnosť:</td>
-	    <td><input checked type="checkbox"></td>
+	    <td><input checked type="checkbox" data-bind="checked: vacationSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.vacation, attr: {tabindex:$index()*15+15, id:'vacation'+$index()}" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.vacation, attr: {tabindex:$index()*15+15, id:'vacation'+$index()}, disable: $index()>0 && $parent.vacationSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
@@ -399,6 +399,36 @@
                         <input data-bind="value: discountCardCode, error: discountCardCodeError" type="text" name="number" value="">
                     </div>
                 </div>
+
+                <div data-bind="visible: $data.stornoVisible">
+                    <div class="row-4">
+                        <div class="single required">
+                            <label>Typ objednanej služby</label>
+                            <select data-bind="value: $data.stornoObj().type, options: $root.stornoTypes, optionsText: 'value', optionsValue: 'key', error: $data.stornoObj().typeError, attr: {id:'stornoType'+$index()}"></select>
+                            <div class="error">&nbsp;</div>
+                        </div>
+
+                        <div data-bind="visible: $data.stornoObj().stornoOtherVisible()">
+                            <div class="single required">
+                                <label>Iný typ objednanej služby</label>
+                                <input data-bind="value: $data.stornoObj().typeOther, error: $data.stornoObj().typeOtherError, attr: {id:'stornoTypeOther'+$index()}" type="text">
+                                <div class="error">&nbsp;</div>
+                            </div>
+                        </div>
+
+                        <div class="single required">
+                            <label>Cena objednanej služby</label>
+                            <input data-bind="value: $data.storno, error: $data.stornoError, attr: {id:'storno'+$index()}, enable: false" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+
+                        <div class="single required">
+                            <label>Dátum zakúpenia objednanej služby</label>
+                            <input data-bind="value: $data.stornoObj().date(), jq: 'birthDatePicker', error: $data.stornoObj().dateError, attr: {id:'stornoTypeDate'+$index()}" type="text" >
+                            <div class="error">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
 				
 	        </div>
 	    </div>
@@ -577,6 +607,8 @@
 
 <script src="js/models/PersonModel.js"></script>
 <script src="js/models/Insurer.js"></script>
+<script src="js/models/AddressModel.js"></script>
+<script src="js/models/StornoModel.js"></script>
 <script src="ikcpModel.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/ui.js"></script>

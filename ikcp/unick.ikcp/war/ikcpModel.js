@@ -35,6 +35,18 @@ function IkcpModel( modelData ){
         {value: "EURO 26", key: "EURO26"}
     ];
 
+    this.stornoTypes = [
+        {value: "Cestovný lískok - letenka", key: "CL-L"},
+        {value: "Cestovný lískok - autobus", key: "CL-A"},
+        {value: "Cestovný lískok - loď, trajekt", key: "CL-LT"},
+        {value: "Cestovný lískok - vlak", key: "CL-V"},
+        {value: "Ubytovanie", key: "UBY"},
+        {value: "Zájazd", key: "ZAJ"},
+        {value: "Študijný program", key: "STP"},
+        {value: "Iné", key: "OTH"}
+
+    ];
+
     this.insuredFrom = ko.observable( modelData.insuredFrom || dateToSK( this.today ) );
     this.insuredTo = ko.observable( modelData.insuredTo || dateToSK( this.today ) );
     this.land = ko.observable( modelData.land );
@@ -466,6 +478,32 @@ function IkcpModel( modelData ){
 
         return valid;
     };
+
+    var prepareCheckboxForPersonProperty = function (propertyName, self) {
+        var attrSame = propertyName + 'Same';
+        (self[attrSame]) = ko.observable(modelData[attrSame] == undefined ? true : modelData[attrSame]);
+        ko.computed(function () {
+            if ((self[attrSame])()) {
+                var persons = self.insuredPersons();
+                var val = (persons[0][propertyName])();
+                for (var i = 1; i < persons.length; i++) {
+                    (persons[i][propertyName])(val)
+                }
+            }
+            return true;
+        }, self);
+    };
+
+    prepareCheckboxForPersonProperty('riskGroup', this);
+    prepareCheckboxForPersonProperty('discountCard', this);
+    prepareCheckboxForPersonProperty('medical', this);
+    prepareCheckboxForPersonProperty('baggage', this);
+    prepareCheckboxForPersonProperty('responsibility', this);
+    prepareCheckboxForPersonProperty('accident', this);
+    prepareCheckboxForPersonProperty('technicalHelp', this);
+    prepareCheckboxForPersonProperty('storno', this);
+    prepareCheckboxForPersonProperty('pet', this);
+    prepareCheckboxForPersonProperty('vacation', this);
 
 
 }

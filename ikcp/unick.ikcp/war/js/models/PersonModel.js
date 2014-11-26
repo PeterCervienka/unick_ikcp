@@ -31,8 +31,15 @@ function PersonObj( modelData ) {
     this.technicalHelp = ko.observable( modelData.technicalHelp || false );
 
     this.storno = ko.observable( modelData.storno || 0 );
+    this.stornoObj = ko.observable( modelData.stornoObj || new StornoObj() )
+
     this.pet = ko.observable( modelData.pet || false );
+    this.petType = ko.observable( modelData.petType || "d" );
+    this.petOther = ko.observable( modelData.petOther || "" );
+    this.petLicence = ko.observable( modelData.petLicence || "" );
+
     this.vacation = ko.observable( modelData.vacation || false );
+    this.vacationObj = ko.observable( modelData.vacationObj || new AddressObj() );
 
     // HELPER METHODS
     this.birthDate = ko.computed(function() {
@@ -41,6 +48,10 @@ function PersonObj( modelData ) {
 
     this.stornoEuro = ko.computed(function() {
         return formatEuro( this.storno() );
+    }, this);
+
+    this.stornoVisible = ko.computed(function () {
+        return this.storno() > 0;
     }, this);
 
     this.totalPersonPrice = ko.computed(function() {
@@ -103,8 +114,10 @@ function PersonObj( modelData ) {
 
 	this.stornoError = ko.computed(function(){
 
-		if( !validDecimalFormat(this.storno())  ){
-			return "Zadajte správnu cenu";
+        if( isNaN( parseFloat(this.storno() ) ) || !validDecimalFormat(this.storno()) ) {
+            return "Zadajte správnu cenu";
+        } else if( this.storno() < 0 ){
+			return "Zadajte správnu cenu objednanej služby. Cena nesmie byť menšia ako 0 &euro;";
 		} else {
 			return false;
 		}
