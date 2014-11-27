@@ -26,6 +26,21 @@ ko.jq.birthDatePicker = function( element ){
     }).datepicker("option", datepickerOptions);
 };
 
+ko.jq.buyingDatePicker = function( element ){
+
+    $( element ).datepicker({
+        dateFormat: 'dd.mm.yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-2D',
+        maxDate: '+0D',
+        onSelect: function(){
+            $(this).change();
+        }
+
+    }).datepicker("option", datepickerOptions);
+};
+
 // adresy
 ko.jq.addressAutocomplete = function( element ){
 	

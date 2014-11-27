@@ -171,7 +171,7 @@
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
-	<tr class="unique">
+	<tr class="unique" data-bind="visible: showPetRow">
 	    <td>Domáci miláčik:</td>
 	    <td><input checked type="checkbox" data-bind="checked: petSame"></td>
 	    <!-- ko foreach: insuredPersons -->
@@ -179,7 +179,7 @@
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
-	<tr class="unique">
+	<tr class="unique" data-bind="visible: showVacationRow">
 	    <td>Dovolenková domácnosť:</td>
 	    <td><input checked type="checkbox" data-bind="checked: vacationSame"></td>
 	    <!-- ko foreach: insuredPersons -->
@@ -366,7 +366,7 @@
 	    <div data-bind="foreach: insuredPersons">
 	        <div class="section single-before">
 	            <h2>Poisťovaná osoba číslo <span data-bind="text: $index()+1"></span></h2>
-	            <button data-bind="click: $parent.removeInsuredPersonClick" class="button inline small">Odobrať osobu</button>
+	            <button data-bind="click: $parent.removePerson" class="button inline small">Odobrať osobu</button>
 	        </div>
 	        <div data-bind="visible: true" class="row-4">
 	            <div class="single required">
@@ -424,12 +424,79 @@
 
                         <div class="single required">
                             <label>Dátum zakúpenia objednanej služby</label>
-                            <input data-bind="value: $data.stornoObj().date(), jq: 'birthDatePicker', error: $data.stornoObj().dateError, attr: {id:'stornoTypeDate'+$index()}" type="text" >
+                            <input data-bind="value: $data.stornoObj().date, jq: 'buyingDatePicker', error: $data.stornoObj().dateError" data-name="date" class="date" type="text" >
                             <div class="error">&nbsp;</div>
                         </div>
                     </div>
                 </div>
-				
+
+                <div data-bind="visible: $data.petVisible">
+                    <div class="row-4">
+                        <div class="single required">
+                            <label>Druh domáceho miláčika</label>
+                            <select data-bind="value: $data.petType, options: $root.petTypes, optionsText: 'value', optionsValue: 'key', attr: {id:'petType'+$index()}"></select>
+                        </div>
+
+                        <div data-bind="visible: $data.petOtherVisible()">
+                            <div class="single required">
+                                <label>Iný druh domáceho miláčika</label>
+                                <input data-bind="value: $data.petOther, error: $data.petOtherError, attr: {id:'petTypeOther'+$index()}" type="text">
+                                <div class="error">&nbsp;</div>
+                            </div>
+                        </div>
+
+                        <div class="single required">
+                            <label>Číslo medzinárodného očkovacieho preukazu / pasu</label>
+                            <input data-bind="value: $data.petLicence, error: $data.petLicenceError, attr: {id:'petLicence'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="visible: $data.vacationVisible">
+                    <div class="row-4" data-bind="jq: 'addressAutocomplete'">
+                        <div class="single required">
+                            <label>Meno a priezvisko / Názov</label>
+                            <input data-bind="value: $data.vacationObj().name, error: $data.vacationObj().nameError, attr: {id:'vacationName'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Ulica</label>
+                            <input data-bind="value: $data.vacationObj().street, error: $data.vacationObj().streetError, attr: {id:'vacationStreet'+$index()}" type="text" data-name="street">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Popisné číslo</label>
+                            <input data-bind="value: $data.vacationObj().streetNumber, error: $data.vacationObj().streetNumberError, attr: {id:'vacationStreetNumber'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Číslo bytu / domu</label>
+                            <input data-bind="value: $data.vacationObj().buildingNr, error: $data.vacationObj().buildingNrError, attr: {id:'vacationBuildingNr'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Číslo podlažia</label>
+                            <input data-bind="value: $data.vacationObj().floorNr, error: $data.vacationObj().floorNrError, attr: {id:'vacationFloorNr'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>PSČ</label>
+                            <input data-bind="value: $data.vacationObj().postalCode, error: $data.vacationObj().postalCodeError, attr: {id:'vacationPostalCode'+$index()}" type="text" data-name="psc">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Mesto / obec</label>
+                            <input data-bind="value: $data.vacationObj().city, error: $data.vacationObj().cityError, attr: {id:'vacationCity'+$index()}" type="text" data-name="city">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Štát</label>
+                            <input data-bind="value: $data.vacationObj().country, error: $data.vacationObj().countryError, attr: {id:'vacationCountry'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+
 	        </div>
 	    </div>
 

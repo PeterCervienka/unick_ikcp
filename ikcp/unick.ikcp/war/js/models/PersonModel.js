@@ -54,6 +54,14 @@ function PersonObj( modelData ) {
         return this.storno() > 0;
     }, this);
 
+    this.petVisible = ko.computed(function () {
+        return this.pet();
+    }, this);
+
+    this.vacationVisible = ko.computed(function () {
+        return this.vacation();
+    }, this);
+
     this.totalPersonPrice = ko.computed(function() {
         // TODO: compute summary price
     	var spolu=10;
@@ -138,8 +146,29 @@ function PersonObj( modelData ) {
 
         if( this.discountCardType() != "" && this.discountCardCode() == ""){
             return "Zadajte číslo preukazu";
-        } else if( this.discountCardCode().length > 50){
-            return "Maximálna dĺžka čísla preukazu je 50 znakov.";
+        } else if( validStringLength(this.discountCardCode().length, 5, 11) == false ){
+            return "Povolená dĺžka je 6 až 10 znakov.";
+        } else {
+            return false;
+        }
+
+    }, this );
+
+    this.petOtherError = ko.computed(function(){
+        if( this.petType() == "o" && this.petOther() == "" ){ return "Opravte iný druh domáceho miláčika"; }
+        return false;
+    }, this );
+
+    this.petOtherVisible = ko.computed(function() {
+        return this.petType() == "o";
+    }, this);
+
+    this.petLicenceError = ko.computed(function(){
+
+        if( this.petLicence() == "" ){
+            return "Zadajte číslo medzinárodného očkovacieho preukazu / pasu";
+        } else if( this.petLicence().length > 50){
+            return "Maximálna dĺžka je 50 znakov.";
         } else {
             return false;
         }

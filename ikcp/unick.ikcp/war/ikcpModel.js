@@ -47,8 +47,23 @@ function IkcpModel( modelData ){
 
     ];
 
+    this.petTypes = [
+        {value: "Pes", key: "d"},
+        {value: "Mačka", key: "c"},
+        {value: "Vták", key: "b"},
+        {value: "Zajac", key: "r"},
+        {value: "Iné", key: "o"}
+    ];
+
     this.insuredFrom = ko.observable( modelData.insuredFrom || dateToSK( this.today ) );
     this.insuredTo = ko.observable( modelData.insuredTo || dateToSK( this.today ) );
+    this.insuredDays = ko.computed(function(){
+        var fromDate = makeDateSK( this.insuredFrom()),
+            toDate = makeDateSK( this.insuredTo());
+
+        return daydiff( fromDate, toDate ) + 1;
+    }, this);
+
     this.land = ko.observable( modelData.land );
     this.landDisable = ko.observable( false );
 	this.country = ko.observable( modelData.country || "SR");
@@ -102,6 +117,10 @@ function IkcpModel( modelData ){
 
         this.childrenCount( sum );
         this.adultsCount( this.insuredPersons().length - sum );
+    }, this);
+
+    this.isDomesticalTrip = ko.computed(function() {
+        return this.country() == "SR";
     }, this);
 
 
@@ -407,6 +426,35 @@ function IkcpModel( modelData ){
     	return this.insuredPersons().length>1;
     }, this);
 
+    this.showVacationRow = ko.computed(function() {
+        if (this.insuredDays() > 30) {
+            var persons = this.insuredPersons();
+            for( var i = 0; i < persons.length; i++) {
+                var p = persons[i];
+                p.vacation( false );
+            }
+            return false;
+        }
+
+        return true;
+    }, this);
+
+    this.showPetRow = ko.computed(function () {
+        if ( this.isDomesticalTrip() ) {
+            var persons = this.insuredPersons();
+            for( var i = 0; i < persons.length; i++) {
+                var p = persons[i];
+                p.pet( false );
+            }
+            return false;
+        }
+        return true;
+    }, this);
+
+    this.createClassForDatePicker = ko.computed(function ( data ) {
+        console.log( data );
+        return 'stornoDate' + data;
+    }, this);
 
     this.changeAreaDisable = function() {
         self.areaDisable( !self.areaDisable() );

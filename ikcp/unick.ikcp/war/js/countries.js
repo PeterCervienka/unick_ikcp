@@ -3,7 +3,7 @@
  */
 
 var areaList = [
-    {key: "SR", label: "SK & CZ"},
+    {key: "SR", label: "Slovensko"},
     {key: "E", label: "Európa"},
     {key: "M", label: "mimo Európy"},
     {key: "S", label: "Svet"}

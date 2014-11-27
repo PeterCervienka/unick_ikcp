@@ -4,7 +4,8 @@
 
 function StornoObj( modelData ) {
 
-    var self = this;
+    var self = this,
+        today = new Date();
     modelData = modelData || {};
 
     // ********************** DEFINITION *************************//
@@ -12,7 +13,8 @@ function StornoObj( modelData ) {
 
     this.typeOther = ko.observable( modelData.typeOther || "");
 
-    this.date = ko.observable( modelData.date || "" );
+    var defaultDate = dateToSK( new Date( today.setDate( today.getDate() - 2 ) ) );
+    this.date = ko.observable( modelData.date || defaultDate );
 
     // ********************** VALIDATION *************************//
     this.typeError = ko.computed(function(){
