@@ -28,7 +28,7 @@ function _service_exec(name, json){
 	if(name=="save"){
 		__load('server.ko.js');
 		__load('js/countries.js');
-		__load('model.js');
+		__load('ikcpModel.js');
 	}
 	
 	var sfunc = window._service[name];

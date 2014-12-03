@@ -1,4 +1,4 @@
-function Insurer( modelData ){
+function InsurerObj( modelData ){
 
 	modelData = modelData || {};
 	modelData.address = modelData.address || {};
@@ -14,7 +14,7 @@ function Insurer( modelData ){
 	this.title = ko.observable( modelData.title || "");
 	this.phone = ko.observable( modelData.phone || "");
 	this.email = ko.observable( modelData.email || "");
-	this.citizen = ko.observable( modelData.citizen || "703");
+	this.citizen = ko.observable( parseInt( modelData.citizen ) || 703 );
 	this.citizenText = ko.observable( modelData.citizenText || "");
 	this.same = ko.observable( (modelData.same == false ) ? false : true );
 
@@ -32,10 +32,15 @@ function Insurer( modelData ){
 		city: ko.observable( modelData.postalAddress.city || "")
 	};
 
+
+    this.fullName = ko.computed(function() {
+        return this.name() + " " + this.surname();
+    }, this);
+
 	// tests for properties
 	this.isCzechoSlovak = ko.computed(function(){
 		//SK, CZ
-		if( this.citizen() == "703" || this.citizen() == "203" ){
+		if( this.citizen() == 703 || this.citizen() == 203 ){
 			return  true;
 		} else {
 			return false;
@@ -55,16 +60,14 @@ function Insurer( modelData ){
 	this.countryByCode = function( code ){
 
 		var self = this;
-		// TODO implementovat podla potreby
-		
-//		window.service('countryText', code,
-//			function(data){
-//				if (data && data != undefined) {
-//					self.citizenText( data.text );
-//				}
-//			}
-//		);
-		self.citizenText( code );
+
+		window.service('countryText', code,
+			function(data){
+				if (data && data != undefined) {
+					self.citizenText( data.text );
+				}
+			}
+		);
 	};
 	
 	this.nameError = ko.computed(function(){

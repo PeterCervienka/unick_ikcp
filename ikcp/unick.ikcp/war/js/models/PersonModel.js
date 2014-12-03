@@ -41,7 +41,15 @@ function PersonObj( modelData ) {
     this.vacation = ko.observable( modelData.vacation || false );
     this.vacationObj = ko.observable( modelData.vacationObj || new AddressObj() );
 
+    this.citizen = ko.observable( parseInt( modelData.citizen ) || 703 );
+    this.citizenText = ko.observable( modelData.citizenText || "");
+
     // HELPER METHODS
+
+    this.fullName = ko.computed(function() {
+        return this.name() + " " + this.surname();
+    }, this);
+
     this.birthDate = ko.computed(function() {
         return this.birthDateDay() + "." + this.birthDateMonth() + "." + this.birthDateYear();
     }, this);
@@ -174,5 +182,26 @@ function PersonObj( modelData ) {
         }
 
     }, this );
+
+    // HELPERS
+    this.countryByCode = function( code ){
+
+        var self = this;
+
+        window.service('countryText', code,
+            function(data){
+                if (data && data != undefined) {
+                    self.citizenText( data.text );
+                }
+            }
+         );
+    };
+
+    this.watchCitizen = ko.computed(function(){
+
+        this.countryByCode( this.citizen() );
+
+    }, this);
+
 
 }

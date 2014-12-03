@@ -2,7 +2,6 @@
 
    Celorocne cestovne poistenie */
 
-
 function CKZajazdy( modelData ){
 
 	// constants
@@ -241,15 +240,6 @@ function CKZajazdy( modelData ){
         if ( this.validAgeOfPersons() == false ) {
             valid = false;
         }
-
-
-		/*if( this.childrenCount() > 0 && !this.findAgeCategory( 0, 14, this.childrenCount() ) ){
-			valid = false;
-		}
-
-		if( this.adultsCount() > 0 && !this.findAgeCategory( 15, 150, this.adultsCount() ) ){
-			valid = false;
-		}*/
 
 		// validovat adresu
 		if( this.insurer.addressPSCError() ){
@@ -572,7 +562,6 @@ function CKZajazdy( modelData ){
 						pdf1: data.pdf1,
 						pdf2: data.pdf2,
 						pdf3: data.pdf3,
-						pdf4: data.pdf4,
 						status: data.status
 					});
 				}

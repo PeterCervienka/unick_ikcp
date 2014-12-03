@@ -1,0 +1,81 @@
+<agreement>
+    <insuredFrom sk="3.12.2014">2014-12-03T00:00:00</insuredFrom>
+    <insuredTo sk="3.12.2014">2014-12-03T00:00:00</insuredTo>
+    <insuredDays>1</insuredDays>
+    <country>E</country>
+    <signingDate sk="3.12.2014 16:04:26">2014-12-03T16:04:26</signingDate>
+    <totalPrice>21.2</totalPrice>
+    <totalPriceText>21,20 &amp;euro;</totalPriceText>
+    <variableSymbol>10001551</variableSymbol>
+    <adultsCount>1</adultsCount>
+    <childrenCount>0</childrenCount>
+    <insurer>
+        <typ>FO</typ>
+        <companyName></companyName>
+        <ico></ico>
+        <name>aaaa</name>
+        <surname>aaaaa</surname>
+        <rc>8901167737</rc>
+        <birthDate sk="16.1.1989">1989-01-16T00:00:00</birthDate>
+        <title></title>
+        <phone>0902761068</phone>
+        <email>asdasd@adas.sk</email>
+        <citizen>703</citizen>
+        <same>true</same>
+        <address>
+            <psc>97404</psc>
+            <street>Tulsk&#225;</street>
+            <number>32</number>
+            <city>Bansk&#225; Bystrica</city>
+            <same>true</same>
+        </address>
+        <postalAddress>
+            <psc></psc>
+            <street></street>
+            <number></number>
+            <city></city>
+        </postalAddress>
+    </insurer>
+    <insuredPersons>
+        <person>
+            <name>bbb</name>
+            <surname>bbbb</surname>
+            <birthDate sk="16.1.1989">1989-01-16T00:00:00</birthDate>
+            <citizen>703</citizen>
+            <citizenText>Slovensko</citizenText>
+            <totalPersonPrice>21.2</totalPersonPrice>
+            <totalPersonPriceText>21,20 &amp;euro;</totalPersonPriceText>
+            <child>false</child>
+            <discountCard>false</discountCard>
+            <discountCardType>ISIC</discountCardType>
+            <discountCardCode></discountCardCode>
+            <medical>false</medical>
+            <baggage>700</baggage>
+            <responsibility>false</responsibility>
+            <accident>false</accident>
+            <technicalHelp>false</technicalHelp>
+            <riskGroup>T</riskGroup>
+            <storno>20</storno>
+            <stornoObj>
+                <type>ZAJ</type>
+                <typeOther></typeOther>
+                <date sk="1.12.2014">2014-12-01T00:00:00</date>
+            </stornoObj>
+            <vacation>false</vacation>
+            <vacationObj>
+                <name></name>
+                <street></street>
+                <streetNumber></streetNumber>
+                <buildingNr></buildingNr>
+                <floorNr></floorNr>
+                <city></city>
+                <postalCode></postalCode>
+                <country></country>
+            </vacationObj>
+            <pet>false</pet>
+            <petType>d</petType>
+            <petOther></petOther>
+            <petLicence></petLicence>
+        </person>
+    </insuredPersons>
+</agreement>

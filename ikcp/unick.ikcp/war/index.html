@@ -1,1003 +1,559 @@
-<!DOCTYPE html>
-<html lang="sk">
+<!doctype html>
+<html lang="us">
 <head>
     <meta charset="utf-8">
-    <title>Komplexné cestovné poistenie pre účastníkov zájazdov</title>
+    <title>Individuálne komplexné cestovné poistenie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
     <link href="css/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
+    <link href="css/_app.css" rel="stylesheet">
     <link href="css/specific.css" rel="stylesheet">
 </head>
 <body>
 <div class="un-v1 single header">
     <img src="assets/logo-union.svg" border="0" width="146" height="48">
-
-    <h1>Komplexné cestovné poistenie pre účastníkov zájazdov</h1>
+    <h1>Individuálne komplexné cestovné poistenie</h1>
 </div>
 
 <div data-bind="visible: step() == 1" id="form-step-1" class="un-v1 single form-step">
-<div data-bind="visible: step1Invalid() == true" class="separator error">
-    <h2>Chyba</h2>
-
-    <div>Skontrolujte všetky polia označené červenou farbou.</div>
-</div>
-
-<div class="row-4">
-    <div class="single required calendar">
-        <label>Platnosť od</label>
-        <input data-bind="value: insuredFrom, jq: 'insuranceDatepicker', error: insuredFromError"
-               id="insuredFrom" class="date" type="text" name="from" value="">
-
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="single required calendar">
-        <label>Platnosť do</label>
-        <input data-bind="value: insuredTo, jq: 'insuranceDatepicker', error: insuredToError"
-               id="insuredTo" class="date" type="text" name="to" value="" placeholder=" ">
-
-        <div class="error">&nbsp;</div>
-    </div>
-</div>
-<div class="row-4">
-    <div class="single required">
-        <label>Dospelí (15 a viac r.)</label>
-        <input data-bind="value: adultsCount, error: personCountError" id="adultsCount" type="number" 
-        	   name="adults" value="1" min="0" max="5">
-
-        <div class="error">&nbsp;</div>
-    </div>    
-    <div class="single required">
-        <label>Deti (do dovŕšenia 15 r.)</label>
-        <input data-bind="value: childrenCount, error: personCountError" id="childrenCount" type="number"
-               name="children" value="0" min="0" max="5">
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="double required">
-        <label>Riziková skupina: &nbsp;<b><span data-bind="html: showRiskLabel()"></span></b></label>
-        <div class="riskLeft">
-	        <label class="riskGroupRow">
-	            <input data-bind="checked: riskGroup" id="groupRiskNo" type="radio" name="groupRisk" value="T">
-	            Nie
-	        </label>
-	        <label class="riskGroupRow">
-	            <input data-bind="checked: riskGroup" id="groupRiskYes" type="radio" name="groupRisk" value="S">
-	            Áno
-	        </label>
-        </div>
-		<div class="riskRight">Budete pri svojom pobyte športovať (hokej, rafting, šnorchľovanie, <a data-bind="click: showAllSports" href="#">všetky športy</a>)?</div>
-        <div data-bind="visible: sportsVisible">
-            <ul>
-                <li>zimné športy</li>
-                <li>ľadový hokej</li>
-                <li>potápanie</li>
-                <li>splavovanie riek (kanoe, kajak)</li>
-                <li>kaňoning</li>
-                <li>rafting</li>
-                <li>vodné lyžovanie</li>
-                <li>vodný paragliding (let na padáku za motorovým člnom )</li>
-                <li>jachting</li>
-                <li>windsurfing</li>
-                <li>skoky na lyžiach</li>
-                <li>lyžovanie mimo vyznačených trás</li>
-                <li>freestylove a freeridove lyžovanie</li>
-                <li>akrobatické lyžovanie</li>
-                <li>treking (vysokohorská turistika) nad nv 2000 m</li>
-                <li>turistika vykonávaná po ľadovcoch a turistika vykonávaná po značených aj neznačených cestách, ak sú na tejto ceste umiestnené umelé istiace prostriedky (napr. laná, reťaze, stupačky, rebríky), alebo je na prekonanie tejto cesty potrebné použitie akejkoľvek súčasti horolezeckej výstroje (lano, úväz sedací, úväz prsný, prilba, karabína, skoba)</li>
-                <li>horolezectvo - skalné lezenie (letné, zimné, ľadovcové)</li>
-                <li>alpinistika</li>
-                <li>skialpinizmus</li>
-                <li>speleológia (jaskyniarstvo)</li>
-                <li>lety na rogalách</li>
-                <li>paragliding</li>
-                <li>lety na padáku</li>
-                <li>zoskoky padákom z lietadla alebo z výšok</li>
-                <li>pilotáž</li>
-                <li>motoristické disciplíny vrátane jazdy na vodnom skútri</li>
-                <li>strelecké športy</li>
-                <li>bojové športy</li>
-                <li>služba v profesionálnej armáde</li>
-            </ul>
-        </div>
-
-    </div>
-</div>
-<div class="row-4">
-    <div class="single required">
-        <label>Krajina</label>
-        <input data-bind="jq: 'landAutocomplete', error: landError, disable: landDisable" id="land" type="text" name="landError" value="">
-
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="single required">
-        <label>Územná platnosť</label>
-        <select data-bind="value: country, options: areaList, optionsText: 'label', optionsValue: 'key', error: areaError, disable: areaDisable" id="country"></select>
-        <div class="error">&nbsp;</div>
-    </div>
-    <div class="single required">
-    	<button class="button medium widthAuto" style="margin-top: 23px;" data-bind="click: changeAreaDisable" href="#">Zmeniť</button>
-    </div>
-</div>
-<div class="separator">
-    <h4>Poistenie</h4>
-</div>
-
-<table data-bind="visible: countryVisibleSlovakia(), css: slovakPack" id="slovakPackages" class="packagesTable">
-    <thead>
-    <tr>
-        <th class="small">Krytie</th>
-        <th class="A">A <span data-bind="html: showPackDesription( 'A' )"></span></th>
-        <th class="B">B <span data-bind="html: showPackDesription( 'B' )"></span></th>
-    </tr>
-    </thead>
-    <tfoot>
-    <tr>
-        <td>Poistné</td>
-        <td class="A"><span class="sumTotal" data-bind="html: coverage().totalAEuro"></span></td>
-        <td class="B"><span class="sumTotal" data-bind="html: coverage().totalBEuro"></span></td>
-    </tr>
-    <tr class="double">
-        <td></td>
-        <td class="A">
-            <button data-bind="click: selectPack, text: pack() == 'A' ? 'Vybrané' : 'Vybrať'" data-pack="A"
-                    class="button"></button>
-        </td>
-        <td class="B">
-            <button data-bind="click: selectPack, text: pack() == 'B' ? 'Vybrané' : 'Vybrať'" data-pack="B"
-                    class="button"></button>
-        </td>
-    </tr>
-    </tfoot>
-    <tbody>
-    <tr>
-        <td><a data-bind="html: risks.R01" class="help-toggler" href="#R01sk"></a>
-        <td class="A"><span data-bind="html: showRiskValue( coverage().rR01pAEuro )"></span></td>
-        <td class="B"><span data-bind="html: showRiskValue( coverage().rR01pBEuro )"></span></td>
-    </tr>
-        <tr class="table-help R01sk">
-            <td>a) trvalé následky úrazu</td>
-            <td colspan="2">7.000 &euro;</td>
-        </tr>
-        <tr class="table-help R01sk">
-            <td>b) smrť v dôsledku úrazu</td>
-            <td colspan="2">3.500 &euro;</td>
-        </tr>
-    <tr>
-        <td><a data-bind="html: risks.R02" class="help-toggler" href="#R02sk"></a>
-        <td class="A"><span data-bind="html: showRiskValue( coverage().rR02pAEuro )"></span></td>
-        <td class="B"><span data-bind="html: showRiskValue( coverage().rR02pBEuro )"></span></td>
-    </tr>
-        <tr class="table-help R02sk">
-            <td>poškodenie, zničenie, odcudzenie, strata batožiny z toho:</td>
-            <td>700 &euro;, max. 350 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-            <td>-</td>
-        </tr>
-        <tr class="table-help R02sk">
-            <td>a) poškodenie, zničenie, odcudzenie, strata poistených vecí zakúpených počas cesty a pobytu</td>
-            <td>500 &euro;, max. 175 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-            <td>-</td>
-        </tr>
-        <tr class="table-help R02sk">
-            <td>b) odcudzenie batožiny z motorového vozidla</td>
-            <td>350 &euro;, max. 175 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-            <td>-</td>
-        </tr>
-    <tr>
-        <td><a data-bind="html: risks.R03" class="help-toggler" href="#R03sk"></a>
-        <td class="A"><span data-bind="html: showRiskValue( coverage().rR03pAEuro )"></span></td>
-        <td class="B"><span data-bind="html: showRiskValue( coverage().rR03pBEuro )"></span></td>
-    </tr>
-     <tr class="table-help R03sk">
-         <td>a) škody na zdraví</td>
-         <td colspan="2">100.000 &euro;</td>
-     </tr>
-     <tr class="table-help R03sk">
-         <td>b) škody na majetku</td>
-         <td colspan="2">35.000 &euro;</td>
-     </tr>
-    <tr>
-        <td><a data-bind="html: risks.R08" class="help-toggler" href="#R08sk"></a>
-        <td class="A"><span data-bind="html: showRiskValue( coverage().rR08pAEuro )"></span></td>
-        <td class="B"><span data-bind="html: showRiskValue( coverage().rR08pBEuro )"></span></td>
-    </tr>
-        <tr class="table-help R08sk">
-            <td>choroba, hospitalizácia, úraz, živelná udalosť, trestný čin, nedobrovoľná strata zamestnania</td>
-            <td><span>80% stornopoplatku, max. 1.000 &euro; / osoba</span><br><span>spolu max. 3.000 &euro;</span></td>
-            <td>-</td>
-        </tr>
-        <tr class="table-help R08sk">
-            <td>smrť poisteného, smrť blízkej osoby</td>
-            <td><span>100% stornopoplatku, max. 1.000 &euro; / osoba</span><br><span>spolu max. 3.000 &euro;</span></td>
-            <td>-</td>
-        </tr>
-    </tbody>
-</table>
-
-<table data-bind="visible: !countryVisibleSlovakia(), css: otherPack" id="foreignPackages" class="packagesTable">
-<thead>
-<tr>
-    <th class="small">Krytie</th>
-    <th class="A1">A1 <span data-bind="html: showPackDesription( 'A1' )"></span></th>
-    <th class="A3">A3 <span data-bind="html: showPackDesription( 'A3' )"></span></th>
-    <th class="B">B <span data-bind="html: showPackDesription( 'B' )"></span></th>
-    <th class="C">C <span data-bind="html: showPackDesription( 'C' )"></span></th>
-    <th class="D">D <span data-bind="html: showPackDesription( 'D' )"></span></th>
-</tr>
-</thead>
-<tfoot>
-<tr>
-    <td>Poistné</td>
-    <td class="A1"><span  class="sumTotal" data-bind="html: coverage().totalA1Euro"></span></td>
-    <td class="A3"><span  class="sumTotal" data-bind="html: coverage().totalA3Euro"></span></td>
-    <td class="B"><span  class="sumTotal" data-bind="html: coverage().totalBEuro"></span></td>
-    <td class="C"><span  class="sumTotal" data-bind="html: coverage().totalCEuro"></span></td>
-    <td class="D"><span  class="sumTotal" data-bind="html: coverage().totalDEuro"></span></td>
-</tr>
-<tr class="double">
-    <td></td>
-    <td class="A1">
-        <button data-bind="click: selectPack, text: pack() == 'A1' ? 'Vybrané' : 'Vybrať'" data-pack="A1"
-                class="button"></button>
-    </td>
-    <td class="A3">
-        <button data-bind="click: selectPack, text: pack() == 'A3' ? 'Vybrané' : 'Vybrať'" data-pack="A3"
-                class="button"></button>
-    </td>
-    <td class="B">
-        <button data-bind="click: selectPack, text: pack() == 'B' ? 'Vybrané' : 'Vybrať'" data-pack="B"
-                class="button"></button>
-    </td>
-    <td class="C">
-        <button data-bind="click: selectPack, text: pack() == 'C' ? 'Vybrané' : 'Vybrať'" data-pack="C"
-                class="button"></button>
-    </td>
-    <td class="D">
-        <button data-bind="click: selectPack, text: pack() == 'D' ? 'Vybrané' : 'Vybrať'" data-pack="D"
-                class="button"></button>
-    </td>
-</tr>
-</tfoot>
-<tbody>
-<tr>
-    <td><a data-bind="html: risks.R01" class="help-toggler" href="#R01"></a>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR01pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR01pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR01pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR01pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR01pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R01">
-        <td>a) trvalé následky úrazu</td>
-        <td colspan="2">7.000 &euro;</td>
-        <td>-</td>
-        <td colspan="2">7.000 &euro;</td>
-    </tr>
-    <tr class="table-help R01">
-        <td>b) smrť v dôsledku úrazu</td>
-        <td colspan="2">3.500 &euro;</td>
-        <td>-</td>
-        <td colspan="2">3.500 &euro;</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R02" class="help-toggler" href="#R02"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR02pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR02pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR02pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR02pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR02pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R02">
-        <td>poškodenie, zničenie, odcudzenie, strata batožiny z toho:</td>
-        <td colspan="2">700 &euro;, max. 350 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-        <td>-</td>
-        <td colspan="2">700 &euro;, max. 350 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-    </tr>
-    <tr class="table-help R02">
-        <td>a) poškodenie, zničenie, odcudzenie, strata poistených vecí zakúpených počas cesty a pobytu</td>
-        <td colspan="2">500 &euro;, max. 175 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-        <td>-</td>
-        <td colspan="2">500 &euro;, max. 175 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-    </tr>
-    <tr class="table-help R02">
-        <td>b) odcudzenie batožiny z motorového vozidla</td>
-        <td colspan="2">350 &euro;, max. 175 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-        <td>-</td>
-        <td colspan="2">350 &euro;, max. 175 &euro; / 1 vec, spoluúčasť 15 &euro;</td>
-    </tr>
-    <tr class="table-help R02">
-        <td>náklady za nákup náhradných odevov a toaletných potrieb v zahraničí pri oneskorenom dodaní batožiny leteckou spoločnosťou</td>
-        <td colspan="2"><span>min. 24 hod - max. 48 hod – 100 &euro;</span><br><span>viac ako 48 hod – 300 &euro;</span></td>
-        <td>-</td>
-        <td colspan="2"><span>min. 24 hod - max. 48 hod – 100 &euro;</span><br><span>viac ako 48 hod – 300 &euro;</span></td>
-    </tr>
-    <tr class="table-help R02">
-        <td>náklady na zaobstaranie náhradného cestovného dokladu v zahraničí v prípade jeho poškodenia, zničenia, odcudzenia, straty</td>
-        <td colspan="2">350 &euro;</td>
-        <td>-</td>
-        <td colspan="2">350 &euro;</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R03" class="help-toggler" href="#R03"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR03pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR03pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR03pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR03pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR03pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R03">
-        <td>a) škody na zdraví</td>
-        <td colspan="2">100.000 &euro;</td>
-        <td>-</td>
-        <td colspan="2">100.000 &euro;</td>
-    </tr>
-    <tr class="table-help R03">
-        <td>b) škody na majetku</td>
-        <td colspan="2">35.000 &euro;</td>
-        <td>-</td>
-        <td colspan="2">35.000 &euro;</td>
-    </tr>
-    <tr class="table-help R03">
-        <td>c) náklady na advokáta v zahraničí</td>
-        <td colspan="2">2.000 &euro;</td>
-        <td>-</td>
-        <td colspan="2">2.000 &euro;</td>
-    </tr>
-    <tr class="table-help R03">
-        <td>d) náklady kaucie v zahraničí</td>
-        <td colspan="2">3.000 &euro;</td>
-        <td>-</td>
-        <td colspan="2">3.000 &euro;</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R07" class="help-toggler" href="#R07"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR07pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR07pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR07pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR07pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR07pDEuro )"></span></td>
-</tr>
-	<tr class="table-help R07">
-	    <td>a) ambulantné ošetrenie, hospitalizácia, preprava do a zo zdravotníckeho zariadenia, preprava do vlasti</td>
-	    <td colspan="2">250.000 &euro;</td>
-        <td>-</td>
-        <td>250.000 &euro;</td>
-	    <td>100.000 &euro;</td>
+	<div data-bind="visible: step1Invalid() == true" class="separator error">
+	    <h2>Chyba</h2>
+	    <div>Skontrolujte všetky polia označené červenou farbou.</div>
+	</div>
+	<div class="row-4">
+	    <div class="single required calendar">
+	        <label>Poistený od</label>
+	        <input data-bind="value: insuredFrom, jq: 'birthDatePicker', error: insuredFromError" type="text" name="from" value="">
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required calendar">
+	        <label>Do</label>
+	        <input data-bind="value: insuredTo, jq: 'birthDatePicker', error: insuredToError" type="text" name="to" value="" >
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required">
+	        <label>Krajina</label>
+	        <input data-bind="jq: 'landAutocomplete', error: landError, disable: landDisable" id="land" type="text" name="landError" value="">
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required">
+	        <label>Územná platnosť</label>
+	        <select data-bind="value: country, options: areaList, optionsText: 'label', optionsValue: 'key', error: areaError, disable: areaDisable" id="country"></select>
+	        <div class="error">&nbsp;</div>
+	    </div>
+	    <div class="single required">
+	    	<button class="button medium widthAuto" data-bind="click: changeAreaDisable">Zmeniť</button>
+	    </div>
+	</div>
+	<table class="edit-grid">
+	<thead>
+	<tr>
+	    <th class="right">Rovnaké pre všetkých</th>
+	    <th><span class="glyphicon glyphicon-arrow-down"></span></th>
+	    <!-- ko foreach: insuredPersons -->
+	    <th>
+		    <span data-bind="html: $data.totalPersonPriceText"></span>
+	    	<a data-bind="click: $root.removePerson, visible: $root.showRemovePerson" href="#remove" title="odobrať">Del</a>
+	    </th>
+	    <!-- /ko -->
+	    <th><a data-bind="click: addPerson, visible: showAddPerson" href="#add" title="pridat">Add</a></th>
 	</tr>
-	<tr class="table-help R07">
-	    <td>b) ubytovanie spolucestujúcej blízkej osoby v zdravotníckom zariadení v prípade hospitalizácie dieťaťa vo veku do 6 rokov</td>
-	    <td colspan="2">35 &euro;/ 1 noc, max. 350 &euro;</td>
-        <td>-</td>
-        <td colspan="2">35 &euro;/ 1 noc, max. 350 &euro;</td>
+	</thead>
+	<tfoot>
+	<tr>
+	    <td><strong>Cena spolu:</strong></td>
+	    <td></td>
+	    <td colspan="9">
+	        <strong data-bind="html: $data.totalPriceText"></strong>
+	        <div class="alert">
+	            Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
+	        </div>
+	    </td>
 	</tr>
-	<tr class="table-help R07">
-	    <td>c) prevoz telesných pozostatkov</td>
-	    <td colspan="2">7.000 &euro;</td>
-	    <td>-</td>
-        <td colspan="2">7.000 &euro;</td>
+	</tfoot>
+	<tbody>
+	<tr class="section">
+	    <td>Osoba</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td></td>
+	    <!-- /ko -->
+	    <td></td>
 	</tr>
-	<tr class="table-help R07">
-	    <td>d) nákup alebo oprava dioptrických alebo protetických pomôcok</td>
-	    <td colspan="2">100 &euro;</td>
-	    <td>-</td>
-        <td colspan="2">100 &euro;</td>
+	<tr class="has-fields">
+	    <td>Dieťa do 15 rokov vrátane</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
 	</tr>
-	<tr class="table-help R07">
-	    <td>e) ošetrenie jedného zuba / spolu za všetky zuby</td>
-	    <td colspan="2">100 &euro; max. 300 &euro;</td>
-	    <td>-</td>
-        <td colspan="2">100 &euro; max. 300 &euro;</td>
+	<tr class="unique has-fields">
+	    <td>Riziková skupina</td>
+	    <td><input checked type="checkbox" data-bind="checked: riskGroupSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}, disable: $index()>0 && $parent.riskGroupSame()"></select></td>
+	    <!-- /ko -->
+	    <td></td>
 	</tr>
-	<tr class="table-help R07">
-	    <td>24-hodín denne dostupný servis pri poistnej udalosti v zahraničí</td>
-	    <td colspan="2">bez limitu</td>
-	    <td>-</td>
-        <td colspan="2">bez limitu</td>
+	<tr class="unique">
+	    <td>Zľavová karta</td>
+	    <td><input checked type="checkbox" data-bind="checked: discountCardSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.discountCard, attr: {tabindex:$index()*15+7, id:'discountCard'+$index()}, disable: $index()>0 && $parent.discountCardSame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
 	</tr>
-<tr>
-    <td><a data-bind="html: risks.R08" class="help-toggler" href="#R08"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR08pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR08pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR08pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR08pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR08pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R08">
-        <td>choroba, hospitalizácia, úraz, živelná udalosť, trestný čin, nedobrovoľná strata zamestnania</td>
-        <td><span>80% stornopoplatku, max. 1.000 &euro; / osoba</span><br><span>spolu max. 3.000 &euro;</span></td>
-        <td><span>80% stornopoplatku, max. 3.000 &euro; / osoba</span><br><span>spolu max. 9.000 &euro;</span></td>
-        <td><span>80% stornopoplatku, max. 1.000 &euro; / osoba</span><br><span>spolu max. 3.000 &euro;</span></td>
-        <td>-</td>
-        <td><span>80% stornopoplatku, max. 500 &euro; / osoba</span><br><span>spolu max. 1.500 &euro;</span></td>
-    </tr>
-    <tr class="table-help R08">
-        <td>smrť poisteného, smrť blízkej osoby</td>
-        <td><span>100% stornopoplatku, max. 1.000 &euro; / osoba</span><br><span>spolu max. 3.000 &euro;</span></td>
-        <td><span>100% stornopoplatku, max. 3.000 &euro; / osoba</span><br><span>spolu max. 9.000 &euro;</span></td>
-        <td><span>100% stornopoplatku, max. 1.000 &euro; / osoba</span><br><span>spolu max. 3.000 &euro;</span></td>
-        <td>-</td>
-        <td><span>100% stornopoplatku, max. 500 &euro; / osoba</span><br><span>spolu max. 1.500 &euro;</span></td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R09" class="help-toggler" href="#R09"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR09pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR09pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR09pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR09pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR09pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R09">
-        <td>a) náklady na cestu blízkej osoby do a z miesta hospitalizácie poisteného dlhšej ako 10 dní nepretržite</td>
-        <td colspan="2">500 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr class="table-help R09">
-        <td>b) náklady na ubytovanie blízkej osoby v mieste hospitalizácie poisteného dlhšej ako 10 dní nepretržite</td>
-        <td colspan="2">350 &euro;, max 35 &euro; / 1 noc</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R10" class="help-toggler" href="#R10"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR10pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR10pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR10pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR10pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR10pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R10">
-        <td>a) cestovné náklady</td>
-        <td colspan="3">350 &euro; / osoba, spolu max 1.400 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr class="table-help R10">
-        <td>b) nečerpané služby pri predčasnom návrate z cesty a pobytu</td>
-        <td colspan="3">700 &euro; / osoba, spolu max 2.800 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R12" class="help-toggler" href="#R12"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR12pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR12pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR12pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR12pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR12pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R12">
-        <td>a) náklady na cestu blízkej osoby do miesta hospitalizácie poisteného dieťaťa do 15 rokov</td>
-        <td colspan="2">250 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr class="table-help R12">
-        <td>b) náklady na cestu zo zahraničia do vlasti poisteného dieťaťa do 15 rokov a jeho blízkej osoby</td>
-        <td colspan="2">500 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr class="table-help R12">
-        <td>c) náklady na ubytovanie blízkej osoby v mieste hospitalizácie poisteného dieťaťa do 15 rokov</td>
-        <td colspan="2">350 &euro;, max. 35 &euro; / noc</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R15" class="help-toggler" href="#R15"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR15pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR15pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR15pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR15pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR15pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R15">
-        <td>a) náklady na prepravu do vlasti alebo</td>
-        <td colspan="2">250 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr class="table-help R15">
-        <td>b) náklady na ubytovanie v mieste opravy motorového vozidla</td>
-        <td colspan="2">250 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R16" class="help-toggler" href="#R16"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR16pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR16pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR16pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR16pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR16pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R16">
-        <td>odškodné za každý začatý deň hospitalizácie, ktorá nastala v čase trvania zájazdu a ktorá trvá najmenej 3 dni</td>
-        <td colspan="3"><span>20 &euro; / deň poistený</span><br><span>10 &euro; / deň spoluprihlásená osoba</span></td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R17" class="help-toggler" href="#R17"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR17pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR17pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR17pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR17pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR17pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R17">
-        <td>cestovné náklady na dopravenie spoluprihlásených blízkych osôb do vlasti</td>
-        <td colspan="2"><span>450 &euro; / osoba</span><br><span>spolu max. 2.000 &euro;</span></td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R18" class="help-toggler" href="#R18"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR18pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR18pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR18pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR18pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR18pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R18">
-        <td>a) náklady na cestu (do aj zo zahraničia) sprevádzajúcej osobe pre dieťa do 15 rokov</td>
-        <td colspan="3">1.500 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr class="table-help R18">
-        <td>b) náklady na cestu poisteného (dieťa do 15 rokov) späť do vlasti</td>
-        <td colspan="3">1.500 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R20" class="help-toggler" href="#R20"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR20pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR20pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR20pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR20pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR20pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R20">
-        <td>odškodné za meškanie hromadného dopravného prostriedku</td>
-        <td colspan="2">5 &euro; / 1 hodina, max. 40 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-<tr>
-    <td><a data-bind="html: risks.R28" class="help-toggler" href="#R28"></a></td>
-    <td class="A1"><span data-bind="html: showRiskValue( coverage().rR28pA1Euro )"></span></td>
-    <td class="A3"><span data-bind="html: showRiskValue( coverage().rR28pA3Euro )"></span></td>
-    <td class="B"><span data-bind="html: showRiskValue( coverage().rR28pBEuro )"></span></td>
-    <td class="C"><span data-bind="html: showRiskValue( coverage().rR28pCEuro )"></span></td>
-    <td class="D"><span data-bind="html: showRiskValue( coverage().rR28pDEuro )"></span></td>
-</tr>
-    <tr class="table-help R28">
-        <td>nečerpané služby pri oneskorenom nástupe na zájazd neskôr ako o 48 hodín</td>
-        <td colspan="2">100 &euro; / osoba, spolu max. 350 &euro;</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-</tbody>
-</table>
-
-<div class="cta-panel">
-    <button class="button primary next resetDirty" data-bind="click: goToStep2">Ďalej</button>
-</div>
+	<tr class="section">
+	    <td>Poistenia</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Liečebné náklady v zahraničí:</td>
+	    <td><input checked type="checkbox" data-bind="checked: medicalSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.medical, attr: {tabindex:$index()*15+8, id:'medical'+$index()}, disable: $index()>0 && $parent.medicalSame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique has-fields">
+	    <td>Batožina:</td>
+	    <td><input type="checkbox" data-bind="checked: baggageSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><select data-bind="options: $root.baggages, optionsText: 'value', optionsValue: 'key', value: $data.baggage, attr: {tabindex:$index()*15+9, id:'baggage'+$index()}, disable: $index()>0 && $parent.baggageSame()"></select></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Všeobecná zodpovednosť za škodu:</td>
+	    <td><input type="checkbox" data-bind="checked: responsibilitySame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.responsibility, attr: {tabindex:$index()*15+10, id:'responsibility'+$index()}, disable: $index()>0 && $parent.responsibilitySame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Úraz:</td>
+	    <td><input checked type="checkbox" data-bind="checked: accidentSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}, disable: $index()>0 && $parent.accidentSame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique">
+	    <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
+	    <td><input checked type="checkbox" data-bind="checked: technicalHelpSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}, disable: $index()>0 && $parent.technicalHelpSame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="section">
+	    <td>Pripoistenia</td>
+	    <td></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique has-fields">
+	    <td>Storno objednanej služby:</td>
+	    <td><input checked type="checkbox" data-bind="checked: stornoSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td>
+	    <div class="price"><input data-bind="value: $data.storno, attr: {tabindex:$index()*15+13, id:'storno'+$index()}, error: stornoError, disable: $index()>0 && $parent.stornoSame()" type="text" value="0"></div>
+	     <div class="error">&nbsp;</div>
+	    </td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique" data-bind="visible: showPetRow">
+	    <td>Domáci miláčik:</td>
+	    <td><input checked type="checkbox" data-bind="checked: petSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.pet, attr: {tabindex:$index()*15+14, id:'pet'+$index()}, disable: $index()>0 && $parent.petSame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	<tr class="unique" data-bind="visible: showVacationRow">
+	    <td>Dovolenková domácnosť:</td>
+	    <td><input checked type="checkbox" data-bind="checked: vacationSame"></td>
+	    <!-- ko foreach: insuredPersons -->
+	    <td><input data-bind="checked: $data.vacation, attr: {tabindex:$index()*15+15, id:'vacation'+$index()}, disable: $index()>0 && $parent.vacationSame()" type="checkbox"></td>
+	    <!-- /ko -->
+	    <td></td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="cta">
+	    <a data-bind="click: goToStep2" href="#" class="button primary next">Ďalej</a>
+	</div>
 </div>
 
 <div data-bind="visible: step() == 2" id="form-step-2" class="un-v1 two-cols form-step">
 
-<div data-bind="visible: step2Invalid() == true" class="separator error">
-    <h2>Chyba</h2>
-
-    <div>Skontrolujte všetky polia označené červenou farbou.</div>
-    <div data-bind="visible: personBirthInvalid() == true">
-        Nesúlad v počte osôb. Chcete poistiť <span data-bind="html: adultsCount()"></span> dospelých a <span data-bind="html: childrenCount()"></span> detí. Podla zadaných osobných údajov však poisťujete <span data-bind="html: adultsCountByDate()"></span> dospelých a <span data-bind="html: childrenCountByDate()"></span> deti. <br>Chcete upraviť počty poistených osôb podľa zadaných osobných údajov?
-
-    </div>
-</div>
-
-<div class="left">
-    <div class="section">
-        <h2>Poistník - <span>Fyzická osoba</span>
-        	<select data-bind="value: insurer.typ,options: insurerTypes, optionsText: 'text', optionsValue: 'forma'"
-                class="inline insurerTypeSelect"></select>
-        </h2>
-    </div>
-    <div class="row-4">
-        <div data-bind="visible: insurerVisiblePerson()" class="single required">
-            <label>Meno</label>
-            <input data-bind="value: insurer.name, error: insurer.nameError" type="text" name="insurerName" value="">
-
-            <div class="error">&nbsp;</div>
+	<div data-bind="visible: step2Invalid() == true" class="separator error">
+	    <h2>Chyba</h2>
+	    <div>Skontrolujte všetky polia označené červenou farbou.</div>
+        <div data-bind="visible: personsBirthInvalid() == true">
+            Nesúlad v počte osôb. Chcete poistiť <span data-bind="html: adultsCount()"></span>&nbsp;<span data-bind="html: adultsSuffixText1()"></span> a <span data-bind="html: childrenCount()"></span>&nbsp;<span data-bind="html: childrenSuffixText1()"></span>. Podla zadaných osobných údajov však poisťujete <span data-bind="html: adultsCountByDate()"></span>&nbsp;<span data-bind="html: adultsSuffixText2()"></span> a <span data-bind="html: childrenCountByDate()"></span>&nbsp;<span data-bind="html: childrenSuffixText2()"></span>.
         </div>
-        <div data-bind="visible: insurerVisiblePerson()" class="single required">
-            <label>Priezvisko</label>
-            <input data-bind="value: insurer.surname, error: insurer.surnameError" type="text" name="insurerSurname"
-                   value="">
+	</div>
 
-            <div class="error">&nbsp;</div>
-        </div>
-        <div data-bind="visible: insurerVisiblePerson() && (insurer.citizen() =='703' || insurer.citizen() =='203')" class="single required">
-            <label>Rodné číslo</label>
-            <input data-bind="value: insurer.rc, error: insurer.rcError" type="text" name="insurerRC" value="">
+	<div class="left">
+	    <div class="section">
+	        <h2>Poistník - <span>Fyzická osoba</span>
+	        	<select data-bind="value: insurer.typ,options: insurerTypes, optionsText: 'text', optionsValue: 'forma'"
+	                class="inline insurerTypeSelect"></select>
+	        </h2>
+	    </div>
+	    <div class="row-4">
+	        <div data-bind="visible: insurerVisiblePerson()" class="single required">
+	            <label>Meno</label>
+	            <input data-bind="value: insurer.name, error: insurer.nameError" type="text" name="insurerName" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div data-bind="visible: insurerVisiblePerson()" class="single required">
+	            <label>Priezvisko</label>
+	            <input data-bind="value: insurer.surname, error: insurer.surnameError" type="text" name="insurerSurname"
+	                   value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div data-bind="visible: insurerVisiblePerson() && (insurer.citizen() =='703' || insurer.citizen() =='203')" class="single required">
+	            <label>Rodné číslo</label>
+	            <input data-bind="value: insurer.rc, error: insurer.rcError" type="text" name="insurerRC" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div data-bind="visible: insurerVisiblePerson() && (insurer.citizen() !='703' && insurer.citizen() !='203')" class="single required">
+	            <label>Dátum narodenia</label>
+	            <input data-bind="value: insurer.birthDate, jq: 'birthDatePicker', error: insurer.birthDateError"
+	                   id="birthDate" type="text" name="birthDate" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div data-bind="visible: insurerVisiblePerson()" class="half">
+	            <label>Titul</label>
+	            <input data-bind="value: insurer.title, jq: 'titleAutocomplete'" type="text" id="insurerTitle" name="insurerTitle" value="">
+	            
+	            <div class="error">&nbsp;</div>
+	        </div>
+	
+	        <div data-bind="visible: !insurerVisiblePerson()" class="extended required">
+	            <label data-bind="text: insurerNameLabel()"></label>
+	            <input data-bind="value: insurer.companyName, error: insurer.companyNameError" type="text"
+	                   name="insurerCompanyName" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div data-bind="visible: !insurerVisiblePerson()" class="extended required">
+	            <label>IČO</label>
+	            <input data-bind="value: insurer.ico, error: insurer.icoError" type="text" name="insurerICO" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	    </div>
 
-            <div class="error">&nbsp;</div>
-        </div>
-        <div data-bind="visible: insurerVisiblePerson() && (insurer.citizen() !='703' && insurer.citizen() !='203')" class="single required">
-            <label>Dátum narodenia</label>
-            <input data-bind="value: insurer.birthDate, jq: 'birthDatePicker', error: insurer.birthDateError"
-                   id="birthDate" type="text" name="birthDate" value="">
+	    <div class="row-4">
+	        <div class="single">
+	            <label>Telefón</label>
+	            <input data-bind="value: insurer.phone" type="tel" name="phone" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div class="single">
+	            <label>Email</label>
+	            <input data-bind="value: insurer.email" type="email" name="email" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div class="double">
+	            <label>Štátna príslušnosť</label>
+	            <select data-bind="value: insurer.citizen, options: countryList, optionsText: 'label', optionsValue: 'key', error: insurer.citizenError"></select>
+	            <div class="error">&nbsp;</div>
+	        </div>
+	    </div>
 
-            <div class="error">&nbsp;</div>
-        </div>
-        <div data-bind="visible: insurerVisiblePerson()" class="half">
-            <label>Titul</label>
-            <input data-bind="value: insurer.title, jq: 'titleAutocomplete'" type="text" id="insurerTitle" name="insurerTitle" value="">
-            
-            <div class="error">&nbsp;</div>
-        </div>
+	    <div class="separator">
+	        <h4>
+	        	Adresa 
+	        	<span data-bind="visible: insurer.isPerson()">trvalého bydliska</span>
+	        	<span data-bind="visible: !insurer.isPerson()">sídla</span>
+	        </h4>
+	    </div>
+	    <div class="row-4" data-bind="jq: 'addressAutocomplete'">
+	        <div class="extended required">
+	            <label>Ulica</label>
+	            <input data-bind="value: insurer.address.street, error: insurer.addressStreetError" type="text"
+	                   name="addressStreet" data-name="street" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div class="single required">
+	            <label>Číslo</label>
+	            <input data-bind="value: insurer.address.number, error: insurer.addressNumberError" type="text"
+	                   name="addressNumber" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div class="single required">
+	            <label>Mesto</label>
+	            <input data-bind="value: insurer.address.city, error: insurer.addressCityError" type="text"
+	                   name="addressCity" data-name="city" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>
+	        <div class="half required">
+	            <label>PSČ</label>
+	            <input data-bind="value: insurer.address.psc, error: insurer.addressPSCError" type="text" 
+	            	name="addressPsc" data-name="psc" value="">
+	
+	            <div class="error">&nbsp;</div>
+	        </div>        
+	    </div>
 
-        <div data-bind="visible: !insurerVisiblePerson()" class="extended required">
-            <label data-bind="text: insurerNameLabel()"></label>
-            <input data-bind="value: insurer.companyName, error: insurer.companyNameError" type="text"
-                   name="insurerCompanyName" value="">
+	    <div class="row-1">
+	        <div class="single checkbox list">
+	            <label for="insurerAddressSame">
+	                <input data-bind="checked: insurer.address.same" type="checkbox" checked id="insurerAddressSame">
+	                Korešpondenčná adresa je totožná s adresou trvalého bydliska
+	            </label>
+	        </div>
+	    </div>
 
-            <div class="error">&nbsp;</div>
-        </div>
-        <div data-bind="visible: !insurerVisiblePerson()" class="extended required">
-            <label>IČO</label>
-            <input data-bind="value: insurer.ico, error: insurer.icoError" type="text" name="insurerICO" value="">
+	    <div data-bind="visible: !insurer.address.same()">
+	        <div class="separator">
+	            <h4>Korešpondenčná adresa</h4>
+	        </div>
+	        <div class="row-4" data-bind="jq: 'addressAutocomplete'">
+	            <div class="extended required">
+	                <label>Ulica</label>
+	                <input data-bind="value: insurer.postalAddress.street, error: insurer.postalAddressStreetError"
+	                       type="text" name="postalAddressStreet" data-name="street" value="">
+	
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="single required">
+	                <label>Číslo</label>
+	                <input data-bind="value: insurer.postalAddress.number, error: insurer.postalAddressNumberError"
+	                       type="text" name="postalAddresssNumber" value="">
+	
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="single required">
+	                <label>Mesto</label>
+	                <input data-bind="value: insurer.postalAddress.city, error: insurer.postalAddressCityError" type="text"
+	                       name="postalAddressCity" data-name="city" value="">
+	
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="half required">
+	                <label>PSČ</label>
+	                <input data-bind="value: insurer.postalAddress.psc, error: insurer.postalAddressPSCError" type="text"
+	                       name="postalAddressPsc" data-name="psc" value="">
+	
+	                <div class="error">&nbsp;</div>
+	            </div>            
+	        </div>
+	    </div>
 
-            <div class="error">&nbsp;</div>
-        </div>
-    </div>
-    <div class="row-4">
-        <div class="single">
-            <label>Telefón</label>
-            <input data-bind="value: insurer.phone" type="tel" name="phone" value="">
+	    <div data-bind="foreach: insuredPersons">
+	        <div class="section single-before">
+	            <h2>Poisťovaná osoba číslo <span data-bind="text: $index()+1"></span></h2>
+	            <button data-bind="click: $parent.removePerson" class="button inline small">Odobrať osobu</button>
+	        </div>
+	        <div data-bind="visible: true" class="row-4">
+	            <div class="single required">
+	                <label>Meno</label>
+	                <input data-bind="value: name, error: nameError" type="text" name="name" value="">
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="single required">
+	                <label>Priezvisko</label>
+	                <input data-bind="value: surname, error: surnameError" type="text" name="surname" value="">	
+	                <div class="error">&nbsp;</div>
+	            </div>
+	            <div class="single required">
+	                <label>Dátum narodenia</label>
+			        <div class="dob">
+			            <input data-bind="value: $data.birthDateDay, attr: {id:'step2_birthDateDay'+$index()}, error: birthDateError" type="text" placeholder="DD"/>
+			            <input data-bind="value: $data.birthDateMonth, attr: {id:'step2_birthDateMonth'+$index()}, error: birthDateError" type="text" placeholder="MM"/>
+			            <input data-bind="value: $data.birthDateYear, attr: {id:'step2_birthDateYear'+$index()}, error: birthDateError" type="text" placeholder="YYYY"/>
+			        </div>
+	                <div class="error">&nbsp;</div>
+	            </div>
 
-            <div class="error">&nbsp;</div>
-        </div>
-        <div class="single">
-            <label>Email</label>
-            <input data-bind="value: insurer.email" type="email" name="email" value="">
-
-            <div class="error">&nbsp;</div>
-        </div>
-        <div class="double">
-            <label>Štátna príslušnosť</label>
-            <select data-bind="value: insurer.citizen, error: insurer.citizenError">
-                <option value="!!!">Neznáma krajina</option><option value="4">Afganistan</option><option value="248">Alandy</option><option value="8">Albánsko</option><option value="9995">Alderney (Channel Islands)</option><option value="12">Alžírsko</option><option value="16">Americká Samoa</option><option value="20">Andorra</option><option value="24">Angola</option><option value="660">Anguilla</option><option value="10">Antarktída</option><option value="28">Antigua a Barbuda</option><option value="32">Argentína</option><option value="51">Arménsko</option><option value="533">Aruba</option><option value="36">Austrália</option><option value="31">Azerbajdžan</option><option value="44">Bahamy</option><option value="48">Bahrajn</option><option value="50">Bangladéš</option><option value="52">Barbados</option><option value="56">Belgicko</option><option value="84">Belize</option><option value="204">Benin</option><option value="60">Bermudy</option><option value="64">Bhután</option><option value="112">Bielorusko</option><option value="68">Bolívia</option><option value="70">Bosna a Hercegovina</option><option value="72">Botswana</option><option value="74">Bouvetov ostrov</option><option value="76">Brazília</option><option value="86">Britské indickooc.t.</option><option value="92">Britské Pan.ostrovy</option><option value="96">Brunej</option><option value="100">Bulharsko</option><option value="854">Burkina Faso</option><option value="108">Burundi</option><option value="8005">Clearingový ECU</option><option value="184">Cookove ostrovy</option><option value="196">Cyprus</option><option value="148">Čad</option><option value="203">Česko</option><option value="200">Československo</option><option value="499">Čierna Hora</option><option value="156">Čína</option><option value="208">Dánsko</option><option value="212">Dominika</option><option value="214">Dominikánska republika</option><option value="262">Džibutsko</option><option value="818">Egypt</option><option value="218">Ekvádor</option><option value="8007">EMS ECU</option><option value="1001">EMÚ</option><option value="232">Eritrea</option><option value="8003">Eritrea</option><option value="233">Estónsko</option><option value="230">Etiópia</option><option value="231">Etiópia</option><option value="1003">Európa</option><option value="234">Faerské ostrovy</option><option value="238">Falklandy - Malvíny</option><option value="242">Fidži</option><option value="608">Filipíny</option><option value="246">Fínsko</option><option value="254">Francúzska Guyana</option><option value="258">Francúzska Polynézia</option><option value="260">Francúzske južné územia</option><option value="250">Francúzsko</option><option value="266">Gabon</option><option value="270">Gambia</option><option value="288">Ghana</option><option value="292">Gibraltár</option><option value="300">Grécko</option><option value="308">Grenada</option><option value="304">Grónsko</option><option value="268">Gruzínsko</option><option value="312">Guadeloupe</option><option value="316">Guam</option><option value="320">Guatemala</option><option value="831">Guernsey</option><option value="9998">Guernsey (Channel Islands)</option><option value="324">Guinea</option><option value="624">Guinea-Bissau</option><option value="328">Guyana</option><option value="332">Haiti</option><option value="334">Heardov ostrov</option><option value="530">Holandské Antily</option><option value="532">Holandské Antily</option><option value="528">Holandsko</option><option value="340">Honduras</option><option value="344">Hongkong</option><option value="152">Chile</option><option value="191">Chorvátsko</option><option value="356">India</option><option value="360">Indonézia</option><option value="368">Irak</option><option value="364">Irán</option><option value="372">Írsko</option><option value="352">Island</option><option value="9997">Isle of Man</option><option value="376">Izrael</option><option value="388">Jamajka</option><option value="392">Japonsko</option><option value="887">Jemen</option><option value="832">Jernsey</option><option value="9996">Jersey (Channel Islands)</option><option value="400">Jordánsko</option><option value="8001">Juhoslovanská zväzová republika</option><option value="239">Juž. Georgia a J.S.o.</option><option value="710">Južná Afrika</option><option value="8004">Južná Georgia a Južné Sandwich ostrovy</option><option value="410">Južná Kórea</option><option value="136">Kajmanie ostrovy</option><option value="116">Kambodža</option><option value="120">Kamerun</option><option value="124">Kanada</option><option value="132">Kapverdy</option><option value="634">Katar</option><option value="398">Kazachstan</option><option value="404">Keňa</option><option value="417">Kirgizsko</option><option value="296">Kiribati</option><option value="166">Kokosové ostrovy</option><option value="170">Kolumbia</option><option value="174">Komory</option><option value="178">Kongo</option><option value="188">Kostarika</option><option value="192">Kuba</option><option value="414">Kuvajt</option><option value="418">Laos</option><option value="426">Lesotho</option><option value="422">Libanon</option><option value="430">Libéria</option><option value="434">Líbya</option><option value="438">Lichtenštajnsko</option><option value="440">Litva</option><option value="428">Lotyšsko</option><option value="442">Luxembursko</option><option value="446">Macao</option><option value="807">Macedónsko</option><option value="973">Macedónsko</option><option value="450">Madagaskar</option><option value="348">Maďarsko</option><option value="458">Malajzia</option><option value="454">Malawi</option><option value="462">Maledivy</option><option value="466">Mali</option><option value="470">Malta</option><option value="833">Man</option><option value="504">Maroko</option><option value="584">Marshallove ostrovy</option><option value="474">Martinique</option><option value="480">Maurícius</option><option value="478">Mauritánia</option><option value="175">Mayotte</option><option value="8002">Mayotte</option><option value="581">Menšie odľahlé ostr.USA</option><option value="249">Metropolitné Francúzsko</option><option value="484">Mexiko</option><option value="8006">MFF ZPC ZDR</option><option value="583">Mikronézia</option><option value="898">MMF</option><option value="498">Moldavsko</option><option value="492">Monako</option><option value="496">Mongolsko</option><option value="500">Montserrat</option><option value="508">Mozambik</option><option value="104">Myanmar</option><option value="516">Namíbia</option><option value="520">Nauru</option><option value="276">Nemecko</option><option value="524">Nepál</option><option value="536">Neutrálne územia</option><option value="562">Niger</option><option value="566">Nigéria</option><option value="558">Nikaragua</option><option value="570">Niue</option><option value="578">Nórsko</option><option value="540">Nová Kaledónia</option><option value="554">Nový Zéland</option><option value="896">Oblasti inde nešpecifik</option><option value="512">Omán</option><option value="574">Ostrov Norfolk</option><option value="876">Ostrovy Wallis a Futuna</option><option value="586">Pakistan</option><option value="585">Palau</option><option value="275">Palestína</option><option value="590">Panama</option><option value="591">Panama</option><option value="850">Panenské ostrovy (USA)</option><option value="598">Papua - Nová Guinea</option><option value="600">Paraguaj</option><option value="604">Peru</option><option value="612">Pitcairnove ostrovy</option><option value="384">Pobrežie slonoviny</option><option value="616">Poľsko</option><option value="630">Portoriko</option><option value="620">Portugalsko</option><option value="40">Rakúsko</option><option value="638">Réunion</option><option value="226">Rovníková Guinea</option><option value="642">Rumunsko</option><option value="643">Rusko</option><option value="1005">Rusko - ázijská časť</option><option value="1004">Rusko - európska časť</option><option value="646">Rwanda</option><option value="666">Saint Pierre a Miquelon</option><option value="222">Salvádor</option><option value="674">San Marino</option><option value="682">Saudská Arábia</option><option value="686">Senegal</option><option value="408">Severná Kórea</option><option value="580">Severné Mariány</option><option value="690">Seychely</option><option value="694">Sierra Leone</option><option value="702">Singapur</option><option value="703">Slovensko</option><option value="9999">Slovensko-Ocenenie</option><option value="705">Slovinsko</option><option value="706">Somálsko</option><option value="784">Spojené arabské emiráty</option><option value="826">Spojené kráľovstvo</option><option value="840">Spojené štáty americké</option><option value="810">Spol.nezávislých štátov</option><option value="688">Srbsko</option><option value="891">Srbsko a Čierna hora</option><option value="144">Srí Lanka</option><option value="140">Stredoafrická republika</option><option value="736">Sudán</option><option value="740">Surinam</option><option value="678">Sv.Tomáš a Princov ost.</option><option value="744">Svalbard a Jan Mayen</option><option value="748">Svazijsko</option><option value="654">Svätá Helena</option><option value="662">Svätá Lucia</option><option value="659">Svätý Krištof</option><option value="670">Svätý Vincent a Grenad.</option><option value="1002">Svet</option><option value="760">Sýria</option><option value="90">Šalamúnove ostrovy</option><option value="724">Španielsko</option><option value="756">Švajčiarsko</option><option value="752">Švédsko</option><option value="762">Tadžikistan</option><option value="380">Taliansko</option><option value="834">Tanzánia</option><option value="764">Thajsko</option><option value="158">Tchajwan</option><option value="768">Togo</option><option value="772">Tokelau</option><option value="776">Tonga</option><option value="780">Trinidad a Tobago</option><option value="788">Tunisko</option><option value="792">Turecko</option><option value="795">Turkménsko</option><option value="796">Turks a Caicos</option><option value="798">Tuvalu</option><option value="800">Uganda</option><option value="804">Ukrajina</option><option value="858">Uruguaj</option><option value="860">Uzbekistan</option><option value="548">Vanuatu</option><option value="336">Vatikán</option><option value="862">Venezuela</option><option value="162">Vianočný ostrov</option><option value="704">Vietnam</option><option value="626">Východný Timor</option><option value="180">Zair</option><option value="894">Zambia</option><option value="732">Západná Sahara</option><option value="882">Západná Samoa</option><option value="716">Zimbabwe</option>
-            </select>
-            <div class="error">&nbsp;</div>
-        </div>
-    </div>
-
-    <div class="separator">
-        <h4>
-        	Adresa 
-        	<span data-bind="visible: insurer.isPerson()">trvalého bydliska</span>
-        	<span data-bind="visible: !insurer.isPerson()">sídla</span>
-        </h4>
-    </div>
-    <div class="row-4" data-bind="jq: 'addressAutocomplete'">
-        <div class="extended required">
-            <label>Ulica</label>
-            <input data-bind="value: insurer.address.street, error: insurer.addressStreetError" type="text"
-                   name="addressStreet" data-name="street" value="">
-
-            <div class="error">&nbsp;</div>
-        </div>
-        <div class="single required">
-            <label>Číslo</label>
-            <input data-bind="value: insurer.address.number, error: insurer.addressNumberError" type="text"
-                   name="addressNumber" value="">
-
-            <div class="error">&nbsp;</div>
-        </div>
-        <div class="single required">
-            <label>Mesto</label>
-            <input data-bind="value: insurer.address.city, error: insurer.addressCityError" type="text"
-                   name="addressCity" data-name="city" value="">
-
-            <div class="error">&nbsp;</div>
-        </div>
-        <div class="half required">
-            <label>PSČ</label>
-            <input data-bind="value: insurer.address.psc, error: insurer.addressPSCError" type="text" 
-            	name="addressPsc" data-name="psc" value="">
-
-            <div class="error">&nbsp;</div>
-        </div>        
-    </div>
-
-    <div class="row-1">
-        <div class="single checkbox list">
-            <label for="insurerAddressSame">
-                <input data-bind="checked: insurer.address.same" type="checkbox" checked id="insurerAddressSame">
-                Korešpondenčná adresa je totožná s adresou trvalého bydliska
-            </label>
-        </div>
-    </div>
-
-    <div data-bind="visible: !insurer.address.same()">
-        <div class="separator">
-            <h4>Korešpondenčná adresa</h4>
-        </div>
-        <div class="row-4" data-bind="jq: 'addressAutocomplete'">
-            <div class="extended required">
-                <label>Ulica</label>
-                <input data-bind="value: insurer.postalAddress.street, error: insurer.postalAddressStreetError"
-                       type="text" name="postalAddressStreet" data-name="street" value="">
-
-                <div class="error">&nbsp;</div>
-            </div>
-            <div class="single required">
-                <label>Číslo</label>
-                <input data-bind="value: insurer.postalAddress.number, error: insurer.postalAddressNumberError"
-                       type="text" name="postalAddresssNumber" value="">
-
-                <div class="error">&nbsp;</div>
-            </div>
-            <div class="single required">
-                <label>Mesto</label>
-                <input data-bind="value: insurer.postalAddress.city, error: insurer.postalAddressCityError" type="text"
-                       name="postalAddressCity" data-name="city" value="">
-
-                <div class="error">&nbsp;</div>
-            </div>
-            <div class="half required">
-                <label>PSČ</label>
-                <input data-bind="value: insurer.postalAddress.psc, error: insurer.postalAddressPSCError" type="text"
-                       name="postalAddressPsc" data-name="psc" value="">
-
-                <div class="error">&nbsp;</div>
-            </div>            
-        </div>
-    </div>
-
-    <div data-bind="visible:isSameEnable()" class="row-1">
-        <div class="single checkbox list">
-            <label for="insurerSame">
-                <input data-bind="checked: insurer.same, click: insurerSameClick" type="checkbox" checked id="insurerSame">
-                Poistník je zároveň poistenou osobou
-            </label>
-        </div>
-    </div>
-
-    <div data-bind="foreach: insuredPersons">
-        <div data-bind="visible: ($parent.insurer.same() == true && $index() > 0 ) || ( $parent.insurer.same() != true )"
-             class="section single-before">
-            <h2>Poisťovaná osoba číslo <span data-bind="text: $index()+1"></span></h2>
-            <!-- <button data-bind="visible: !(!$parent.insurer.same() && $index() == 0), click: $parent.removeInsuredPersonClick" class="button inline  small">Odobrať osobu
-            </button> -->
-        </div>
-        <div data-bind="visible: ($parent.insurer.same() == true && $index() > 0 ) || ( $parent.insurer.same() != true )"
-             class="row-4">
-            <div class="single required">
-                <label>Meno</label>
-                <input data-bind="value: name, error: nameError" type="text" name="name" value="">
-
-                <div class="error">&nbsp;</div>
-            </div>
-            <div class="single required">
-                <label>Priezvisko</label>
-                <input data-bind="value: surname, error: surnameError" type="text" name="surname" value="">
-
-                <div class="error">&nbsp;</div>
-            </div>
-            <div class="single required calendar">
-                <label>Dátum narodenia</label>
-                <input data-bind="value: birthDate, jq: 'birthDatePicker', error: birthDateError"
-                       type="text" name="birthDate" value="" data-name="birthDate">
-
-                <div class="error">&nbsp;</div>
-            </div>
-            <div class="single">
-                <label>Štátna príslušnosť</label>
-                <select data-bind="value: citizen, error: citizenError" name="citizen">
-					<option value="!!!">Neznáma krajina</option><option value="4">Afganistan</option><option value="248">Alandy</option><option value="8">Albánsko</option><option value="9995">Alderney (Channel Islands)</option><option value="12">Alžírsko</option><option value="16">Americká Samoa</option><option value="20">Andorra</option><option value="24">Angola</option><option value="660">Anguilla</option><option value="10">Antarktída</option><option value="28">Antigua a Barbuda</option><option value="32">Argentína</option><option value="51">Arménsko</option><option value="533">Aruba</option><option value="36">Austrália</option><option value="31">Azerbajdžan</option><option value="44">Bahamy</option><option value="48">Bahrajn</option><option value="50">Bangladéš</option><option value="52">Barbados</option><option value="56">Belgicko</option><option value="84">Belize</option><option value="204">Benin</option><option value="60">Bermudy</option><option value="64">Bhután</option><option value="112">Bielorusko</option><option value="68">Bolívia</option><option value="70">Bosna a Hercegovina</option><option value="72">Botswana</option><option value="74">Bouvetov ostrov</option><option value="76">Brazília</option><option value="86">Britské indickooc.t.</option><option value="92">Britské Pan.ostrovy</option><option value="96">Brunej</option><option value="100">Bulharsko</option><option value="854">Burkina Faso</option><option value="108">Burundi</option><option value="8005">Clearingový ECU</option><option value="184">Cookove ostrovy</option><option value="196">Cyprus</option><option value="148">Čad</option><option value="203">Česko</option><option value="200">Československo</option><option value="499">Čierna Hora</option><option value="156">Čína</option><option value="208">Dánsko</option><option value="212">Dominika</option><option value="214">Dominikánska republika</option><option value="262">Džibutsko</option><option value="818">Egypt</option><option value="218">Ekvádor</option><option value="8007">EMS ECU</option><option value="1001">EMÚ</option><option value="232">Eritrea</option><option value="8003">Eritrea</option><option value="233">Estónsko</option><option value="230">Etiópia</option><option value="231">Etiópia</option><option value="1003">Európa</option><option value="234">Faerské ostrovy</option><option value="238">Falklandy - Malvíny</option><option value="242">Fidži</option><option value="608">Filipíny</option><option value="246">Fínsko</option><option value="254">Francúzska Guyana</option><option value="258">Francúzska Polynézia</option><option value="260">Francúzske južné územia</option><option value="250">Francúzsko</option><option value="266">Gabon</option><option value="270">Gambia</option><option value="288">Ghana</option><option value="292">Gibraltár</option><option value="300">Grécko</option><option value="308">Grenada</option><option value="304">Grónsko</option><option value="268">Gruzínsko</option><option value="312">Guadeloupe</option><option value="316">Guam</option><option value="320">Guatemala</option><option value="831">Guernsey</option><option value="9998">Guernsey (Channel Islands)</option><option value="324">Guinea</option><option value="624">Guinea-Bissau</option><option value="328">Guyana</option><option value="332">Haiti</option><option value="334">Heardov ostrov</option><option value="530">Holandské Antily</option><option value="532">Holandské Antily</option><option value="528">Holandsko</option><option value="340">Honduras</option><option value="344">Hongkong</option><option value="152">Chile</option><option value="191">Chorvátsko</option><option value="356">India</option><option value="360">Indonézia</option><option value="368">Irak</option><option value="364">Irán</option><option value="372">Írsko</option><option value="352">Island</option><option value="9997">Isle of Man</option><option value="376">Izrael</option><option value="388">Jamajka</option><option value="392">Japonsko</option><option value="887">Jemen</option><option value="832">Jernsey</option><option value="9996">Jersey (Channel Islands)</option><option value="400">Jordánsko</option><option value="8001">Juhoslovanská zväzová republika</option><option value="239">Juž. Georgia a J.S.o.</option><option value="710">Južná Afrika</option><option value="8004">Južná Georgia a Južné Sandwich ostrovy</option><option value="410">Južná Kórea</option><option value="136">Kajmanie ostrovy</option><option value="116">Kambodža</option><option value="120">Kamerun</option><option value="124">Kanada</option><option value="132">Kapverdy</option><option value="634">Katar</option><option value="398">Kazachstan</option><option value="404">Keňa</option><option value="417">Kirgizsko</option><option value="296">Kiribati</option><option value="166">Kokosové ostrovy</option><option value="170">Kolumbia</option><option value="174">Komory</option><option value="178">Kongo</option><option value="188">Kostarika</option><option value="192">Kuba</option><option value="414">Kuvajt</option><option value="418">Laos</option><option value="426">Lesotho</option><option value="422">Libanon</option><option value="430">Libéria</option><option value="434">Líbya</option><option value="438">Lichtenštajnsko</option><option value="440">Litva</option><option value="428">Lotyšsko</option><option value="442">Luxembursko</option><option value="446">Macao</option><option value="807">Macedónsko</option><option value="973">Macedónsko</option><option value="450">Madagaskar</option><option value="348">Maďarsko</option><option value="458">Malajzia</option><option value="454">Malawi</option><option value="462">Maledivy</option><option value="466">Mali</option><option value="470">Malta</option><option value="833">Man</option><option value="504">Maroko</option><option value="584">Marshallove ostrovy</option><option value="474">Martinique</option><option value="480">Maurícius</option><option value="478">Mauritánia</option><option value="175">Mayotte</option><option value="8002">Mayotte</option><option value="581">Menšie odľahlé ostr.USA</option><option value="249">Metropolitné Francúzsko</option><option value="484">Mexiko</option><option value="8006">MFF ZPC ZDR</option><option value="583">Mikronézia</option><option value="898">MMF</option><option value="498">Moldavsko</option><option value="492">Monako</option><option value="496">Mongolsko</option><option value="500">Montserrat</option><option value="508">Mozambik</option><option value="104">Myanmar</option><option value="516">Namíbia</option><option value="520">Nauru</option><option value="276">Nemecko</option><option value="524">Nepál</option><option value="536">Neutrálne územia</option><option value="562">Niger</option><option value="566">Nigéria</option><option value="558">Nikaragua</option><option value="570">Niue</option><option value="578">Nórsko</option><option value="540">Nová Kaledónia</option><option value="554">Nový Zéland</option><option value="896">Oblasti inde nešpecifik</option><option value="512">Omán</option><option value="574">Ostrov Norfolk</option><option value="876">Ostrovy Wallis a Futuna</option><option value="586">Pakistan</option><option value="585">Palau</option><option value="275">Palestína</option><option value="590">Panama</option><option value="591">Panama</option><option value="850">Panenské ostrovy (USA)</option><option value="598">Papua - Nová Guinea</option><option value="600">Paraguaj</option><option value="604">Peru</option><option value="612">Pitcairnove ostrovy</option><option value="384">Pobrežie slonoviny</option><option value="616">Poľsko</option><option value="630">Portoriko</option><option value="620">Portugalsko</option><option value="40">Rakúsko</option><option value="638">Réunion</option><option value="226">Rovníková Guinea</option><option value="642">Rumunsko</option><option value="643">Rusko</option><option value="1005">Rusko - ázijská časť</option><option value="1004">Rusko - európska časť</option><option value="646">Rwanda</option><option value="666">Saint Pierre a Miquelon</option><option value="222">Salvádor</option><option value="674">San Marino</option><option value="682">Saudská Arábia</option><option value="686">Senegal</option><option value="408">Severná Kórea</option><option value="580">Severné Mariány</option><option value="690">Seychely</option><option value="694">Sierra Leone</option><option value="702">Singapur</option><option value="703">Slovensko</option><option value="9999">Slovensko-Ocenenie</option><option value="705">Slovinsko</option><option value="706">Somálsko</option><option value="784">Spojené arabské emiráty</option><option value="826">Spojené kráľovstvo</option><option value="840">Spojené štáty americké</option><option value="810">Spol.nezávislých štátov</option><option value="688">Srbsko</option><option value="891">Srbsko a Čierna hora</option><option value="144">Srí Lanka</option><option value="140">Stredoafrická republika</option><option value="736">Sudán</option><option value="740">Surinam</option><option value="678">Sv.Tomáš a Princov ost.</option><option value="744">Svalbard a Jan Mayen</option><option value="748">Svazijsko</option><option value="654">Svätá Helena</option><option value="662">Svätá Lucia</option><option value="659">Svätý Krištof</option><option value="670">Svätý Vincent a Grenad.</option><option value="1002">Svet</option><option value="760">Sýria</option><option value="90">Šalamúnove ostrovy</option><option value="724">Španielsko</option><option value="756">Švajčiarsko</option><option value="752">Švédsko</option><option value="762">Tadžikistan</option><option value="380">Taliansko</option><option value="834">Tanzánia</option><option value="764">Thajsko</option><option value="158">Tchajwan</option><option value="768">Togo</option><option value="772">Tokelau</option><option value="776">Tonga</option><option value="780">Trinidad a Tobago</option><option value="788">Tunisko</option><option value="792">Turecko</option><option value="795">Turkménsko</option><option value="796">Turks a Caicos</option><option value="798">Tuvalu</option><option value="800">Uganda</option><option value="804">Ukrajina</option><option value="858">Uruguaj</option><option value="860">Uzbekistan</option><option value="548">Vanuatu</option><option value="336">Vatikán</option><option value="862">Venezuela</option><option value="162">Vianočný ostrov</option><option value="704">Vietnam</option><option value="626">Východný Timor</option><option value="180">Zair</option><option value="894">Zambia</option><option value="732">Západná Sahara</option><option value="882">Západná Samoa</option><option value="716">Zimbabwe</option>
-                </select>
-                <div class="error">&nbsp;</div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<div class="right">
-    <div class="section">
-        <h2>Poistenie</h2>
-    </div>
-    <table id="summary-parameters">
-        <tbody>
-        <tr>
-            <td>Platnosť od:</td>
-            <td data-bind="text: insuredFrom"></td>
-            <td>
-                <button id="insuredFromButton" class="button small changeButton">Zmeniť</button>
-            </td>
-        </tr>
-        <tr id="insuredFromRow" class="inline-form hide">
-            <td colspan="3">
-                <div class="row-4">
+                <div data-bind="visible: $data.discountCard">
                     <div class="single required">
-                        <label>Platnosť od</label>
-                        <input type="text" name="insuredFrom" class="datepicker" value="" >
-                    </div>
-                    <div class="single">
-                        <button class="button primary adjanced" style="margin-top:15px">Uložiť</button>
-                    </div>
-                </div>
-                <div class="row-4">
-               		<div class="error">&nbsp;</div>
-				</div>                
-            </td>
-        </tr>
-        <tr>
-            <td>Platnosť do:</td>
-            <td><span data-bind="text: insuredTo"></span> (<span data-bind="text: insuredDaysText"></span>)</td>
-            <td>
-                <button id="insuredToButton" class="button small changeButton">Zmeniť</button>
-            </td>
-        </tr>
-        <tr id="insuredToRow" class="inline-form hide">
-            <td colspan="3">
-                <div class="row-4">
-                    <div class="single required">
-                        <label>Platnosť do</label>
-                        <input type="text" name="insuredTo" class="datepicker" value="">
-                    </div>
-                    <div class="single">
-                        <button class="button primary adjanced" style="margin-top:15px">Uložiť</button>
-                    </div>
-                </div>
-                <div class="row-4">
-                	<div class="error">&nbsp;</div>
-				</div>
-            </td>
-        </tr>
-        <tr>
-            <td>Počet poistených:</td>
-            <td>
-            	<abbr data-bind="text: adultsCount" title="Dospelí"></abbr> +
-	            <abbr data-bind="text: childrenCount" title="Deti"></abbr>
-            </td>
-            <td>
-                <button id="personsButton" class="button small changeButton">Zmeniť</button>
-            </td>
-        </tr>
-        <tr id="personsRow" class="inline-form hide">
-            <td colspan="3">
-                <div class="row-4">
-                    <div class="single required">
-                        <label>Dospelí<br/>(15+)</label>
-                        <input id="adultsCountNew" type="number" name="adults" value="0" min="0" max="5">
+                        <label>Typ preukazu</label>
+                        <select data-bind="value: discountCardType, options: $root.discountCardTypes, optionsText: 'value', optionsValue: 'key', error: discountCardTypeError" id="discountCardType"></select>
                     </div>
                     <div class="single required">
-                        <label>Deti<br/>(0-14)</label>
-                        <input id="childrenCountNew" type="number" name="children" value="0" min="0" max="5">
-                    </div>
-                    <div class="single">
-                        <button class="button primary adjanced">Uložiť</button>
+                        <label>Číslo preukazu</label>
+                        <input data-bind="value: discountCardCode, error: discountCardCodeError" type="text" name="number" value="">
                     </div>
                 </div>
-                <div class="row-4">
-               		<div class="error">&nbsp;</div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Riziková skupina:</td>
-            <td>
-                <abbr data-bind="html: showRiskLabel()" title="Riziková skupina"></abbr>
-            </td>
-            <td>
-                <button id="riskGroupButton" class="button small changeButton">Zmeniť</button>
-            </td>
-        </tr>
-        <tr id="riskGroupRow" class="inline-form hide">
-            <td colspan="3">
-                <div class="row-4">
-                    <div class="double required">
-                        <label>Riziková skupina</label>
-                        <label>
-                            <input id="step2groupRiskT" type="radio" name="step2groupRisk" value="T" class="dirty" checked="checked">
-                            Turista
-                        </label>
-                        <label>
-                            <input id="step2groupRiskS" type="radio" name="step2groupRisk" value="S" class="">
-                            Šport
-                        </label>
-                    </div>
-                    <div class="single">
-                        <button class="button primary adjanced">Uložiť</button>
+
+                <div data-bind="visible: $data.stornoVisible">
+                    <div class="row-4">
+                        <div class="single required">
+                            <label>Typ objednanej služby</label>
+                            <select data-bind="value: $data.stornoObj().type, options: $root.stornoTypes, optionsText: 'value', optionsValue: 'key', error: $data.stornoObj().typeError, attr: {id:'stornoType'+$index()}"></select>
+                            <div class="error">&nbsp;</div>
+                        </div>
+
+                        <div data-bind="visible: $data.stornoObj().stornoOtherVisible()">
+                            <div class="single required">
+                                <label>Iný typ objednanej služby</label>
+                                <input data-bind="value: $data.stornoObj().typeOther, error: $data.stornoObj().typeOtherError, attr: {id:'stornoTypeOther'+$index()}" type="text">
+                                <div class="error">&nbsp;</div>
+                            </div>
+                        </div>
+
+                        <div class="single required">
+                            <label>Cena objednanej služby</label>
+                            <input data-bind="value: $data.storno, error: $data.stornoError, attr: {id:'storno'+$index()}, enable: false" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+
+                        <div class="single required">
+                            <label>Dátum zakúpenia objednanej služby</label>
+                            <input data-bind="value: $data.stornoObj().date, jq: 'buyingDatePicker', error: $data.stornoObj().dateError" data-name="date" class="date" type="text" >
+                            <div class="error">&nbsp;</div>
+                        </div>
                     </div>
                 </div>
-                <div class="row-4">
-                    <div class="error">&nbsp;</div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Krajina:</td>
-            <td>
-                <abbr data-bind="html: showLandName()" title="Krajina"></abbr>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Územná platnosť:</td>
-            <td>
-                <abbr data-bind="html: showAreaName()" title="Územná platnosť"></abbr>
-            </td>
-            <td></td>
-        </tr>
-    </table>
-    <table id="summary-product" class="glue-tables">
-        <thead>
-        <tr>
-            <th>Balík poistenia:</th>
-            <th data-bind="text: pack"></th>
-            <th>
-                <button id="produktButton" class="button small">Zmeniť</button>
-            </th>
-        </tr>
-        <tr id="produktRow" class="inline-form hide">
-            <td colspan="3">
-                <div class="row-4">
-                    <div class="single required">
-                        <label>Balík</label><br>
-                        <select id="packNew" data-bind="options: selectedPackages" name="pack"></select>
-                    </div>
-                    <div class="single">
-                        <button class="button primary adjanced">Uložiť</button>
+
+                <div data-bind="visible: $data.petVisible">
+                    <div class="row-4">
+                        <div class="single required">
+                            <label>Druh domáceho miláčika</label>
+                            <select data-bind="value: $data.petType, options: $root.petTypes, optionsText: 'value', optionsValue: 'key', attr: {id:'petType'+$index()}"></select>
+                        </div>
+
+                        <div data-bind="visible: $data.petOtherVisible()">
+                            <div class="single required">
+                                <label>Iný druh domáceho miláčika</label>
+                                <input data-bind="value: $data.petOther, error: $data.petOtherError, attr: {id:'petTypeOther'+$index()}" type="text">
+                                <div class="error">&nbsp;</div>
+                            </div>
+                        </div>
+
+                        <div class="single required">
+                            <label>Číslo medzinárodného očkovacieho preukazu / pasu</label>
+                            <input data-bind="value: $data.petLicence, error: $data.petLicenceError, attr: {id:'petLicence'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
                     </div>
                 </div>
-            </td>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <td colspan="2">Poistné:</td>
-            <td><span class="sumTotal" data-bind="html: coveredRisksPriceEuro"></span></td>
-        </tr>
-        </tfoot>
-        <tbody data-bind="foreach: coveredRisks">
-        <tr>
-            <td colspan="2" data-bind="text: name"></td>
-            <td><span data-bind="html: amountEuro"></span></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class="left">
-    <div class="cta-panel">
-        <button class="button primary next resetDirty" data-bind="click: goToStep3">Ďalej</button>
-        <button class="button link prev resetDirty" data-bind="click: goToStep1">Naspäť</button>
-    </div>
-</div>
+                <div data-bind="visible: $data.vacationVisible">
+                    <div class="row-4" data-bind="jq: 'addressAutocomplete'">
+                        <div class="single required">
+                            <label>Meno a priezvisko / Názov</label>
+                            <input data-bind="value: $data.vacationObj().name, error: $data.vacationObj().nameError, attr: {id:'vacationName'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Ulica</label>
+                            <input data-bind="value: $data.vacationObj().street, error: $data.vacationObj().streetError, attr: {id:'vacationStreet'+$index()}" type="text" data-name="street">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Popisné číslo</label>
+                            <input data-bind="value: $data.vacationObj().streetNumber, error: $data.vacationObj().streetNumberError, attr: {id:'vacationStreetNumber'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Číslo bytu / domu</label>
+                            <input data-bind="value: $data.vacationObj().buildingNr, error: $data.vacationObj().buildingNrError, attr: {id:'vacationBuildingNr'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Číslo podlažia</label>
+                            <input data-bind="value: $data.vacationObj().floorNr, error: $data.vacationObj().floorNrError, attr: {id:'vacationFloorNr'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>PSČ</label>
+                            <input data-bind="value: $data.vacationObj().postalCode, error: $data.vacationObj().postalCodeError, attr: {id:'vacationPostalCode'+$index()}" type="text" data-name="psc">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Mesto / obec</label>
+                            <input data-bind="value: $data.vacationObj().city, error: $data.vacationObj().cityError, attr: {id:'vacationCity'+$index()}" type="text" data-name="city">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                        <div class="single required">
+                            <label>Štát</label>
+                            <input data-bind="value: $data.vacationObj().country, error: $data.vacationObj().countryError, attr: {id:'vacationCountry'+$index()}" type="text">
+                            <div class="error">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+
+	        </div>
+	    </div>
+
+	</div>
+
+	<div class="right">
+		<div class="section">
+			<h2>Poistenie</h2>
+		</div>
+		<table id="summary-parameters">
+			<thead>
+				<tr>
+					<th colspan="3">Poistenie</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Poistenie od:</td>
+					<td>15. 05. 2014</td>
+					<td><a href="" class="button small">Zmeniť</a></td>
+				</tr>
+				<tr>
+					<td>Poistenie do:</td>
+					<td>17. 05. 2014 (2 dni)</td>
+					<td><a href="" class="button small">Zmeniť</a></td>
+				</tr>
+				<tr>
+					<td>Krajina:</td>
+					<td>Turecko</td>
+					<td><a href="" class="button small">Zmeniť</a></td>
+				</tr>
+		</table>
+		<table id="summary-product" class="glue-tables">
+			<tfoot>
+				<tr>
+					<td colspan="2">Celková cena poistenia:</td>
+					<td>15 €</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<div class="left">
+	    <div class="cta-panel">
+	        <button class="button primary next resetDirty" data-bind="click: goToStep3">Ďalej</button>
+	        <button class="button link prev resetDirty" data-bind="click: goToStep1">Naspäť</button>
+	    </div>
+	</div>
+
 </div>
 
 <div data-bind="visible: step() == 3" id="form-step-3" class="un-v1 single form-step">
 
-	<div data-bind="visible: step3Invalid() == true" class="separator error">
-	    <h2>Chyba</h2>
-	
-	    <div>Ľutujeme, dokumenty sa nepodarilo zapísať. Skúste údaje zadať ešte raz alebo kontaktujte <a href="mailto:xyz@union.sk">xyz@union.sk.</a></div>
-	</div>
+    <div data-bind="visible: step3Invalid() == true" class="separator error">
+        <h2>Chyba</h2>
+
+        <div>Ľutujeme, dokumenty sa nepodarilo zapísať. Skúste údaje zadať ešte raz alebo kontaktujte <a href="mailto:xyz@union.sk">xyz@union.sk.</a></div>
+    </div>
 
     <div>
         <div class="section">
@@ -1008,32 +564,32 @@
             <tr>
                 <th>Platnosť</th>
                 <th>Počet poistených osôb</th>
-                <th>Riziková skupina</th>
-                <th>Krajina pobytu</th>
+                <!--<th>Riziková skupina</th>-->
+                <th colspan="2">Krajina pobytu</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>od: <span data-bind="text: insuredFrom"></span><br>do: <span data-bind="text: insuredTo"></span> (<span data-bind="text: insuredDaysText"></span>)</td>
-                <td>Dospelí: <span data-bind="text: adultsCount"></span><br>Deti: <span data-bind="text: childrenCount"></span></td>
-                <td><span data-bind="text: showRiskLabel()"></span></td>
-                <td><span data-bind="text: showLandName()"></span><br>Územná platnosť: <span data-bind="text: showAreaName"></span></td>
+                <td>Dospelí: <span data-bind="text: adultsCount"></span><br>Deti: <span data-bind="text: childrenCount"></span><br>Spolu: <span data-bind="text: summaryPersonsCount"></span></td>
+                <!--<td><span data-bind="text: showRiskLabel()"></span></td>-->
+                <td colspan="2"><span data-bind="text: showLandName()"></span><br>Územná platnosť: <span data-bind="text: showAreaName"></span></td>
             </tr>
             </tbody>
         </table>
         <table class="recap glue-tables no-footer-summary section">
             <thead>
             <tr>
-                <th>Balík poistenia</th>
+                <!--<th>Balík poistenia</th>-->
                 <th>Poistné</th>
-                <th colspan="2"></th>
+                <th colspan="3"></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td><h2><span data-bind="html: pack"></span></h2> <span data-bind="html: showPackDesription( pack() )"></span> </td>
-                <td><h2><span data-bind="html: coveredRisksPriceEuro"></span></h2></td>
-                <td colspan="2"></td>
+                <!--<td><h2><span data-bind="html: pack"></span></h2> <span data-bind="html: showPackDesription( pack() )"></span> </td>-->
+                <td><h2><span data-bind="html: totalPriceText"></span></h2></td>
+                <td colspan="3"></td>
             </tr>
             </tbody>
         </table>
@@ -1041,13 +597,12 @@
 
     <div>
         <div class="section">
-            <h2>Poistník <span data-bind="visible: insurer.same()">- Poistená osoba číslo 1</span></h2>
+            <h2>Poistník</h2>
         </div>
         <table class="recap">
             <thead>
             <tr>
-                <th>Meno</th>
-                <th>Priezvisko</th>
+                <th colspan="2">Meno a priezvisko</th>
                 <th data-bind="visible: insurer.isCzechoSlovak()">Rodné číslo</th>
                 <th data-bind="visible: !insurer.isCzechoSlovak()">Dátum narodenia</th>
                 <th>Štátna príslušnosť</th>
@@ -1055,10 +610,9 @@
             </thead>
             <tbody>
             <tr>
-                <td data-bind="text: insurer.name"></td>
-                <td data-bind="text: insurer.surname"></td>
+                <td colspan="2" data-bind="text: insurer.fullName"></td>
                 <td data-bind="text: insurer.rc, visible: insurer.isCzechoSlovak()"></td>
-                <td data-bind="text: insurer.birthDate,visible: !insurer.isCzechoSlovak()"></td>
+                <td data-bind="text: insurer.birthDate, visible: !insurer.isCzechoSlovak()"></td>
                 <td data-bind="text: insurer.citizenText"></td>
             </tr>
             </tbody>
@@ -1079,22 +633,22 @@
                 <td colspan="2">
                     <dl>
                         <dt>
-                        	<span data-bind="visible: insurer.isPerson()">Trvalý pobyt</span>
-        					<span data-bind="visible: !insurer.isPerson()">Sídlo</span>
-                        
+                            <span data-bind="visible: insurer.isPerson()">Trvalý pobyt</span>
+                            <span data-bind="visible: !insurer.isPerson()">Sídlo</span>
+
                         </dt>
                         <dd>
-                        	<span data-bind="text: insurer.address.street"></span>
-                        	<span data-bind="text: insurer.address.number"></span>, 
-                        	<span data-bind="text: insurer.address.city"></span>, 
-                        	<span data-bind="text: insurer.address.psc"></span>
+                            <span data-bind="text: insurer.address.street"></span>
+                            <span data-bind="text: insurer.address.number"></span>,
+                            <span data-bind="text: insurer.address.city"></span>,
+                            <span data-bind="text: insurer.address.psc"></span>
                         </dd>
                         <dt data-bind="visible: !insurer.address.same()">Korešpondenčná adresa</dt>
                         <dd data-bind="visible: !insurer.address.same()">
-                        	<span data-bind="text: insurer.postalAddress.street"></span> 
-                        	<span data-bind="text: insurer.postalAddress.number"></span>, 
-                        	<span data-bind="text: insurer.postalAddress.city"></span>,
-                        	<span data-bind="text: insurer.postalAddress.psc"></span>
+                            <span data-bind="text: insurer.postalAddress.street"></span>
+                            <span data-bind="text: insurer.postalAddress.number"></span>,
+                            <span data-bind="text: insurer.postalAddress.city"></span>,
+                            <span data-bind="text: insurer.postalAddress.psc"></span>
                         </dd>
                     </dl>
                 </td>
@@ -1103,62 +657,49 @@
         </table>
     </div>
 
-    <div data-bind="foreach: insuredPersons">
-        <div data-bind="visible: ($parent.insurer.same() == true && $index() > 0 ) || ( $parent.insurer.same() != true )">
-            <div class="section">
-                <h2>Poisťovaná osoba číslo <span data-bind="text: $index()+1"></span></h2>
-            </div>
-            <table class="recap no-footer">
-                <thead>
-                <tr>
-                    <th>Meno</th>
-                    <th>Priezvisko</th>
-                    <th>Dátum narodenia</th>
-                    <th>Štátna príslušnosť</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td data-bind="text: name"></td>
-                    <td data-bind="text: surname"></td>
-                    <td data-bind="text: birthDate"></td>
-                    <td data-bind="text: citizenText"></td>
-                </tr>
-                </tbody>
-            </table>
+    <div>
+        <div class="section">
+            <h2>Poisťované osoby</h2>
         </div>
+        <table class="recap no-footer">
+            <thead>
+            <tr>
+                <th colspan="2">Meno a priezvisko</th>
+                <th>Dátum narodenia</th>
+                <th>Štátna príslušnosť</th>
+            </tr>
+            </thead>
+            <tbody data-bind="foreach: insuredPersons">
+            <tr>
+                <td data-bind="text: fullName" colspan="2"></td>
+                <td data-bind="text: birthDate"></td>
+                <td data-bind="text: citizenText"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
+
     <div data-bind="visible: documents().status == 'ok'">
-	    <div class="section">
-	        <h2>Dokumenty</h2>
-	    </div>
-	    <table>
-	        <thead>
-	        <tr>
-	            <th class="small">Dokument</th>
-	            <th>Akcia</th>
-	        </tr>
-	        </thead>
-	        <tbody>
-	        <tr>
-	            <td>Návrh zmluvy</td>
-	            <td><a data-bind="attr: {href: documents().pdf1}" href="" target="_blank">Stiahnuť</a></td>
-	        </tr>
-	        <tr>
-	            <td>Poistná karta</td>
-	            <td><a data-bind="attr: {href: documents().pdf2}" href="" target="_blank">Stiahnuť</a></td>
-	        </tr>
-	        <tr>
-	            <td>Požiadavka na platbu</td>
-	            <td><a data-bind="attr: {href: documents().pdf3}" href="" target="_blank">Stiahnuť</a></td>
-	        </tr>
-	        <tr>
-	            <td>Prijímový pokladničný doklad</td>
-	            <td><a data-bind="attr: {href: documents().pdf4}" href="" target="_blank">Stiahnuť</a></td>
-	        </tr>        
-	        </tbody>
-	    </table>
+        <div class="section">
+            <h2>Dokumenty</h2>
+        </div>
+        <table>
+            <tbody>
+            <tr>
+                <td>Návrh zmluvy&nbsp;<span data-bind="html: documents().vs"></span></td>
+                <td><a data-bind="attr: {href: documents().pdf1}" href="" target="_blank">Stiahnuť</a></td>
+            </tr>
+            <tr>
+                <td>Poistná karta</td>
+                <td><a data-bind="attr: {href: documents().pdf2}" href="" target="_blank">Stiahnuť</a></td>
+            </tr>
+            <tr>
+                <td>Prijímový pokladničný doklad</td>
+                <td><a data-bind="attr: {href: documents().pdf3}" href="" target="_blank">Stiahnuť</a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div data-bind="visible: documents().status != 'ok'" class="cta-panel">
         <button data-bind="click: save" class="button primary next resetDirty">Zapísať</button>
@@ -1167,187 +708,124 @@
     <div data-bind="visible: documents().status == 'ok'" class="cta-panel">
         <button data-bind="click: newInsurance" class="button primary next resetDirty">Nové poistenie</button>
     </div>
+
 </div>
+
 
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui-1.10.4.min.js"></script>
 <script src="js/knockout-3.2.0.js"></script>
-<script src="js/countries.js"></script>
 
+<script src="js/models/PersonModel.js"></script>
+<script src="js/models/Insurer.js"></script>
+<script src="js/models/AddressModel.js"></script>
+<script src="js/models/StornoModel.js"></script>
 <script src="basex.js"></script>
-<script src="model.js"></script>
+
+<script src="ikcpModel.js"></script>
+<script src="js/utils.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/ui.jq.js"></script>
+<script src="js/countries.js"></script>
 
-<script type="text/javascript">
+<script>
 
-    var ckZajazdy;
-    
-    $( document ).ready(function () {
+    var ikcp;
 
+    $(document).ready(function()	{
+
+        // init model
         var model = {},
             hash = window.location.hash;
+        ikcp = new IkcpModel( model );
 
-        
+
+        // TODO: remove in production mode
         if( getParameterByName("debug") == "1" ){
             model = readFromLS('model');
 
             if( hash == "#step1" ){
-                ckZajazdy.step(1);
+                ikcp.step(1);
             } else if (hash == "#step2") {
-                ckZajazdy.step(2);
+                ikcp.step(2);
             } else if (hash == "#step3") {
-                ckZajazdy.step(3);
-            }            
-            
+                ikcp.step(3);
+            }
+
             var saveInterval = window.setInterval(function () {
-                saveToLS("model", ckZajazdy);
+                saveToLS("model", ikcp);
             }, 3000);
         }
 
-        ckZajazdy = new CKZajazdy( model );
+        ko.applyBindings( ikcp );
 
-        ko.applyBindings( ckZajazdy );
-
-        window.location.hash = "step" + ckZajazdy.step();
-        
+        // TODO: remove in production mode
+        window.location.hash = "step" + ikcp.step();
         if ("onhashchange" in window) {
             window.onhashchange = function () {
                 var hash = window.location.hash;
                 if (hash == "#step1") {
-                    ckZajazdy.goToStep1();
+                    ikcp.goToStep1();
                 } else if (hash == "#step2") {
-                    ckZajazdy.goToStep2();
+                    ikcp.goToStep2();
                 } else if (hash == "#step3") {
-                    ckZajazdy.goToStep3();
+                    ikcp.goToStep3();
                 }
             };
         }
-        
-        // zmena poistenie od
-        $("#insuredFromButton").bind("click", function (event) {
-        	$("#insuredFromRow").toggleClass("hide").find("input[name=insuredFrom]").val(ckZajazdy.insuredFrom());
+
+        //fixed table
+        var tbody_width = $("table tbody").css('width');
+        $("thead").css('width', tbody_width);
+        $("tfoot").css('width', tbody_width);
+        $("thead th").each(function()	{
+            var idx = $(this).index()+1;
+            var new_width = $("tbody tr:nth-child(2) td:nth-child("+idx+")").css('width');
+            $(this).css('width', new_width);
+            $("tfoot td:nth-child("+idx+")").css('width', new_width);
+            console.log(idx, new_width);
         });
-        
-        $("#insuredFromRow").find(".button.primary").bind("click", function (event) {
-            var insuredFrom = $("#insuredFromRow").find("input[name=insuredFrom]").val(),
-            	result = ckZajazdy.insuredFromInvalid( insuredFrom, ckZajazdy.insuredTo(), ckZajazdy.today );
-            
-            if( result == false ){
-            	// ok
-            	ckZajazdy.insuredFrom(insuredFrom);
-            	$("#insuredFromRow").toggleClass("hide");
-            } else {
-            	// fail
-            	$("#insuredFromRow").find(".error").html( result );
+
+        var move = function()	{
+            var st = $(window).scrollTop();
+            var ot = $("table.edit-grid tbody").offset().top - $("table.edit-grid thead").height();
+            var sb = st + $(window).height();
+            var ob = ot + $("table.edit-grid tbody").height() + $("table.edit-grid thead").height() + $("table.edit-grid tfoot").height();
+            console.log(ob);
+            if( st > ot && sb < ob )	{
+                $("table.edit-grid").addClass("fixed");
+            } else if( st > ot && sb > ob )	{
+                $("table.edit-grid").removeClass("fixed");
+            } else	{
+                $("table.edit-grid").removeClass("fixed");
             }
-             
+        }
+        move();
+        $(window).scroll(move);
+
+        //focus handling
+        $(".required input").focus(function()	{
+            $(this).parents(".required").addClass("has-focus");
+        }).blur(function()	{
+            $(this).parents(".required").removeClass("has-focus");
+        });
+        $(".dob input").focus(function()	{
+            $(this).parents(".dob").addClass("has-focus");
+        }).blur(function()	{
+            $(this).parents(".dob").removeClass("has-focus");
+        });
+        $(".price input").focus(function()	{
+            $(this).parents(".price").addClass("has-focus");
+        }).blur(function()	{
+            $(this).parents(".price").removeClass("has-focus");
         });
 
-        // zmena poistenie do
-        $("#insuredToButton").bind("click", function (event) {
-            $("#insuredToRow").toggleClass("hide").find("input[name=insuredTo]").val(ckZajazdy.insuredTo());
+        //help
+        $("[href=#show-help]").click(function()	{
+            $(this).toggleClass("opened");
+            $(".table-help").toggle();
         });
-        $("#insuredToRow").find(".button.primary").bind("click", function (event) {
-            var insuredTo = $("#insuredToRow").find("input[name=insuredTo]").val(),
-            	result = ckZajazdy.insuredToInvalid( ckZajazdy.insuredFrom(), insuredTo, ckZajazdy.today );
-            
-            if( result == false ){
-            	// ok
-            	ckZajazdy.insuredTo( insuredTo );
-                $("#insuredToRow").toggleClass("hide"); 
-            } else {
-            	// fail
-            	$("#insuredToRow").find(".error").html( result );
-            }            
-        });
-
-        // zmena osoby
-        $("#personsButton").bind("click", function (event) {
-            var $persons = $("#personsRow");
-            
-            $persons.toggleClass("hide");
-            
-            $("#step2groupRiskNo").val(ckZajazdy.childrenCount());
-            $("#step2groupRiskYes").val(ckZajazdy.adultsCount());
-        });
-        $("#personsRow").find(".button.primary").bind("click", function (event) {
-            var invalid = ckZajazdy.personCountInvalid( $("#childrenCountNew").val(), $("#adultsCountNew").val() );
-            
-            if( invalid == false ){
-                ckZajazdy.childrenCount(parseInt($("#childrenCountNew").val(), 10));
-                ckZajazdy.adultsCount(parseInt($("#adultsCountNew").val(), 10));
-                $("#personsRow").toggleClass("hide");
-            }
-            
-            $("#personsRow").find(".error").html( invalid );
-        });
-
-        // zmena rizikovej skupiny
-        $("#riskGroupButton").bind("click", function (event) {
-            var row = $("#riskGroupRow");
-            row.toggleClass("hide");
-
-            if (ckZajazdy.riskGroup() == "T") {
-                $("#step2groupRiskT").prop("checked", true);
-                $("#step2groupRiskS").prop("checked", false);
-            } else {
-                $("#step2groupRiskT").prop("checked", false);
-                $("#step2groupRiskS").prop("checked", true);
-            }
-
-        });
-        $("#riskGroupRow").find(".button.primary").bind("click", function (event) {
-
-            if ( $("#step2groupRiskT").prop("checked") == true ) {
-                ckZajazdy.riskGroup( "T" );
-            } else {
-                ckZajazdy.riskGroup( "S" );
-            }
-            $("#riskGroupRow").toggleClass("hide");
-        });
-
-        // zmena produkt / balik
-        $("#produktButton").bind("click", function (event) {
-            $("#produktRow").toggleClass("hide");
-            $("#packNew").val(ckZajazdy.pack());
-        });
-        $("#produktRow").find(".button.primary").bind("click", function (event) {
-            ckZajazdy.pack( $("#packNew").val() );
-            
-    		if( ckZajazdy.country() == "SR" ){
-    			ckZajazdy.slovakPack( $("#packNew").val() );			
-    		} else {
-    			ckZajazdy.otherPack( $("#packNew").val() );
-    		}            
-            
-        });
-		
-     	// infuserFrom insuredTo na 2 kroku
-    	$("#summary-parameters .datepicker").datepicker({
-    		dateFormat: 'dd.mm.yy',
-    		changeMonth: false,
-    		changeYear: true,
-    		minDate: new Date(),
-    		firstDay: 1,
-    		dayNamesMin: [ "Ne", "Po", "Ut", "St", "Št", "Pi", "So" ],
-    		monthNamesShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec' ],
-    		monthNames: [ 'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December' ],
-    		yearRange: "c-00:c+20"
-    	});
-
-        $("#land").bind("blur", function (event) {
-            var landVal = $(this).val() + "";
-            
-            if( landVal == "" ){
-            	ckZajazdy.land(undefined);
-            }
-
-        });
-
-	});    
-
+    });
 </script>
-
 </body>
 </html>

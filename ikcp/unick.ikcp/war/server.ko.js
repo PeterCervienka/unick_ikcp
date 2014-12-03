@@ -32,9 +32,7 @@ ko.isObservable = function(val){
 
 ko.toJSON = function(obj){
 	return JSON.stringify(obj, function(key, value){
-		if(key=='watchCoverage' || key=='watchPack'){
-			return undefined;
-		}
+
 		if (typeof value === 'function'){
 			return ko.isObservable(value) ? value() : undefined;
 		} else {

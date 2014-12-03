@@ -12,9 +12,10 @@ function IkcpModel( modelData ){
 
     modelData = modelData || {};
 	modelData.insurer = modelData.insurer || {};
-    
+    modelData.documents = modelData.documents || {};
+
     this.step = ko.observable(1);
-    
+
     this.risks = [
         {value: "Turista", key: "T"},
         {value: "Šport", key: "S"},
@@ -55,6 +56,9 @@ function IkcpModel( modelData ){
         {value: "Iné", key: "o"}
     ];
 
+    this.signingDate = dateTimeToSK(now); //terajsi cas, nastavit pri pokuse o uzavretie pojistky
+    this.variableSymbol = "";
+
     this.insuredFrom = ko.observable( modelData.insuredFrom || dateToSK( this.today ) );
     this.insuredTo = ko.observable( modelData.insuredTo || dateToSK( this.today ) );
     this.insuredDays = ko.computed(function(){
@@ -72,14 +76,21 @@ function IkcpModel( modelData ){
 	this.step2Invalid = ko.observable(false);
 	this.step3Invalid = ko.observable(false);
 
+    this.documents = ko.observable(modelData.documents || {});
+
     this.childrenCount = ko.observable( parseInt(modelData.childrenCount) || 0 );
     this.adultsCount = ko.observable( parseInt(modelData.adultsCount) || 1 );
+    this.summaryPersonsCount = ko.computed(function() {
+        var count = parseInt(self.childrenCount(), 10) + parseInt(self.adultsCount(), 10);
+        return count;
+    }, this);
 
     this.childrenCountByDate = ko.observable( parseInt(modelData.childrenCountByDate) || 0 );
     this.adultsCountByDate = ko.observable( parseInt(modelData.adultsCountByDate) || 0 );
 
     this.personsBirthInvalid = ko.observable(false);
 
+    this.insurer = new InsurerObj( modelData.insurer );
 
     if( modelData.insuredPersons && modelData.insuredPersons.length > 0 ){
 
@@ -198,7 +209,6 @@ function IkcpModel( modelData ){
 		{forma: "PO", text: "Právnická osoba"}
 
 	]);
-	this.insurer = new Insurer( modelData.insurer );    
 
 	this.insurerVisiblePerson = ko.computed(function(){
 		if( this.insurer.isPerson() ){
@@ -408,6 +418,37 @@ function IkcpModel( modelData ){
 	
 
     // functions
+    this.newInsurance = function() {
+
+        // remove hash and redirect to index
+        window.location.hash = "";
+        window.location.href = window.location.href.substring(0, window.location.href.length -1);
+    };
+
+    this.save = function(){
+
+        var self = this;
+
+        window.service('save', ko.toJS(self),
+            function(data){
+                console.log("SAVE RESULT", data);
+
+                if (data.status.toLowerCase() != "ok") {
+                    self.step3Invalid(true);
+                    self.documents({});
+                } else {
+                    self.step3Invalid(false);
+                    self.documents({
+                        pdf1: data.pdf1,
+                        pdf2: data.pdf2,
+                        pdf3: data.pdf3,
+                        status: data.status
+                    });
+                }
+            }
+        );
+    };
+
     this.addPerson=function(){
         if(this.insuredPersons().length<9)
         	this.insuredPersons.push( new PersonObj(  ) );
@@ -416,6 +457,25 @@ function IkcpModel( modelData ){
     this.showAddPerson=ko.computed(function(){
     	return this.insuredPersons().length<9;
     }, this);
+
+    this.showAreaName = ko.computed(function() {
+        if(this.country()) {
+            for(var i = 0; i < areaList.length; i++) {
+                var area = areaList[i];
+                if (area.key == this.country()) {
+                    return area.label;
+                }
+            }
+        }
+        return "";
+    }, this);
+
+    this.showLandName = function() {
+        if(this.land()) {
+            return this.land().label;
+        }
+        return "";
+    };
 
     this.removePerson=function(person){
         if(self.insuredPersons().length>1)
