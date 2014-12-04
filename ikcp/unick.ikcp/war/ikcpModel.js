@@ -18,7 +18,7 @@ function IkcpModel( modelData ){
 
     this.risks = [
         {value: "Turista", key: "T"},
-        {value: "Šport", key: "S"},
+        {value: "Šport", key: "H"},
         {value: "Prac. cesta - nemanuálna práca", key: "PN"},
         {value: "Prac. cesta - manuálna práca", key: "PM"}
     ];
@@ -32,32 +32,38 @@ function IkcpModel( modelData ){
 
     this.discountCardTypes = [
         {value: "ISIC", key: "ISIC"},
+        {value: "EURO 26", key: "EURO26"},
+        {value: "GO 26", key: "GO26"},
         {value: "ITIC", key: "ITIC"},
-        {value: "EURO 26", key: "EURO26"}
+        {value: "RODINA", key: "RODINA"},
+        {value: "UZP", key: "UZP"},
+        {value: "Obchodná zľava", key: "Obchodná zlava"},
+        {value: "PGP", key: "PGP"}
     ];
 
     this.stornoTypes = [
-        {value: "Cestovný lískok - letenka", key: "CL-L"},
-        {value: "Cestovný lískok - autobus", key: "CL-A"},
-        {value: "Cestovný lískok - loď, trajekt", key: "CL-LT"},
-        {value: "Cestovný lískok - vlak", key: "CL-V"},
-        {value: "Ubytovanie", key: "UBY"},
-        {value: "Zájazd", key: "ZAJ"},
-        {value: "Študijný program", key: "STP"},
-        {value: "Iné", key: "OTH"}
+        {value: "Cestovný lískok - letenka", key: "let"},
+        {value: "Cestovný lískok - autobus", key: "bus"},
+        {value: "Cestovný lískok - loď, trajekt", key: "lod"},
+        {value: "Cestovný lískok - vlak", key: "vlak"},
+        {value: "Ubytovanie", key: "ybyt"},
+        {value: "Zájazd", key: "zaj"},
+        {value: "Študijný program", key: "stprog"},
+        {value: "Iné", key: "ine"}
 
     ];
 
     this.petTypes = [
-        {value: "Pes", key: "d"},
-        {value: "Mačka", key: "c"},
-        {value: "Vták", key: "b"},
-        {value: "Zajac", key: "r"},
-        {value: "Iné", key: "o"}
+        {value: "Pes", key: "pes"},
+        {value: "Mačka", key: "macka"},
+        {value: "Vták", key: "vtak"},
+        {value: "Zajac", key: "zajac"},
+        {value: "Iné", key: "ine"}
     ];
 
     this.signingDate = dateTimeToSK(now); //terajsi cas, nastavit pri pokuse o uzavretie pojistky
     this.variableSymbol = "";
+    this.predmet = "701";
 
     this.insuredFrom = ko.observable( modelData.insuredFrom || dateToSK( this.today ) );
     this.insuredTo = ko.observable( modelData.insuredTo || dateToSK( this.today ) );
@@ -105,16 +111,8 @@ function IkcpModel( modelData ){
         this.insuredPersons.push( new PersonObj( {  } ) );
         this.insuredPersons.push( new PersonObj( {  } ) );
     }
+    this.totalPrice = ko.observable( parseFloat( modelData.totalPrice ) || 0 );
 
-    this.totalPrice = ko.computed(function() {
-        // TODO: compute total price
-    	var sum=0;
-    	for(var i=0; i<this.insuredPersons().length; i++)
-    	{
-    		sum+=this.insuredPersons()[i].totalPersonPrice();
-    	}
-        return sum;
-    }, this);
 
     this.watchAgesCount = ko.computed(function() {
         var sum = 0;
@@ -324,7 +322,7 @@ function IkcpModel( modelData ){
 	}, this );
 	    
     this.landError = ko.computed(function(){
-        if( this.land() == undefined || this.land().label.length == 0 ) {
+        if( this.land() == undefined || this.land().label.length == 0 || this.land().key == 0) {
             return "Zadajte krajinu";
         } else {
             return false;
@@ -448,12 +446,37 @@ function IkcpModel( modelData ){
 			}
 		}
 
-    	for(var i=0; i<this.insuredPersons().length; i++)
-    	{
-    		if( this.insuredPersons()[i].nameError() ) { valid = false; }
-    		if( this.insuredPersons()[i].surnameError()) { valid = false; }
-    		if( this.insuredPersons()[i].birthDateError() ) { valid = false; }
-    	}
+        // ak je poistnik zaroven poistenou osobou, tak prvy poistenec ma zdedit jeho data
+        if( this.insuredPersons().length > 0 && this.insurer.same() == true ){
+            this.insuredPersons()[0].name( this.insurer.name() );
+            this.insuredPersons()[0].surname( this.insurer.surname() );
+            this.insuredPersons()[0].citizen( this.insurer.citizen() );
+            var jsonDate = parseDateSK( this.insurer.birthDate());
+            this.insuredPersons()[0].birthDateDay( jsonDate.day );
+            this.insuredPersons()[0].birthDateMonth( jsonDate.month );
+            this.insuredPersons()[0].birthDateYear( jsonDate.year );
+        }
+
+        // validovat data poistencov
+        if( this.insuredPersons().length > 0 &&
+            this.insuredPersons().length == ( parseInt( this.childrenCount(),10 ) + parseInt( this.adultsCount(), 10 ) ) ){
+
+            for( i=0; i < this.insuredPersons().length; i++ ){
+
+                if( this.insuredPersons()[ i ].nameError() ){
+                    valid = false;
+                }
+                if( this.insuredPersons()[ i ].surnameError() ){
+                    valid = false;
+                }
+                if( this.insuredPersons()[ i ].birthDateError() ){
+                    valid = false;
+                }
+            }
+
+        } else {
+            valid = false;
+        }
 
     	return valid;
 	};
@@ -479,6 +502,39 @@ function IkcpModel( modelData ){
 	
 
     // functions
+    this.resetPrice = function() {
+        self.totalPrice( 0 );
+        for( var i = 0; i < self.insuredPersons().length; i++ ) {
+            self.insuredPersons()[i].totalPersonPrice( 0 );
+        }
+    };
+
+    this.watchTotalPrice = ko.computed(function() {
+        var self = this;
+
+        if ( this.validateStep1() ) {
+
+            window.service('calcIkcp', ko.toJS(self),
+                function(data){
+                    console.log("calcIkcp", data);
+
+                    self.totalPrice( data.summary );
+                    var persons = data.persons;
+                    for( var i = 0; i < persons.length; i++ ) {
+
+                        if (i < self.insuredPersons().length ) {
+                            self.insuredPersons()[i].totalPersonPrice( persons[i].price );
+                        }
+                    }
+                }
+            );
+        } else {
+            this.resetPrice();
+        }
+
+    }, this);
+
+
     this.newInsurance = function() {
 
         // remove hash and redirect to index
@@ -570,6 +626,10 @@ function IkcpModel( modelData ){
             return false;
         }
         return true;
+    }, this);
+
+    this.showFamilyDiscount = ko.computed(function() {
+        return ( self.summaryPersonsCount() > 2 && self.adultsCount() > 0 );
     }, this);
 
     this.createClassForDatePicker = ko.computed(function ( data ) {

@@ -65,7 +65,7 @@
 	    <td></td>
 	    <td colspan="9">
 	        <strong data-bind="html: $data.totalPriceText"></strong>
-	        <div class="alert">
+	        <div data-bind="visible: showFamilyDiscount" class="alert">
 	            Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
 	        </div>
 	    </td>
@@ -394,8 +394,9 @@
 			            <input data-bind="value: $data.birthDateDay, attr: {id:'step2_birthDateDay'+$index()}, error: birthDateError" type="text" placeholder="DD"/>
 			            <input data-bind="value: $data.birthDateMonth, attr: {id:'step2_birthDateMonth'+$index()}, error: birthDateError" type="text" placeholder="MM"/>
 			            <input data-bind="value: $data.birthDateYear, attr: {id:'step2_birthDateYear'+$index()}, error: birthDateError" type="text" placeholder="YYYY"/>
+                        <div class="error">&nbsp;</div>
 			        </div>
-	                <div class="error">&nbsp;</div>
+
 	            </div>
 
                 <div data-bind="visible: $data.discountCard">

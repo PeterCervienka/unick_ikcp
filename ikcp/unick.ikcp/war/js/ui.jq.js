@@ -136,7 +136,6 @@ ko.jq.landAutocomplete = function( element ){
 
             $(this).val( ui.item.value ).change();
 
-            $("#country").val( ui.item.area );
             ikcp.country( ui.item.area );
             ikcp.land( ui.item );
         },

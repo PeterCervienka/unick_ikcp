@@ -9,7 +9,7 @@ function StornoObj( modelData ) {
     modelData = modelData || {};
 
     // ********************** DEFINITION *************************//
-    this.type = ko.observable( modelData.type || "CL-L");
+    this.type = ko.observable( modelData.type || "let");
 
     this.typeOther = ko.observable( modelData.typeOther || "");
 
@@ -23,26 +23,25 @@ function StornoObj( modelData ) {
     }, this );
 
     this.typeOtherError = ko.computed(function(){
-        if( this.type() == "OTH" && this.typeOther() == "" ){ return "Opravte iný typ objednávanej služby"; }
+        if( this.type() == "ine" && this.typeOther() == "" ){ return "Opravte iný typ objednávanej služby"; }
         return false;
     }, this );
 
-    this.dateError = ko.computed(function(){
-        //TODO: validate range of date
+    this.dateError = ko.computed(function() {
         if( this.date() == "" ){ return "Zadajte dátum zakúpenia"; }
-        else if ( validDateSK(this.date()) == false ) { return "Zadajte správny formát dátumu vo formáte dd.MM.yyyy"; }
+        else if ( validDateSK( this.date() ) == false ) { return "Zadajte správny formát dátumu vo formáte dd.MM.yyyy"; }
+        else if ( makeDateSK( this.date() ) < defaultDate ) {return "Dátum môže byť starí maximálne 3 dni."}
         return false;
     }, this );
 
     this.stornoOtherVisible = ko.computed(function() {
-        return this.type() == "OTH";
+        return this.type() == "ine";
     }, this);
 
     this.isValid = function() {
         var valid = true;
 
         if( self.typeError()){ valid = false; }
-        if( self.priceError()){ valid = false; }
         if( self.dateError()){ valid = false; }
 
         return valid;

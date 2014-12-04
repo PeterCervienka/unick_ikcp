@@ -273,6 +273,12 @@ var getDefaultCountries = function () {
             }
         }
     }
+
+    result.push( {key: 0, label: '--------------------------', area: "", default: false } );
+    result.push( {key: 1003, label: 'Európa', area: "E", default: false } );
+    result.push( {key: 1001, label: 'mimo Európy', area: "M", default: false } );
+    result.push( {key: 1002, label: 'Svet', area: "S", default: false } );
+
     return result;
 };
 

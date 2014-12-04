@@ -188,21 +188,21 @@ function skDatetoUs( str ){
 
 function daydiff( startDate, endDate ){
     return Math.round( (endDate - startDate ) / (1000*60*60*24) );
-}
+};
 
 function validDateSK( date ) {
     var regExp = /^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)\d\d$/,
         matches = regExp.test( date );
 
     return matches;
-}
+};
 
 function validMonthYearDate( date ) {
     var regExp = /^(0[1-9]|1[012])[.](19|20)\d\d$/,
         matches = regExp.test( date );
 
     return matches;
-}
+};
 
 function isGreaterOrEqualThenToday( date ) {
     if (date ) {
@@ -218,7 +218,7 @@ function isGreaterOrEqualThenToday( date ) {
     }
 
     return false;
-}
+};
 
 function isLowerOrEqualThenToday( date ) {
     if (date ) {
@@ -234,7 +234,28 @@ function isLowerOrEqualThenToday( date ) {
     }
 
     return false;
-}
+};
+
+function getAge( dateBirth, dateNow ){
+    var years= 0,
+        dateBirthSK = parseDateSK( dateBirth ),
+        nowYear = dateNow.getFullYear(),
+        nowMonth = dateNow.getMonth() + 1,
+        nowDay = dateNow.getDate(),
+        age = nowYear - dateBirthSK.year;
+
+    if( nowMonth > dateBirthSK.month ){
+
+    } else if( nowMonth == dateBirthSK.month ){
+        if( nowDay < dateBirthSK.day ){
+            age--;
+        }
+    } else {
+        age--;
+    }
+
+    return age;
+};
 
 // ************** STRING *****************//
 

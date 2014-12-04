@@ -10,6 +10,7 @@ function PersonObj( modelData ) {
     var modelData = modelData || {};
 
     this.editable = ko.observable( modelData.editable || false );
+    this.totalPersonPrice = ko.observable( parseFloat( modelData.totalPersonPrice ) || 0 );
 
     // personal data
     this.name = ko.observable( modelData.name || "");
@@ -34,7 +35,7 @@ function PersonObj( modelData ) {
     this.stornoObj = ko.observable( modelData.stornoObj || new StornoObj() )
 
     this.pet = ko.observable( modelData.pet || false );
-    this.petType = ko.observable( modelData.petType || "d" );
+    this.petType = ko.observable( modelData.petType || "pes" );
     this.petOther = ko.observable( modelData.petOther || "" );
     this.petLicence = ko.observable( modelData.petLicence || "" );
 
@@ -42,7 +43,7 @@ function PersonObj( modelData ) {
     this.vacationObj = ko.observable( modelData.vacationObj || new AddressObj() );
 
     this.citizen = ko.observable( parseInt( modelData.citizen ) || 703 );
-    this.citizenText = ko.observable( modelData.citizenText || "");
+    this.citizenText = ko.observable( modelData.citizenText || "" );
 
     // HELPER METHODS
 
@@ -51,7 +52,11 @@ function PersonObj( modelData ) {
     }, this);
 
     this.birthDate = ko.computed(function() {
-        return this.birthDateDay() + "." + this.birthDateMonth() + "." + this.birthDateYear();
+        if (this.birthDateDay() != "" && this.birthDateMonth() != "" && this.birthDateYear() != "") {
+            return this.birthDateDay() + "." + this.birthDateMonth() + "." + this.birthDateYear();
+        } else {
+            return "";
+        }
     }, this);
 
     this.stornoEuro = ko.computed(function() {
@@ -68,17 +73,6 @@ function PersonObj( modelData ) {
 
     this.vacationVisible = ko.computed(function () {
         return this.vacation();
-    }, this);
-
-    this.totalPersonPrice = ko.computed(function() {
-        // TODO: compute summary price
-    	var spolu=10;
-    	if(this.medical()) spolu+=10;
-    	if(this.baggage()) spolu+=11.2;
-    	if(this.responsibility()) spolu+=12.3;
-    	if(this.accident()) spolu+=14.5;
-    	
-        return spolu;
     }, this);
 
     this.totalPersonPriceText = ko.computed(function() {
@@ -117,9 +111,33 @@ function PersonObj( modelData ) {
 
 	this.birthDateError = ko.computed(function(){
 
-		if( this.birthDate() == "" ){
-			return "Opravte dátum narodenia";
-		} else if( !validDateSK( this.birthDate() ) ) {
+        var date = new Date();
+
+        if (this.birthDateDay() == "" && this.birthDateMonth() == "" && this.birthDateYear() == "" ) {
+            return "Opravte dátum narodenia";
+        }
+
+        else if( this.birthDateDay() == "" ){
+            return "Opravte deň narodenia";
+        } else if( validRange(this.birthDateDay(), 0, 32) == false ) {
+            return "Zadajte správny deň narodenia";
+        }
+
+        else if( this.birthDateMonth() == "" ){
+            return "Opravte mesiac narodenia";
+        } else if( validRange(this.birthDateMonth(), 0, 13) == false ) {
+            return "Zadajte správny mesiac narodenia";
+        }
+
+        else if( this.birthDateYear() == "" ){
+            return "Opravte rok narodenia";
+        } else if( validRange(this.birthDateYear(), date.getFullYear() - 101, date.getFullYear() + 1) == false ) {
+            return "Zadajte správny rok narodenia";
+        }
+
+        else if( this.birthDate() == "" ){
+            return "Opravte dátum narodenia";
+        } else if( !validDateSK( this.birthDate() ) ) {
 			return "Zadajte správny dátum narodenia";
 		} else if( makeDateSK( this.birthDate() ) > new Date() ) {
 			return "Dátum narodenia je v budúcnosti";
@@ -163,12 +181,12 @@ function PersonObj( modelData ) {
     }, this );
 
     this.petOtherError = ko.computed(function(){
-        if( this.petType() == "o" && this.petOther() == "" ){ return "Opravte iný druh domáceho miláčika"; }
+        if( this.petType() == "ine" && this.petOther() == "" ){ return "Opravte iný druh domáceho miláčika"; }
         return false;
     }, this );
 
     this.petOtherVisible = ko.computed(function() {
-        return this.petType() == "o";
+        return this.petType() == "ine";
     }, this);
 
     this.petLicenceError = ko.computed(function(){
