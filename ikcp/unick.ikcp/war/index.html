@@ -23,12 +23,12 @@
 	<div class="row-4">
 	    <div class="single required calendar">
 	        <label>Poistený od</label>
-	        <input data-bind="value: insuredFrom, jq: 'birthDatePicker', error: insuredFromError" type="text" name="from" value="">
+	        <input data-bind="value: insuredFrom, jq: 'insuredFromDatePicker', error: insuredFromError" type="text" name="from" value="">
 	        <div class="error">&nbsp;</div>
 	    </div>
 	    <div class="single required calendar">
 	        <label>Do</label>
-	        <input data-bind="value: insuredTo, jq: 'birthDatePicker', error: insuredToError" type="text" name="to" value="" >
+	        <input data-bind="value: insuredTo, jq: 'insuredToDatePicker', error: insuredToError" type="text" name="to" value="" >
 	        <div class="error">&nbsp;</div>
 	    </div>
 	    <div class="single required">
@@ -363,12 +363,21 @@
 	        </div>
 	    </div>
 
+        <div data-bind="visible:isSameEnable()" class="row-1">
+            <div class="single checkbox list">
+                <label for="insurerSame">
+                    <input data-bind="checked: insurer.same, click: insurerSameClick" type="checkbox" checked id="insurerSame">
+                    Poistník je zároveň poistenou osobou
+                </label>
+            </div>
+        </div>
+
 	    <div data-bind="foreach: insuredPersons">
-	        <div class="section single-before">
+	        <div  data-bind="visible: ($parent.insurer.same() == true && $index() > 0 ) || ( $parent.insurer.same() != true )" class="section single-before">
 	            <h2>Poisťovaná osoba číslo <span data-bind="text: $index()+1"></span></h2>
 	            <button data-bind="click: $parent.removePerson" class="button inline small">Odobrať osobu</button>
 	        </div>
-	        <div data-bind="visible: true" class="row-4">
+	        <div  data-bind="visible: ($parent.insurer.same() == true && $index() > 0 ) || ( $parent.insurer.same() != true )" class="row-4">
 	            <div class="single required">
 	                <label>Meno</label>
 	                <input data-bind="value: name, error: nameError" type="text" name="name" value="">

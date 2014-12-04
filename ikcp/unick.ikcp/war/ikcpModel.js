@@ -226,29 +226,90 @@ function IkcpModel( modelData ){
 		}
 	}, this);
 
+    // disable checkbox 'same as insurer' if insurer is FOP and PO or if count of adults is zero.
+    this.isSameEnable = ko.computed(function() {
+        if( this.insurer.isPerson() && this.adultsCount() > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }, this);
+
+    this.insurerSameClick = function(data, event){
+
+        if( this.insurer.same() && this.insuredPersons().length > 0 ){
+
+            var firstPerson = this.insuredPersons()[0];
+
+            firstPerson.name( this.insurer.name() );
+            firstPerson.surname( this.insurer.surname() );
+
+            if( this.insurer.isPerson() ){
+
+                var jsonDate = "";
+                if( this.insurer.isCzechoSlovak() ) {
+                    var birthDate = getDateFromRC( this.insurer.rc() );
+                    jsonDate = parseDateSK( birthDate ) ;
+                } else {
+                    jsonDate = parseDateSK( this.insurer.birthDate()) ;
+                }
+
+                firstPerson.birthDateDay( jsonDate.day );
+                firstPerson.birthDateMonth( jsonDate.month );
+                firstPerson.birthDateYear( jsonDate.year );
+
+            }
+
+            firstPerson.citizen( this.insurer.citizen() );
+
+        } else if( !this.insurer.same() && this.insuredPersons().length > 0 ){
+            var firstPerson = this.insuredPersons()[0];
+
+            firstPerson.name( "" );
+            firstPerson.surname( "" );
+            firstPerson.birthDateDay( "" );
+            firstPerson.birthDateMonth( "" );
+            firstPerson.birthDateYear( "" );
+            firstPerson.citizen( "703" );
+        }
+
+        return true;
+    };
 	
     // validacie
 	this.insuredFromInvalid = function( dateFrom, dateTo, today ){
-		
+
+        var maxDate = new Date( today.getTime() );
+        maxDate.setFullYear( maxDate.getFullYear() + 1 );
+        maxDate.setDate( maxDate.getDate() - 1 );
+
 		if( !validDateSK( dateFrom ) ) {
 			return "Zadajte správny dátum začiatku poistenia";
 		} else if( makeDateSK( dateFrom ) < today ) {
 			return "Dátum začiatku poistenia je v minulosti";
 		} else if( makeDateSK( dateFrom ) > makeDateSK( dateTo ) ) {
 			return "Dátum začiatku poistenia je za koncom poistenia";
-		} else {
+		} else if( makeDateSK( dateFrom ) > maxDate ) {
+            return "Dátum začiatku poistenia nesmie byť neskôr ako jeden rok";
+        } else {
 			return false;
 		}
 	};	
 
 	this.insuredToInvalid = function( dateFrom, dateTo, today ){
+
+        var maxDate = makeDateSK( dateFrom );
+        maxDate.setFullYear( maxDate.getFullYear() + 1 );
+
 		if( !validDateSK( dateTo ) ) {
 			return "Zadajte správny dátum konca poistenia";
 		} else if( makeDateSK( dateTo ) < today ) {
 			return "Dátum konca poistenia je v minulosti";
 		} else if( makeDateSK( dateTo ) < makeDateSK( dateFrom ) ) {
 			return "Dátum konca poistenia je pred začiatkom poistenia";
-		} else {
+		} else if( makeDateSK( dateTo ) > maxDate ) {
+            return "Dátum konca poistenia nesmie byť neskôr ako rok od začiatku poistenia";
+        } else {
 			return false;
 		}
 	};

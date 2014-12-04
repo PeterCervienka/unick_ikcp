@@ -18,11 +18,39 @@ ko.jq.birthDatePicker = function( element ){
     	dateFormat: 'dd.mm.yy',
     	changeMonth: true,
     	changeYear: true,
-    	minDate: '-0D',
-    	maxDate: '+100Y',
+    	minDate: '-100Y',
+    	maxDate: '+0D',
     	onSelect: function(){
     		$(this).change();
     	}
+    }).datepicker("option", datepickerOptions);
+};
+
+ko.jq.insuredFromDatePicker = function( element ){
+
+    $( element ).datepicker({
+        dateFormat: 'dd.mm.yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-0D',
+        maxDate: '+1Y -1D',
+        onSelect: function(){
+            $(this).change();
+        }
+    }).datepicker("option", datepickerOptions);
+};
+
+ko.jq.insuredToDatePicker = function( element ){
+
+    $( element ).datepicker({
+        dateFormat: 'dd.mm.yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: '-0D',
+        maxDate: '+2Y',
+        onSelect: function(){
+            $(this).change();
+        }
     }).datepicker("option", datepickerOptions);
 };
 
@@ -134,21 +162,6 @@ ko.jq.landAutocomplete = function( element ){
         $(this).autocomplete("search");
     });
 };
-
-// datumovnik na poistenie od, do 1. krok
-ko.jq.insuranceDatepicker = function( element ){
-	
-	$( element ).datepicker({
-		dateFormat: 'dd.mm.yy', 
-		minDate: new Date(),
-		numberOfMonths: 3,
-		onSelect: function(){
-			$(this).change();
-		}
-	}).datepicker("option", datepickerOptions);
-	
-};
-
 
 // titul
 ko.jq.titleAutocomplete = function( element ){
