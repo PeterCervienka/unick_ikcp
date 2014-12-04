@@ -122,10 +122,10 @@ function dateToMMMMYY( date ) {
 
 function makeDateSK( str ){
 
-    var dateIn = str,
+    var dateIn = normalizeSKDateAsString( str ),
         year = dateIn.substring(6,10),
-        mon = parseInt( dateIn.substring(3,5), 10),
-        day = parseInt( dateIn.substring(0,2), 10);
+        mon = padTime( parseInt( dateIn.substring(3,5), 10) ),
+        day = padTime( parseInt( dateIn.substring(0,2), 10) );
 
     return new Date( year,mon-1, day,0,0,0,0,0);
 };
@@ -176,6 +176,19 @@ function padTime( num ){
     }
 }
 
+function normalizeSKDateAsString( stringDate ) {
+    var arr = stringDate.split(".");
+    if (arr && arr.length == 3) {
+
+        arr[0] = padTime( parseInt( arr[0], 10) );
+        arr[1] = padTime( parseInt( arr[1], 10) );
+
+        return arr[0] + "." + arr[1] + "." + arr[2];
+    }
+
+    return stringDate;
+}
+
 function jsonDateToSK( str ){
     var sk = parseDateUS( str );
     return sk.day + "." + sk.month + "." + sk.year;
@@ -191,7 +204,7 @@ function daydiff( startDate, endDate ){
 };
 
 function validDateSK( date ) {
-    var regExp = /^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)\d\d$/,
+    var regExp = /^(((0?[1-9]|[12]\d|3[01])\.(0[13578]|[13578]|1[02])\.((1[6-9]|[2-9]\d)\d{2}))|((0?[1-9]|[12]\d|30)\.(0[13456789]|[13456789]|1[012])\.((1[6-9]|[2-9]\d)\d{2}))|((0?[1-9]|1\d|2[0-8])\.0?2\.((1[6-9]|[2-9]\d)\d{2}))|(29\.0?2\.((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/,
         matches = regExp.test( date );
 
     return matches;
@@ -238,7 +251,7 @@ function isLowerOrEqualThenToday( date ) {
 
 function getAge( dateBirth, dateNow ){
     var years= 0,
-        dateBirthSK = parseDateSK( dateBirth ),
+        dateBirthSK = parseDateSK( normalizeSKDateAsString( dateBirth ) ),
         nowYear = dateNow.getFullYear(),
         nowMonth = dateNow.getMonth() + 1,
         nowDay = dateNow.getDate(),
