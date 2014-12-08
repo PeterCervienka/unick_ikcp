@@ -13,7 +13,7 @@ public class CkmConfigFactory implements IBasexConfigFactory {
 	@Override
 	public void afterLoadProperties(AppConfig appConfig) {
 
-		File f = new File("/edata/kcpuz");
+		File f = new File("/edata/ikcp");
 		if (f.exists())
 			appConfig.getProperties().setProperty("basex.data.dir", f.getAbsolutePath());
 		System.out.println("use data.dir " + f.getAbsolutePath());
@@ -29,11 +29,11 @@ public class CkmConfigFactory implements IBasexConfigFactory {
 		if (wsusr != null) {
 			System.out.println(wsusr.getClass());
 			appConfig.getContext().setAttribute("jdbc/wsusr", wsusr);
-			appConfig.getProperties().setProperty("api.calcKcpuz", "com.aston.ckm.CalculateKCPUZ");
-			appConfig.getProperties().remove("calcKcpuz.url");
-			appConfig.getProperties().remove("calcKcpuz.header.Authorization");
+			appConfig.getProperties().setProperty("api.calcIkcp", "com.aston.ckm.CalculateIkcp");
+			appConfig.getProperties().remove("calcIkcp.url");
+			appConfig.getProperties().remove("calcIkcp.header.Authorization");
 		}
-		System.out.println("use api.calcKcpuz " + appConfig.getProperty("api.calcKcpuz"));
+		System.out.println("use api.calcIkcp " + appConfig.getProperty("api.calcIkcp"));
 	}
 
 	@Override

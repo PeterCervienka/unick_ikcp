@@ -74,6 +74,8 @@ function IkcpModel( modelData ){
         return daydiff( fromDate, toDate ) + 1;
     }, this);
 
+    this.familyDiscount = ko.observable( modelData.familyDiscount || false );
+
     this.land = ko.observable( modelData.land );
     this.landDisable = ko.observable( false );
 	this.country = ko.observable( modelData.country || "SR");
@@ -520,10 +522,12 @@ function IkcpModel( modelData ){
 
                     self.totalPrice( data.summary );
                     var persons = data.persons;
-                    for( var i = 0; i < persons.length; i++ ) {
+                    if( persons ) {
+                        for( var i = 0; i < persons.length; i++ ) {
 
-                        if (i < self.insuredPersons().length ) {
-                            self.insuredPersons()[i].totalPersonPrice( persons[i].price );
+                            if (i < self.insuredPersons().length ) {
+                                self.insuredPersons()[i].totalPersonPrice( persons[i].price );
+                            }
                         }
                     }
                 }

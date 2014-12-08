@@ -39,16 +39,24 @@ window._service.calcIkcp = function ( data ) {
 
     if ( data ) {
 
-        input = {
+        input.data = {}
+
+        input.data.header = {
             partner: "Aston",
             dpo: data.predmet,
             od: data.insuredFrom,
             do: data.insuredTo,
             uzemie: data.land.key,
             platenie: 4,
-            zlavy_zmluva: [],
-            persons: []
+            zlavy_zmluva: []
         };
+
+        if ( data.familyDiscount == true ) {
+            var zlava_zmluva = "RODINA";
+            input.data.header.zlavy_zmluva.push( zlava_zmluva );
+        }
+
+        input.data.persons = [];
 
         var today = new Date();
         for(var i = 0; i < data.insuredPersons.length; i++) {
@@ -57,107 +65,103 @@ window._service.calcIkcp = function ( data ) {
             // TODO: change parameter false, when retiree will be implemented. Now input is always adult
             var predmet = getPredmetCode( personModel.riskGroup, false );
 
-            var person = { id: (i + 1) };
+            var personObj = { id: (i + 1) };
 
             // set age
             if ( personModel.child ) {
-                person.vek = 10;
+                personObj.vek = 10;
             } else {
-                person.vek = 18;
+                personObj.vek = 18;
             }
 
+            personObj.skupiny_rizik = [];
             // set risk group
-            person.skupina = personModel.riskGroup;
+            personObj.skupina = personModel.riskGroup;
 
             // set array of risks
-            person.skupiny_rizik = [];
+            var arr_skupina_rizika = [];
 
             if ( personModel.medical ) {
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "B02",
-                    predmet: predmet,
-                    suma: 0 /* personModel.medicalPrice */
+                    predmet: predmet
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
-            if ( personModel.baggage ) {
-                var skupina_rizika = {
+            if ( personModel.baggage > 0 ) {
+                var riskGroup = {
                     kod: "B03",
                     predmet: predmet,
-                    suma: 0 /* personModel.baggagePrice */
+                    suma: personModel.baggage
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             if ( personModel.responsibility ) {
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "B04",
-                    predmet: predmet,
-                    suma: 0 /* personModel.responsibilityPrice */
+                    predmet: predmet
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             if ( personModel.accident ) {
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "B01",
-                    predmet: predmet,
-                    suma: 0 /* personModel.accidentPrice */
+                    predmet: predmet
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             if ( personModel.technicalHelp ) {
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "B05",
-                    predmet: predmet,
-                    suma: 0 /* personModel.technicalHelpPrice */
+                    predmet: predmet
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             if ( personModel.storno > 0) {
                 // TODO: now only 30. This info has to be filled by server.
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "R02",
                     predmet: personModel.stornoObj.type + "_30",
                     percento: 30,
                     suma: personModel.storno
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             if ( personModel.pet ) {
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "R01",
-                    predmet: personModel.petType,
-                    suma: 0 /* personModel.petPrice */
+                    predmet: personModel.petType
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             if ( personModel.vacation ) {
-                var skupina_rizika = {
+                var riskGroup = {
                     kod: "R04",
                     predmet: "PS20tis",
-                    suma: 0 /* personModel.vacationPrice */
+                    suma: 20000
                 };
-                person.skupiny_rizik.push( skupina_rizika );
+                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
             // set discount card
             if(personModel.discountCard == true) {
-                person.zlava_osoba = personModel.discountCardType;
+                personObj.zlava_osoba = personModel.discountCardType;
             } else {
-                person.zlava_osoba = "";
+                personObj.zlava_osoba = "";
             }
 
-            input.persons.push( person );
+            input.data.persons.push( new person( personObj ) );
         }
 
-
-        // output = window._apiJson("calcIkcp", input);
+        output = window._apiJson("calcIkcp", input);
     }
 
     return output;
@@ -179,7 +183,7 @@ window._service.countryText = function ( data ) {
 	
 	var	countryText = "";
 	
-	countryText = window._apiJson("codelist", { name: 'Stat_krajina', 'id': data } );
+	countryText = window._apiJson("codelist", { name: 'Stat_krajina', id: data } );
 	
 	return countryText;
 };

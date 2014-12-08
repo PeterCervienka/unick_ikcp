@@ -11,7 +11,17 @@
 	<artifactId>unick.ikcp</artifactId>
 	<packaging>war</packaging>
 
-	<dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.deploy.skip>true</maven.deploy.skip>
+
+        <version.basex>0.0.4-SNAPSHOT</version.basex>
+    </properties>
+
+
+    <dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>

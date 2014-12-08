@@ -9,9 +9,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Locale;
 
-import javax.sql.DataSource;
-
 import oracle.jdbc.OracleTypes;
+import oracle.jdbc.pool.OracleDataSource;
 
 import com.aston.basex.AppConfig;
 import com.aston.basex.api.ApiData;
@@ -20,47 +19,62 @@ import com.aston.utils.Json2Xml;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
 
-public class CalculateKCPUZ implements IApiFunction {
+public class CalculateIkcp implements IApiFunction {
 
-
-	DataSource ds = null;
+	OracleDataSource ds = null;
 
 	@Override
 	public void init(AppConfig config, String name) {
-		Object o = config.getContext().getAttribute("jdbc/wsusr");
-		if (!(o instanceof DataSource))
-			throw new RuntimeException("undefined resource jdbc/wsusr");
-		this.ds = (DataSource) o;
+		try {
+			ds = new OracleDataSource();
+			ds.setURL(config.getProperty("db.wsusr.url"));
+			ds.setUser(config.getProperty("db.wsusr.user"));
+			ds.setPassword(config.getProperty("db.wsusr.password"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void call(ApiData apiData) throws Exception {
+
 		JsonObject o = apiData.getRoot();
 		JsonWriter w = apiData.getJsonWriter();
 		String xml = creaeXml(o);
 		callProc(xml, w);
+
 	}
 
 	protected String creaeXml(JsonObject o) throws IOException {
 
-		Json2Xml data = new Json2Xml("data");
+        Json2Xml data = new Json2Xml("data");
 
-		Json2Xml header = data.subEl("header", "*");
-		header.el("partner");
-		header.el("zdroj");
-		header.el("od");
-		header.el("do");
-		header.el("balik");
-		header.el("uzemie");
-		header.el("skupina");
+        Json2Xml header = data.subEl("header", "*");
+        header.el("partner");
+        header.el("dpo");
+        header.el("od");
+        header.el("do");
+        header.el("uzemie");
+        header.el("platenie");
+        header.el("zlavy_zmluva");
 
-		Json2Xml osoba = data.subArr("persons", "person", "osoby");
-		osoba.att("id");
-		osoba.att("vek");
+        Json2Xml discount = header.subArr("zlavy_zmluva", "zlava_zmluva", "zlava_zmluva");
+        discount.el("zlava_zmluva");
 
-		StringWriter w = new StringWriter();
-		data.write(w, o);
-		return w.toString();
+        Json2Xml person = data.subArr("persons", "person", "person");
+        person.att("id");
+        person.att("vek");
+        person.att("skupina");
+
+        Json2Xml risk = person.subArr("skupiny_rizik", "skupina_rizika", "skupina_rizika");
+        risk.att("kod");
+        risk.att("predmet");
+        risk.att("percento");
+        risk.att("suma");
+
+        StringWriter w = new StringWriter();
+        data.write(w, o);
+        return w.toString();
 	}
 
 	protected void callProc(String xml, JsonWriter w) throws Exception {
@@ -151,7 +165,7 @@ public class CalculateKCPUZ implements IApiFunction {
 			json += " {   'id': '2',   'vek': 70  }";
 			json += "] }";
 
-			CalculateKCPUZ c = new CalculateKCPUZ();
+			CalculateIkcp c = new CalculateIkcp();
 			c.init(null, null);
 			StringWriter sw = new StringWriter();
 			c.call(new ApiData(null, json, sw));

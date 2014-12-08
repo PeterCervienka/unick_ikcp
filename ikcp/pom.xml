@@ -8,16 +8,8 @@
 
 	<modules>
 		<module>unick.ikcp</module>
-	</modules>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.target>1.6</maven.compiler.target>
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.deploy.skip>true</maven.deploy.skip>
-
-        <version.basex>0.0.4-SNAPSHOT</version.basex>
-	</properties>
+        <!--<module>unick.ikcp.service</module>-->
+    </modules>
 
     <dependencyManagement>
         <dependencies>

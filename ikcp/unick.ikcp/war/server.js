@@ -22,6 +22,7 @@ console.log = function(v1,v2){ __print(v1,v2); };
 
 __load('service.js');
 __load('js/countries.js');
+__load('js/CalculateModel.js');
 
 function _service_exec(name, json){
 	
