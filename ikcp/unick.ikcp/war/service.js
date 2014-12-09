@@ -76,12 +76,14 @@ window._service.calcIkcp = function ( data ) {
             // set array of risks
             var arr_skupina_rizika = [];
 
-            if ( personModel.medical ) {
-                var riskGroup = {
-                    kod: "B02",
-                    predmet: predmet
-                };
-                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
+            if ( data.isDomesticalTrip == false ) {
+                if ( personModel.medical ) {
+                    var riskGroup = {
+                        kod: "B02",
+                        predmet: predmet
+                    };
+                    personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
+                }
             }
 
             if ( personModel.baggage > 0 ) {

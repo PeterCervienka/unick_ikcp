@@ -209,6 +209,15 @@ function IkcpModel( modelData ){
     	return formatEuro(this.totalPrice());
     }, this);
 
+
+    this.summaryText = ko.computed(function () {
+        if ( this.isDomesticalTrip() ) {
+            return "Rekapitulacia poistenia účastníkov domácich zájazdov ";
+        } else {
+            return "Rekapitulacia poistenia účastníkov zahraničných zájazdov";
+        }
+    }, this);
+
     // step 2
 	this.insurerTypes = ko.observableArray([
 		{forma: "FO", text: "Fyzická osoba"},
@@ -633,6 +642,18 @@ function IkcpModel( modelData ){
             for( var i = 0; i < persons.length; i++) {
                 var p = persons[i];
                 p.pet( false );
+            }
+            return false;
+        }
+        return true;
+    }, this);
+
+    this.showMedicalRow = ko.computed(function () {
+        if ( this.isDomesticalTrip() ) {
+            var persons = this.insuredPersons();
+            for( var i = 0; i < persons.length; i++) {
+                var p = persons[i];
+                p.medical( false );
             }
             return false;
         }

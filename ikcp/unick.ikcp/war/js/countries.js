@@ -206,7 +206,7 @@ var countryList = [
     { key: 690, label: 'Seychely', area: 'S', areaName: 'Svet', default: false },
     { key: 694, label: 'Sierra Leone', area: 'S', areaName: 'Svet', default: false },
     { key: 702, label: 'Singapur', area: 'S', areaName: 'Svet', default: false },
-    { key: 703, label: 'Slovensko', area: 'SK', areaName: 'Slovensko', default: true },
+    { key: 703, label: 'Slovensko', area: 'SR', areaName: 'Slovensko', default: true },
     { key: 705, label: 'Slovinsko', area: 'E', areaName: 'Európa', default: false },
     { key: 706, label: 'Somálsko', area: 'S', areaName: 'Svet', default: false },
     { key: 784, label: 'Spojené arabské emiráty', area: 'S', areaName: 'Svet', default: false },

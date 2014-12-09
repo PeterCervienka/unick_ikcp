@@ -38,12 +38,13 @@
 	    </div>
 	    <div class="single required">
 	        <label>Územná platnosť</label>
-	        <select data-bind="value: country, options: areaList, optionsText: 'label', optionsValue: 'key', error: areaError, disable: areaDisable" id="country"></select>
+	        <!--<select data-bind="value: country, options: areaList, optionsText: 'label', optionsValue: 'key', error: areaError, disable: areaDisable" id="country"></select>-->
+            <input data-bind="value: showAreaName, error: areaError, disable: true" id="country" type="text" name="land" >
 	        <div class="error">&nbsp;</div>
 	    </div>
-	    <div class="single required">
-	    	<button class="button medium widthAuto" data-bind="click: changeAreaDisable">Zmeniť</button>
-	    </div>
+        <!--<div class="single required">
+            <button class="button medium widthAuto" data-bind="click: changeAreaDisable">Zmeniť</button>
+        </div>-->
 	</div>
 	<table class="edit-grid">
 	<thead>
@@ -429,7 +430,7 @@
                             <div class="error">&nbsp;</div>
                         </div>
 
-                        <div data-bind="visible: $data.stornoObj().stornoOtherVisible()">
+                        <div data-bind="visible: $data.stornoObj().stornoOtherVisible">
                             <div class="single required">
                                 <label>Iný typ objednanej služby</label>
                                 <input data-bind="value: $data.stornoObj().typeOther, error: $data.stornoObj().typeOtherError, attr: {id:'stornoTypeOther'+$index()}" type="text">
@@ -725,24 +726,6 @@
             hash = window.location.hash;
 
         ikcp = new IkcpModel( model );
-
-        // TODO: remove in production mode
-        if( getParameterByName("debug") == "1" ){
-            model = readFromLS('model');
-
-            if( hash == "#step1" ){
-                ikcp.step(1);
-            } else if (hash == "#step2") {
-                ikcp.step(2);
-            } else if (hash == "#step3") {
-                ikcp.step(3);
-            }
-            ikcp = new IkcpModel( model );
-
-            /*var saveInterval = window.setInterval(function () {
-                saveToLS("model", ikcp);
-            }, 3000);*/
-        }
 
         ko.applyBindings( ikcp );
 
