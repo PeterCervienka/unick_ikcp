@@ -30,6 +30,7 @@ function PersonObj( modelData ) {
     this.responsibility = ko.observable( modelData.responsibility || false );
     this.accident = ko.observable( modelData.accident || false );
     this.technicalHelp = ko.observable( modelData.technicalHelp || false );
+    this.rescueService = ko.observable( modelData.rescueService || false );
 
     this.storno = ko.observable( modelData.storno || 0 );
     this.stornoObj = ko.observable( modelData.stornoObj || new StornoObj() )

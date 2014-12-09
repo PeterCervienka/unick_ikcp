@@ -112,12 +112,24 @@ window._service.calcIkcp = function ( data ) {
                 personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
-            if ( personModel.technicalHelp ) {
-                var riskGroup = {
-                    kod: "B05",
-                    predmet: predmet
-                };
-                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
+            if ( data.isDomesticalTrip == true ) {
+                if (personModel.rescueService) {
+                    var riskGroup = {
+                        kod: "B05",
+                        predmet: predmet
+                    };
+                    personObj.skupiny_rizik.push(new skupina_rizika(riskGroup));
+                }
+            }
+
+            if ( data.isDomesticalTrip == false ) {
+                if (personModel.technicalHelp) {
+                    var riskGroup = {
+                        kod: "B06",
+                        predmet: predmet
+                    };
+                    personObj.skupiny_rizik.push(new skupina_rizika(riskGroup));
+                }
             }
 
             if ( personModel.storno > 0) {

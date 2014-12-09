@@ -660,6 +660,18 @@ function IkcpModel( modelData ){
         return true;
     }, this);
 
+    this.showRescueServiceRow = ko.computed(function () {
+        if ( this.isDomesticalTrip() == false ) {
+            var persons = this.insuredPersons();
+            for( var i = 0; i < persons.length; i++) {
+                var p = persons[i];
+                p.rescueService( false );
+            }
+            return false;
+        }
+        return true;
+    }, this);
+
     this.showFamilyDiscount = ko.computed(function() {
         return ( self.summaryPersonsCount() > 2 && self.adultsCount() > 0 );
     }, this);
@@ -731,6 +743,20 @@ function IkcpModel( modelData ){
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
                 if ( p.technicalHelp() == true ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
+    this.hasAnyoneRescueService = ko.computed(function() {
+        var persons = this.insuredPersons();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.rescueService() == true ) {
                     return true;
                 }
             }
@@ -832,6 +858,7 @@ function IkcpModel( modelData ){
     prepareCheckboxForPersonProperty('responsibility', this);
     prepareCheckboxForPersonProperty('accident', this);
     prepareCheckboxForPersonProperty('technicalHelp', this);
+    prepareCheckboxForPersonProperty('rescueService', this);
     prepareCheckboxForPersonProperty('storno', this);
     prepareCheckboxForPersonProperty('pet', this);
     prepareCheckboxForPersonProperty('vacation', this);

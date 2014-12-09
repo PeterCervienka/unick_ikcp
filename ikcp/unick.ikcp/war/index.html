@@ -146,7 +146,7 @@
 	    <td>Úraz:</td>
 	    <td><input checked type="checkbox" data-bind="checked: accidentSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index(), id:'accident'+$index()}, disable: $index()>0 && $parent.accidentSame()" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.accident, attr: {tabindex:$index()*15+11, id:'accident'+$index()}, disable: $index()>0 && $parent.accidentSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
@@ -154,10 +154,18 @@
 	    <td>Náklady na technickú pomoc v prípade záchrannej akcie v horách v zahraničí:</td>
 	    <td><input checked type="checkbox" data-bind="checked: technicalHelpSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index(), id:'technicalHelp'+$index()}, disable: $index()>0 && $parent.technicalHelpSame()" type="checkbox"></td>
+	    <td><input data-bind="checked: $data.technicalHelp, attr: {tabindex:$index()*15+12, id:'technicalHelp'+$index()}, disable: $index()>0 && $parent.technicalHelpSame()" type="checkbox"></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
+    <tr class="unique" data-bind="visible: showRescueServiceRow">
+        <td>Náklady na zásah HZS:</td>
+        <td><input checked type="checkbox" data-bind="checked: rescueServiceSame"></td>
+        <!-- ko foreach: insuredPersons -->
+        <td><input data-bind="checked: $data.rescueService, attr: {tabindex:$index()*15+12, id:'rescueService'+$index()}, disable: $index()>0 && $parent.rescueServiceSame()" type="checkbox"></td>
+        <!-- /ko -->
+        <td></td>
+    </tr>
 	<tr class="section">
 	    <td>Pripoistenia</td>
 	    <td></td>
