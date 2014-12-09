@@ -77,8 +77,6 @@ public class CalculateIkcp implements IApiFunction {
 
 	protected void callProc(String xml, JsonWriter w) throws Exception {
 
-        System.out.println(xml);
-
 		Connection c = null;
 		CallableStatement cs = null;
 

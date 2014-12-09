@@ -520,13 +520,13 @@ function IkcpModel( modelData ){
                 function(data){
                     console.log("calcIkcp", data);
 
-                    self.totalPrice( data.summary );
-                    var persons = data.persons;
+                    self.totalPrice( parseFloat( data.poistne ) );
+                    var persons = data.osoby;
                     if( persons ) {
                         for( var i = 0; i < persons.length; i++ ) {
 
                             if (i < self.insuredPersons().length ) {
-                                self.insuredPersons()[i].totalPersonPrice( persons[i].price );
+                                self.insuredPersons()[i].totalPersonPrice( persons[i].poistne_osoba );
                             }
                         }
                     }
