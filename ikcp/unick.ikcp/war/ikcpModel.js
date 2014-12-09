@@ -75,7 +75,13 @@ function IkcpModel( modelData ){
         return daydiff( fromDate, toDate ) + 1;
     }, this);
 
-    this.familyDiscount = ko.observable( modelData.familyDiscount || false );
+    if ( modelData.discounts && modelData.discounts.length > 0) {
+        this.discounts = ko.observableArray( ko.utils.arrayMap( modelData.discounts, function( item ){
+            return new DiscountObj( item );
+        }));
+    } else {
+        this.discounts = ko.observableArray();
+    }
 
     this.land = ko.observable( modelData.land );
     this.landDisable = ko.observable( false );
@@ -517,7 +523,7 @@ function IkcpModel( modelData ){
 
         if ( this.validateStep1() ) {
 
-            window.service('calcIkcp', ko.toJS(self),
+            window.service('calcIkcp', ko.toJS( self ),
                 function(data){
                     console.log("calcIkcp", data);
 
@@ -642,6 +648,76 @@ function IkcpModel( modelData ){
         return 'stornoDate' + data;
     }, this);
 
+    this.hasAnyoneMedical = ko.computed(function() {
+        var persons = this.insuredPersons();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.medical() == true ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
+    this.hasAnyoneBaggage = ko.computed(function() {
+        var persons = this.insuredPersons();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.baggage() > 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
+    this.hasAnyoneResponsibility = ko.computed(function() {
+        var persons = this.insuredPersons();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.responsibility() == true ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
+    this.hasAnyoneAccident = ko.computed(function() {
+        var persons = this.insuredPersons();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.accident() == true ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
+    this.hasAnyoneTechnicalHelp = ko.computed(function() {
+        var persons = this.insuredPersons();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.technicalHelp() == true ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
     this.changeAreaDisable = function() {
         self.areaDisable( !self.areaDisable() );
         if(self.areaDisable() == false) {
@@ -653,7 +729,7 @@ function IkcpModel( modelData ){
 
     this.getAge = function( dateBirth, dateNow ){
         var years= 0,
-            dateBirthSK = parseDateSK( dateBirth ),
+            dateBirthSK = parseDateSK( normalizeSKDateAsString( dateBirth ) ),
             nowYear = dateNow.getFullYear(),
             nowMonth = dateNow.getMonth() + 1,
             nowDay = dateNow.getDate(),

@@ -3,12 +3,22 @@
     <insuredTo sk="3.12.2014">2014-12-03T00:00:00</insuredTo>
     <insuredDays>1</insuredDays>
     <country>E</country>
+    <land>
+        <key>703</key>
+        <label>Slovensko</label>
+        <areaName>Európa</areaName>
+    </land>
     <signingDate sk="3.12.2014 16:04:26">2014-12-03T16:04:26</signingDate>
     <totalPrice>21.2</totalPrice>
     <totalPriceText>21,20 &amp;euro;</totalPriceText>
     <variableSymbol>10001551</variableSymbol>
     <adultsCount>1</adultsCount>
     <childrenCount>0</childrenCount>
+    <hasAnyoneMedical>true</hasAnyoneMedical>
+    <hasAnyoneBaggage>false</hasAnyoneBaggage>
+    <hasAnyoneResponsibility>true</hasAnyoneResponsibility>
+    <hasAnyoneAccident>true</hasAnyoneAccident>
+    <hasAnyoneTechnicalHelp>false</hasAnyoneTechnicalHelp>
     <insurer>
         <typ>FO</typ>
         <companyName></companyName>
@@ -36,6 +46,18 @@
             <city></city>
         </postalAddress>
     </insurer>
+    <discounts>
+        <discount>
+            <type>RODINA</type>
+            <price>3.40</price>
+            <priceText>3,40 &amp;euro;</priceText>
+        </discount>
+        <discount>
+            <type>UZP</type>
+            <price>10.1</price>
+            <priceText>10,1 &amp;euro;</priceText>
+        </discount>
+    </discounts>
     <insuredPersons>
         <person>
             <name>bbb</name>

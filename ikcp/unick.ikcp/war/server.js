@@ -21,14 +21,19 @@ console = {};
 console.log = function(v1,v2){ __print(v1,v2); };
 
 __load('service.js');
+__load('js/utils.js');
 __load('js/countries.js');
-__load('js/CalculateModel.js');
+__load('js/models/AddressModel.js');
+__load('js/models/Insurer.js');
+__load('js/models/StornoModel.js');
+__load('js/models/DiscountModel.js');
+__load('js/models/PersonModel.js');
+__load('js/models/CalculateModel.js');
 
 function _service_exec(name, json){
 	
 	if(name=="save"){
 		__load('server.ko.js');
-		__load('js/countries.js');
 		__load('ikcpModel.js');
 	}
 	

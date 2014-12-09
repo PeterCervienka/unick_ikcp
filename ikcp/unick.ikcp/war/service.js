@@ -20,27 +20,14 @@ var getPredmetCode = function( riskGroup, isRetiree ) {
 
 window._service.calcIkcp = function ( data ) {
     var input = {},
-        output = {
-            // TODO: only tmp
-            summary: 90 * Math.random().toFixed(2),
-            persons : [
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) },
-                { price: ( 10 * Math.random().toFixed(2) ) }
-            ]
-        };
-
+        output = {};
 
     if ( data ) {
 
+        // init input object
         input.data = {}
 
+        // init header's data
         input.data.header = {
             partner: "Aston",
             dpo: data.predmet,
@@ -51,13 +38,21 @@ window._service.calcIkcp = function ( data ) {
             zlavy_zmluva: []
         };
 
-        if ( data.familyDiscount == true ) {
-            var zlava_zmluva = "RODINA";
-            input.data.header.zlavy_zmluva.push( zlava_zmluva );
+        // set all discounts
+        var dis = data.discounts;
+        if ( dis && dis.length > 0 ) {
+            for( var i = 0; i < dis.length; i++) {
+                var d = dis[i];
+                if ( d ) {
+                    input.data.header.zlavy_zmluva.push(d.type );
+                }
+            }
         }
 
+        // init array of insured persons
         input.data.persons = [];
 
+        // fill insured persons
         var today = new Date();
         for(var i = 0; i < data.insuredPersons.length; i++) {
             var personModel = data.insuredPersons[i];
