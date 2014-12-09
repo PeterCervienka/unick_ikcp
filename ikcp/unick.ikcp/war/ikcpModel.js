@@ -24,6 +24,7 @@ function IkcpModel( modelData ){
     ];
 
     this.baggages = [
+        {value: "Žiadna", key: 0},
         {value: "700 €", key: 700},
         {value: "1 400 €", key: 1400},
         {value: "2 100 €", key: 2100},

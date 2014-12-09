@@ -26,7 +26,7 @@ function PersonObj( modelData ) {
 
     // insurance
     this.medical = ko.observable( modelData.medical || false );
-    this.baggage = ko.observable( modelData.baggage || 700 );
+    this.baggage = ko.observable( modelData.baggage || 0 );
     this.responsibility = ko.observable( modelData.responsibility || false );
     this.accident = ko.observable( modelData.accident || false );
     this.technicalHelp = ko.observable( modelData.technicalHelp || false );
