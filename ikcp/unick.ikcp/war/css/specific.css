@@ -66,6 +66,32 @@
 	min-width: 330px;
 }
 
+#form-step-3 table tr td,
+#form-step-3 table tr th {
+    padding-right: .5em;
+    padding-left: .5em;
+}
+
+#form-step-3 table tr td:first-child,
+#form-step-3 table tr th:first-child {
+    width: 10%;
+}
+
+#form-step-3 table:not(.insured-persons) tr td:first-child,
+#form-step-3 table:not(.insured-persons) tr th:first-child {
+    font-weight: bold;
+}
+
+#form-step-3 table tr td:not(:first-child),
+#form-step-3 table tr th:not(:first-child) {
+    text-align: left;
+}
+
+#form-step-3 table tr td:last-child,
+#form-step-3 table tr th:last-child {
+    width: 30%;
+}
+
 #summary-product tr td span:not(.sumTotal) img {
     margin-top: 2px;
 }

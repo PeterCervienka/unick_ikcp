@@ -117,7 +117,7 @@
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
-	<tr class="unique">
+	<tr class="unique" data-bind="visible: showMedicalRow">
 	    <td>Liečebné náklady v zahraničí:</td>
 	    <td><input checked type="checkbox" data-bind="checked: medicalSame"></td>
 	    <!-- ko foreach: insuredPersons -->
@@ -545,126 +545,120 @@
         <div>Ľutujeme, dokumenty sa nepodarilo zapísať. Skúste údaje zadať ešte raz alebo kontaktujte <a href="mailto:xyz@union.sk">xyz@union.sk.</a></div>
     </div>
 
-    <div>
-        <div class="section">
-            <h2>Rekapitulácia poistenia</h2>
-        </div>
-        <table class="recap">
+    <div class="section">
+        <table>
             <thead>
             <tr>
-                <th>Platnosť</th>
-                <th>Počet poistených osôb</th>
-                <!--<th>Riziková skupina</th>-->
-                <th colspan="2">Krajina pobytu</th>
+                <th colspan="2"><h2>Rekapitulácia poistenia</h2></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>od: <span data-bind="text: insuredFrom"></span><br>do: <span data-bind="text: insuredTo"></span> (<span data-bind="text: insuredDaysText"></span>)</td>
-                <td>Dospelí: <span data-bind="text: adultsCount"></span><br>Deti: <span data-bind="text: childrenCount"></span><br>Spolu: <span data-bind="text: summaryPersonsCount"></span></td>
-                <!--<td><span data-bind="text: showRiskLabel()"></span></td>-->
-                <td colspan="2"><span data-bind="text: showLandName()"></span><br>Územná platnosť: <span data-bind="text: showAreaName"></span></td>
+                <td>Typ poistenia</td>
+                <td data-bind="text: summaryText"></td>
             </tr>
-            </tbody>
-        </table>
-        <table class="recap glue-tables no-footer-summary section">
-            <thead>
             <tr>
-                <!--<th>Balík poistenia</th>-->
-                <th>Poistné</th>
-                <th colspan="3"></th>
+                <td>Platnosť</td>
+                <td>od&nbsp;<span data-bind="text: insuredFrom"></span>&nbsp;do&nbsp;<span data-bind="text: insuredTo"></span> (<span data-bind="text: insuredDaysText"></span>)</td>
             </tr>
-            </thead>
-            <tbody>
             <tr>
-                <!--<td><h2><span data-bind="html: pack"></span></h2> <span data-bind="html: showPackDesription( pack() )"></span> </td>-->
-                <td><h2><span data-bind="html: totalPriceText"></span></h2></td>
-                <td colspan="3"></td>
+                <td>Počet poistených osôb</td>
+                <td><span data-bind="text: summaryPersonsCount"></span> (Dospelí: <span data-bind="text: adultsCount"></span>, Deti: <span data-bind="text: childrenCount"></span>)</td>
+            </tr>
+            <tr>
+                <td>Krajina pobytu</td>
+                <td data-bind="text: showLandName()"></td>
+            </tr>
+            <tr>
+                <td>Územná platnosť</td>
+                <td data-bind="text: showAreaName"></td>
+            </tr>
+            <tr>
+                <td><b>Poistné</b></td>
+                <td><b><span data-bind="html: totalPriceText"></span></b></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div>
-        <div class="section">
-            <h2>Poistník</h2>
-        </div>
-        <table class="recap">
+    <div class="section">
+        <table>
             <thead>
-            <tr>
-                <th colspan="2">Meno a priezvisko</th>
-                <th data-bind="visible: insurer.isCzechoSlovak()">Rodné číslo</th>
-                <th data-bind="visible: !insurer.isCzechoSlovak()">Dátum narodenia</th>
-                <th>Štátna príslušnosť</th>
-            </tr>
+            <th colspan="2"><h2>Poistník</h2></th>
             </thead>
             <tbody>
             <tr>
-                <td colspan="2" data-bind="text: insurer.fullName"></td>
-                <td data-bind="text: insurer.rc, visible: insurer.isCzechoSlovak()"></td>
-                <td data-bind="text: insurer.birthDate, visible: !insurer.isCzechoSlovak()"></td>
+                <td data-bind="visible: insurer.isPerson()">Meno a priezvisko</td>
+                <td data-bind="visible: insurer.isPerson(), text: insurer.fullName"></td>
+                <td data-bind="visible: !insurer.isPerson()">Názov spoločnosti</td>
+                <td data-bind="visible: !insurer.isPerson(), text: insurer.companyName"></td>
+            </tr>
+            <tr>
+                <td data-bind="visible: insurer.isPerson()">Rodné číslo</td>
+                <td data-bind="visible: insurer.isPerson(), text: insurer.rc"></td>
+                <td data-bind="visible: !insurer.isPerson()">IČO</td>
+                <td data-bind="visible: !insurer.isPerson(), text: insurer.ico"></td>
+            </tr>
+            <tr data-bind="visible: insurer.isPerson()">
+                <td>Štátna príslušnosť</td>
                 <td data-bind="text: insurer.citizenText"></td>
             </tr>
-            </tbody>
-        </table>
-
-        <table class="recap glue-tables no-footer">
-            <thead>
             <tr>
-                <th>Email</th>
-                <th>Telefón</th>
-                <th colspan="2">Adresa</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
+                <td>Email</td>
                 <td data-bind="text: insurer.email"></td>
+            </tr>
+            <tr>
+                <td>Telefón</td>
                 <td data-bind="text: insurer.phone"></td>
-                <td colspan="2">
-                    <dl>
-                        <dt>
-                            <span data-bind="visible: insurer.isPerson()">Trvalý pobyt</span>
-                            <span data-bind="visible: !insurer.isPerson()">Sídlo</span>
-
-                        </dt>
-                        <dd>
-                            <span data-bind="text: insurer.address.street"></span>
-                            <span data-bind="text: insurer.address.number"></span>,
-                            <span data-bind="text: insurer.address.city"></span>,
-                            <span data-bind="text: insurer.address.psc"></span>
-                        </dd>
-                        <dt data-bind="visible: !insurer.address.same()">Korešpondenčná adresa</dt>
-                        <dd data-bind="visible: !insurer.address.same()">
-                            <span data-bind="text: insurer.postalAddress.street"></span>
-                            <span data-bind="text: insurer.postalAddress.number"></span>,
-                            <span data-bind="text: insurer.postalAddress.city"></span>,
-                            <span data-bind="text: insurer.postalAddress.psc"></span>
-                        </dd>
-                    </dl>
+            </tr>
+            <tr>
+                <td data-bind="visible: insurer.isPerson()">Adresa trvalého bydliska</td>
+                <td data-bind="visible: !insurer.isPerson()">Adresa sídla</td>
+                <td>
+                    <span data-bind="text: insurer.address.street"></span>
+                    <span data-bind="text: insurer.address.number"></span>,
+                    <span data-bind="text: insurer.address.city"></span>,
+                    <span data-bind="text: insurer.address.psc"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Korešpondenčná adresa</td>
+                <td data-bind="visible: !insurer.address.same()">
+                    <span data-bind="text: insurer.postalAddress.street"></span>
+                    <span data-bind="text: insurer.postalAddress.number"></span>,
+                    <span data-bind="text: insurer.postalAddress.city"></span>,
+                    <span data-bind="text: insurer.postalAddress.psc"></span>
+                </td>
+                <td data-bind="visible: insurer.address.same()">
+                    <span data-bind="text: insurer.address.street"></span>
+                    <span data-bind="text: insurer.address.number"></span>,
+                    <span data-bind="text: insurer.address.city"></span>,
+                    <span data-bind="text: insurer.address.psc"></span>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div>
-        <div class="section">
-            <h2>Poisťované osoby</h2>
-        </div>
-        <table class="recap no-footer">
+    <div class="section">
+        <table class="insured-persons">
             <thead>
             <tr>
-                <th colspan="2">Meno a priezvisko</th>
-                <th>Dátum narodenia</th>
-                <th>Štátna príslušnosť</th>
+                <th colspan="2"><h2>Poisťované osoby</h2></th>
             </tr>
             </thead>
-            <tbody data-bind="foreach: insuredPersons">
+            <tbody>
             <tr>
-                <td data-bind="text: fullName" colspan="2"></td>
-                <td data-bind="text: birthDate"></td>
-                <td data-bind="text: citizenText"></td>
+                <td><b>Meno a priezvisko</b></td>
+                <td><b>Dátum narodenia</b></td>
             </tr>
+            <!-- ko foreach: insuredPersons -->
+            <tr>
+                <td data-bind="text: fullName"></td>
+                <td data-bind="text: birthDate"></td>
+            </tr>
+            <!-- /ko -->
+
             </tbody>
         </table>
     </div>
@@ -732,7 +726,6 @@
 
         ikcp = new IkcpModel( model );
 
-
         // TODO: remove in production mode
         if( getParameterByName("debug") == "1" ){
             model = readFromLS('model');
@@ -744,10 +737,11 @@
             } else if (hash == "#step3") {
                 ikcp.step(3);
             }
+            ikcp = new IkcpModel( model );
 
-            var saveInterval = window.setInterval(function () {
+            /*var saveInterval = window.setInterval(function () {
                 saveToLS("model", ikcp);
-            }, 3000);
+            }, 3000);*/
         }
 
         ko.applyBindings( ikcp );
