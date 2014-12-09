@@ -84,7 +84,12 @@
 	    <td>Dieťa do 15 rokov vrátane</td>
 	    <td></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="checkbox"></td>
+	    <td>
+            <input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="checkbox">
+            <!--<input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="button" value="0-15">
+            <input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="button" value="15-70">
+            <input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="button" value="70+">-->
+        </td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
