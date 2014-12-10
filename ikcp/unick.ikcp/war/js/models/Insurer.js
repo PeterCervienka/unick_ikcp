@@ -97,9 +97,17 @@ function InsurerObj( modelData ){
 			
 		} else if( ! validFormatRC(this.rc()) ){
 			return "Rodné číslo je nesprávne";
-		} else {
-			return false;
 		}
+
+        if ( this.birthDate() != "" ) {
+            var age = getAge( this.birthDate(), new Date() );
+            if ( age < 15 ) {
+                return "Vek musí byť minimálne 15 rokov vrátane";
+            }
+        }
+
+
+        return false;
 
 	}, this );
 
@@ -113,9 +121,13 @@ function InsurerObj( modelData ){
 			} else if( makeDateSK( this.birthDate() ) > new Date() ) {
 				return "Dátum narodenia je v budúcnosti";
 			}
-		} else {
-			return false;
+
+            var age = getAge( this.birthDate(), new Date() );
+            if ( age < 15 ) {
+                return "Vek musí byť minimálne 15 rokov vrátane";
+            }
 		}
+        return false;
 
 	}, this );
 

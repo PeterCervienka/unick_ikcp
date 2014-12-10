@@ -104,7 +104,7 @@
 	    <td>Riziková skupina</td>
 	    <td><input checked type="checkbox" data-bind="checked: riskGroupSame"></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td><select data-bind="options: $root.risks, optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}, disable: $index()>0 && $parent.riskGroupSame()"></select></td>
+	    <td><select data-bind="options: $data.showListOfRiskGroups(), optionsText: 'value', optionsValue: 'key', value: $data.riskGroup, attr: {tabindex:$index()*15+6, id:'riskGroup'+$index()}, disable: ($index()>0 && $parent.riskGroupSame())"></select></td>
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
@@ -425,7 +425,7 @@
                     </div>
                     <div class="single required">
                         <label>Typ preukazu</label>
-                        <select data-bind="value: discountCardType, options: $root.discountCardTypes, optionsText: 'value', optionsValue: 'key', error: discountCardTypeError" id="discountCardType"></select>
+                        <select data-bind="value: discountCardType, options: $data.showListOfDiscountCards, optionsText: 'value', optionsValue: 'key', error: discountCardTypeError" id="discountCardType"></select>
                     </div>
                     <div class="single required">
                         <label>Číslo preukazu</label>

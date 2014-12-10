@@ -16,30 +16,12 @@ function IkcpModel( modelData ){
 
     this.step = ko.observable(1);
 
-    this.risks = [
-        {value: "Turista", key: "T"},
-        {value: "Šport", key: "H"},
-        {value: "Prac. cesta - nemanuálna práca", key: "PN"},
-        {value: "Prac. cesta - manuálna práca", key: "PM"}
-    ];
-
     this.baggages = [
         {value: "Žiadna", key: 0},
         {value: "700 €", key: 700},
         {value: "1 400 €", key: 1400},
         {value: "2 100 €", key: 2100},
         {value: "2 800 €", key: 2800}
-    ];
-
-    this.discountCardTypes = [
-        {value: "ISIC", key: "ISIC"},
-        {value: "EURO 26", key: "EURO26"},
-        {value: "GO 26", key: "GO26"},
-        {value: "ITIC", key: "ITIC"},
-        {value: "RODINA", key: "RODINA"},
-        {value: "UZP", key: "UZP"},
-        {value: "Obchodná zľava", key: "Obchodná zlava"},
-        {value: "PGP", key: "PGP"}
     ];
 
     this.stornoTypes = [
@@ -343,7 +325,14 @@ function IkcpModel( modelData ){
 	}, this );
 	
 	this.insuredToError = ko.computed(function(){
-		return this.insuredToInvalid( this.insuredFrom(), this.insuredTo(), this.today );
+        var invalid = this.insuredToInvalid( this.insuredFrom(), this.insuredTo(), this.today );
+
+        if (invalid == false) {
+            if (this.insuredDays() > 15 && this.retireeCount() > 0) {
+                invalid = "Poistenie pre rizikovú skupinu dôchodca je možné uzatvoriť na max. 15 dní"
+            }
+        }
+		return invalid;
 	}, this );
 	    
     this.landError = ko.computed(function(){
@@ -524,8 +513,6 @@ function IkcpModel( modelData ){
 		}
 	};
 
-	
-
     // functions
     this.resetPrice = function() {
         self.totalPrice( 0 );
@@ -680,7 +667,8 @@ function IkcpModel( modelData ){
     }, this);
 
     this.showFamilyDiscount = ko.computed(function() {
-        return ( self.summaryPersonsCount() > 2 && self.adultsCount() > 0 );
+        // true, if minimal count of adults is one and minimal insured persons are three and no one from insured persons is retiree
+        return ( self.summaryPersonsCount() > 2 && self.adultsCount() > 0 && self.retireeCount() == 0);
     }, this);
 
     this.createClassForDatePicker = ko.computed(function ( data ) {

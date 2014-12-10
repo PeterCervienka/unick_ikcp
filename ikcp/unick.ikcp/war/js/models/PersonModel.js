@@ -4,10 +4,29 @@
 
 function PersonObj( modelData ) {
 
+
     // constants
     var self = this;
 
     var modelData = modelData || {};
+
+    this.risks = [
+        {value: "Turista", key: "T"},
+        {value: "Šport", key: "H"},
+        {value: "Prac. cesta - nemanuálna práca", key: "PN"},
+        {value: "Prac. cesta - manuálna práca", key: "PM"}
+    ];
+
+
+    this.discountCardTypes = [
+        {value: "ISIC", key: "ISIC"},
+        {value: "EURO 26", key: "EURO26"},
+        {value: "GO 26", key: "GO26"},
+        {value: "ITIC", key: "ITIC"},
+        {value: "RODINA", key: "RODINA"},
+        {value: "Obchodná zľava", key: "Obchodná zlava"},
+        {value: "PGP", key: "PGP"}
+    ];
 
     this.editable = ko.observable( modelData.editable || false );
     this.totalPersonPrice = ko.observable( parseFloat( modelData.totalPersonPrice ) || 0 );
@@ -89,6 +108,34 @@ function PersonObj( modelData ) {
         return "";
     }, this);
 
+
+    this.showListOfRiskGroups = ko.computed(function( ) {
+        var result = this.risks.slice();
+
+        if ( this.age() == "R" || this.age() == "CH" ) {
+            // remove two last items
+            result.pop();
+            result.pop();
+            this.riskGroup("");
+        }
+
+        return result;
+    }, this);
+
+    this.showListOfDiscountCards = ko.computed(function( ) {
+        if ( this.discountCard() == true ) {
+            var result = this.discountCardTypes.slice();
+
+            if ( this.age() == "CH" ) {
+                result.splice(3, 1); // remove ITIC item
+                this.riskGroup("");
+            } else if ( this.age() == "R" ) {
+                result.splice(0, 3); // remove ISIC, GO26, EURO26 items
+            }
+            return result;
+        }
+    }, this);
+
     //error attributes
 	this.nameError = ko.computed(function(){
 
@@ -113,6 +160,12 @@ function PersonObj( modelData ) {
 	this.birthDateError = ko.computed(function(){
 
         var date = new Date();
+        var minYear = date.getFullYear() - 101;
+        if (this.age() == "A") {
+            minYear = date.getFullYear() - 70
+        } else if (this.age() == "CH") {
+            minYear = date.getFullYear() - 16;
+        }
 
         if (this.birthDateDay() == "" && this.birthDateMonth() == "" && this.birthDateYear() == "" ) {
             return "Opravte dátum narodenia";
@@ -132,8 +185,6 @@ function PersonObj( modelData ) {
 
         else if( this.birthDateYear() == "" ){
             return "Opravte rok narodenia";
-        } else if( validRange(this.birthDateYear(), date.getFullYear() - 101, date.getFullYear() + 1) == false ) {
-            return "Zadajte správny rok narodenia";
         }
 
         else if( this.birthDate() == "" ){
@@ -143,6 +194,15 @@ function PersonObj( modelData ) {
 		} else if( makeDateSK( this.birthDate() ) > new Date() ) {
 			return "Dátum narodenia je v budúcnosti";
 		}
+
+        var age = getAge(this.birthDate(), date);
+        if( this.age() == "CH" && age > 15 ) {
+            return "Zadajte dátum narodenia do 15 rokov vrátane";
+        } else if( this.age() == "A" && ( age < 16 || age > 70) ) {
+            return "Zadajte dátum narodenia do 16 do 69 rokov vrátane";
+        } else if( this.age() == "R" && age < 70 ) {
+            return "Zadajte dátum narodenia nad 71 rokov vrátane";
+        }
 		return false;
 
 	}, this );
