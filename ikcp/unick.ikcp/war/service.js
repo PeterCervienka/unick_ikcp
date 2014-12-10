@@ -143,12 +143,15 @@ window._service.calcIkcp = function ( data ) {
                 personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
             }
 
-            if ( personModel.pet ) {
-                var riskGroup = {
-                    kod: "R01",
-                    predmet: personModel.petType
-                };
-                personObj.skupiny_rizik.push( new skupina_rizika( riskGroup ) );
+
+            if ( data.isDomesticalTrip == false ) {
+                if (personModel.pet) {
+                    var riskGroup = {
+                        kod: "R01",
+                        predmet: personModel.petType
+                    };
+                    personObj.skupiny_rizik.push(new skupina_rizika(riskGroup));
+                }
             }
 
             if ( personModel.vacation ) {
