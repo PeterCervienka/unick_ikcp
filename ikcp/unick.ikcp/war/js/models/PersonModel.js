@@ -15,7 +15,7 @@ function PersonObj( modelData ) {
     // personal data
     this.name = ko.observable( modelData.name || "");
     this.surname = ko.observable( modelData.surname || "");
-    this.child = ko.observable( modelData.child || false );
+    this.age = ko.observable( modelData.age || "A"); // valid choices: CH(ild), A(dult), R(etiere)
     this.birthDateDay = ko.observable( modelData.birthDateDay|| "");
     this.birthDateMonth = ko.observable( modelData.birthDateMonth|| "");
     this.birthDateYear = ko.observable( modelData.birthDateYear || "");

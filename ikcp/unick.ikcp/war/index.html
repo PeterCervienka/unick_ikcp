@@ -81,15 +81,21 @@
 	    <!-- /ko -->
 	    <td></td>
 	</tr>
-	<tr class="has-fields">
-	    <td>Dieťa do 15 rokov vrátane</td>
+	<tr class="has-fields personAges">
+	    <td><!--Dieťa do 15 rokov vrátane-->Vek osoby (v rokoch)</td>
 	    <td></td>
 	    <!-- ko foreach: insuredPersons -->
 	    <td>
-            <input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="checkbox">
-            <!--<input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="button" value="0-15">
-            <input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="button" value="15-70">
-            <input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="button" value="70+">-->
+            <label data-bind="css: {active: $data.age() == 'CH'}">
+                <input data-bind="checked: $data.age, attr: {tabindex:$index()*15+7, id:'ageGroupChild'+$index(), name:'ageGroup'+$index()}" type="radio" autocomplete="off" value="CH"> 0 - 15
+            </label>
+            <label data-bind="css: {active: $data.age() == 'A'}">
+                <input data-bind="checked: $data.age, attr: {tabindex:$index()*15+7, id:'ageGroupAdult'+$index(), name:'ageGroup'+$index()}" type="radio" autocomplete="off" value="A"> 15 - 70
+            </label>
+            <label data-bind="css: {active: $data.age() == 'R'}">
+                <input data-bind="checked: $data.age, attr: {tabindex:$index()*15+7, id:'ageGroupRetire'+$index(), name:'ageGroup'+$index()}" type="radio" autocomplete="off" value="R"> 70 +
+            </label>
+            <!--<input data-bind="checked: $data.child, attr: {tabindex:$index()*15+7, id:'child'+$index()}" type="checkbox">-->
         </td>
 	    <!-- /ko -->
 	    <td></td>

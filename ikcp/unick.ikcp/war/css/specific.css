@@ -66,6 +66,21 @@
 	min-width: 330px;
 }
 
+.un-v1 table.edit-grid tr.personAges input {
+    display: none;
+}
+
+.un-v1 table.edit-grid tr.personAges label {
+    background-color: #ddd;
+    width: 30%;
+    float: left;
+}
+
+
+.un-v1 table.edit-grid tr.personAges label.active {
+    background-color: silver;
+}
+
 #form-step-3 table tr td,
 #form-step-3 table tr th {
     padding-right: .5em;

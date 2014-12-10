@@ -94,14 +94,16 @@ function IkcpModel( modelData ){
     this.documents = ko.observable(modelData.documents || {});
 
     this.childrenCount = ko.observable( parseInt(modelData.childrenCount) || 0 );
-    this.adultsCount = ko.observable( parseInt(modelData.adultsCount) || 1 );
+    this.adultsCount = ko.observable( parseInt(modelData.adultsCount) || 3 );
+    this.retireeCount = ko.observable( parseInt(modelData.retireeCount) || 0 );
     this.summaryPersonsCount = ko.computed(function() {
-        var count = parseInt(self.childrenCount(), 10) + parseInt(self.adultsCount(), 10);
+        var count = parseInt(self.childrenCount(), 10) + parseInt(self.adultsCount(), 10) + parseInt(self.retireeCount(), 10);
         return count;
     }, this);
 
     this.childrenCountByDate = ko.observable( parseInt(modelData.childrenCountByDate) || 0 );
     this.adultsCountByDate = ko.observable( parseInt(modelData.adultsCountByDate) || 0 );
+    this.retireeCountByDate = ko.observable( parseInt(modelData.retireeCountByDate) || 0 );
 
     this.personsBirthInvalid = ko.observable(false);
 
@@ -124,17 +126,22 @@ function IkcpModel( modelData ){
 
 
     this.watchAgesCount = ko.computed(function() {
-        var sum = 0;
+        var sumCh = 0, sumA = 0, sumR = 0;
         for(var i=0; i<this.insuredPersons().length; i++)
         {
             var person = this.insuredPersons()[i];
-            if (person.child()) {
-                sum++;
+            if (person.age() == "CH") {
+                sumCh++;
+            } else if (person.age() == "A") {
+                sumA++;
+            } else {
+                sumR++;
             }
         }
 
-        this.childrenCount( sum );
-        this.adultsCount( this.insuredPersons().length - sum );
+        this.childrenCount( sumCh );
+        this.adultsCount( sumA );
+        this.retireeCount( sumR );
     }, this);
 
     this.isDomesticalTrip = ko.computed(function() {
@@ -477,7 +484,7 @@ function IkcpModel( modelData ){
 
         // validovat data poistencov
         if( this.insuredPersons().length > 0 &&
-            this.insuredPersons().length == ( parseInt( this.childrenCount(),10 ) + parseInt( this.adultsCount(), 10 ) ) ){
+            this.insuredPersons().length == this.summaryPersonsCount() ){
 
             for( i=0; i < this.insuredPersons().length; i++ ){
 
@@ -682,7 +689,7 @@ function IkcpModel( modelData ){
     }, this);
 
     this.hasAnyoneMedical = ko.computed(function() {
-        var persons = this.insuredPersons();
+        var persons = this.insuredPersons.peek();
         if ( persons && persons.length > 0) {
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
@@ -696,7 +703,7 @@ function IkcpModel( modelData ){
     }, this);
 
     this.hasAnyoneBaggage = ko.computed(function() {
-        var persons = this.insuredPersons();
+        var persons = this.insuredPersons.peek();
         if ( persons && persons.length > 0) {
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
@@ -710,7 +717,7 @@ function IkcpModel( modelData ){
     }, this);
 
     this.hasAnyoneResponsibility = ko.computed(function() {
-        var persons = this.insuredPersons();
+        var persons = this.insuredPersons.peek();
         if ( persons && persons.length > 0) {
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
@@ -724,7 +731,7 @@ function IkcpModel( modelData ){
     }, this);
 
     this.hasAnyoneAccident = ko.computed(function() {
-        var persons = this.insuredPersons();
+        var persons = this.insuredPersons.peek();
         if ( persons && persons.length > 0) {
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
@@ -738,7 +745,7 @@ function IkcpModel( modelData ){
     }, this);
 
     this.hasAnyoneTechnicalHelp = ko.computed(function() {
-        var persons = this.insuredPersons();
+        var persons = this.insuredPersons.peek();
         if ( persons && persons.length > 0) {
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
@@ -752,7 +759,7 @@ function IkcpModel( modelData ){
     }, this);
 
     this.hasAnyoneRescueService = ko.computed(function() {
-        var persons = this.insuredPersons();
+        var persons = this.insuredPersons.peek();
         if ( persons && persons.length > 0) {
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
@@ -798,6 +805,7 @@ function IkcpModel( modelData ){
     this.validAgeOfPersons = function() {
         var numberOfAdults = 0,
             numberOfChildren = 0,
+            numberOfRetierees = 0,
             persons = this.insuredPersons(),
             valid = true;
 
@@ -814,20 +822,27 @@ function IkcpModel( modelData ){
 
                 if ( parseInt( age ) < 15 ) {
                     numberOfChildren++;
-                } else {
+                } else if ( parseInt( age ) > 15 && parseInt( age ) < 70 ) {
                     numberOfAdults++;
+                } else {
+                    numberOfRetierees++;
                 }
             }
         }
 
         this.childrenCountByDate( numberOfChildren );
         this.adultsCountByDate ( numberOfAdults );
+        this.retireeCountByDate(  );
 
         if ( this.adultsCount() != numberOfAdults ) {
             valid = false
         }
 
         if ( this.childrenCount() != numberOfChildren ) {
+            valid = false;
+        }
+
+        if ( this.retireeCount() != numberOfRetierees ) {
             valid = false;
         }
 

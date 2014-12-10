@@ -1,21 +1,20 @@
 // init service
 window._service = {};
 
-var getPredmetCode = function( riskGroup, isRetiree ) {
-    if ( riskGroup && isRetiree != undefined ) {
+var getPredmetCode = function( riskGroup, age ) {
+    // T, H, P, HD, TD
 
-        var risk = riskGroup;
-        if (risk.length > 1) {
-            risk = risk.substring(0, 1);
-        }
-
-        if ( isRetiree ) {
-            risk += "D";
-        }
-
-        return risk;
+    var risk = riskGroup;
+    if (risk.length > 1) {
+        risk = risk.substring(0, 1);
     }
-    return "";
+
+    if ( age == "R" ) {
+        risk += "D";
+    }
+
+    return risk;
+
 };
 
 window._service.calcIkcp = function ( data ) {
@@ -57,16 +56,17 @@ window._service.calcIkcp = function ( data ) {
         for(var i = 0; i < data.insuredPersons.length; i++) {
             var personModel = data.insuredPersons[i];
 
-            // TODO: change parameter false, when retiree will be implemented. Now input is always adult
-            var predmet = getPredmetCode( personModel.riskGroup, false );
+            var predmet = getPredmetCode( personModel.riskGroup, personModel.age );
 
             var personObj = { id: (i + 1) };
 
             // set age
-            if ( personModel.child ) {
+            if ( personModel.age == "CH" ) {
                 personObj.vek = 10;
-            } else {
+            } else if ( personModel.age = "A" ) {
                 personObj.vek = 18;
+            } else {
+                personObj.vek = 75;
             }
 
             personObj.skupiny_rizik = [];
