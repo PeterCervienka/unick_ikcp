@@ -2127,162 +2127,165 @@
 													</conditionbranch>
 												</children>
 											</condition>
-											<newline/>
-											<template subtype="element" match="mountain">
+											<condition>
 												<children>
-													<newline/>
-													<tgrid>
-														<properties border="0" cellpadding="0" cellspacing="0" width="100%"/>
-														<styles border="1px solid black" keep-together="always"/>
+													<conditionbranch xpath="hasAnyoneRescueService=&apos;true&apos;">
 														<children>
-															<tgridbody-cols>
+															<tgrid>
+																<properties border="0" cellpadding="0" cellspacing="0" width="100%"/>
+																<styles border="1px solid black" keep-together="always"/>
 																<children>
-																	<tgridcol>
-																		<properties width="25%"/>
-																	</tgridcol>
-																	<tgridcol>
-																		<properties width="35%"/>
-																	</tgridcol>
-																	<tgridcol>
-																		<properties width="20%"/>
-																	</tgridcol>
-																	<tgridcol>
-																		<properties width="20%"/>
-																	</tgridcol>
-																</children>
-															</tgridbody-cols>
-															<tgridbody-rows>
-																<children>
-																	<tgridrow>
+																	<tgridbody-cols>
 																		<children>
-																			<tgridcell>
-																				<styles padding="5px" vertical-align="top"/>
-																				<children>
-																					<text fixtext="Poistenie">
-																						<styles font-weight="bold"/>
-																					</text>
-																				</children>
-																			</tgridcell>
-																			<tgridcell>
-																				<styles border-left="1px solid black" padding="5px"/>
-																				<children>
-																					<text fixtext="poistenie nákladov na zásah Horskej záchrannej služby ">
-																						<styles font-weight="bold"/>
-																					</text>
-																					<newline/>
-																					<text fixtext="časť H VPPIKCP/0114"/>
-																					<newline/>
-																					<newline/>
-																				</children>
-																			</tgridcell>
-																			<tgridcell>
-																				<styles border-left="1px solid black" padding="5px" vertical-align="top"/>
-																				<children>
-																					<text fixtext="Poistná suma">
-																						<styles font-weight="bold"/>
-																					</text>
-																				</children>
-																			</tgridcell>
-																			<tgridcell>
-																				<styles border-left="1px solid black" padding="5px" text-align="right"/>
-																				<children>
-																					<text fixtext="je uvedená v prílohe k poistnej zmluve typu 701/702 **"/>
-																					<newline/>
-																				</children>
-																			</tgridcell>
+																			<tgridcol>
+																				<properties width="25%"/>
+																			</tgridcol>
+																			<tgridcol>
+																				<properties width="35%"/>
+																			</tgridcol>
+																			<tgridcol>
+																				<properties width="20%"/>
+																			</tgridcol>
+																			<tgridcol>
+																				<properties width="20%"/>
+																			</tgridcol>
 																		</children>
-																	</tgridrow>
-																</children>
-															</tgridbody-rows>
-														</children>
-													</tgrid>
-													<newline/>
-													<tgrid>
-														<properties border="0" cellpadding="0" cellspacing="0"/>
-														<styles border="1px solid black"/>
-														<children>
-															<tgridbody-cols>
-																<children>
-																	<tgridcol>
-																		<properties width="80%"/>
-																	</tgridcol>
-																	<tgridcol>
-																		<properties width="20%"/>
-																	</tgridcol>
-																</children>
-															</tgridbody-cols>
-															<tgridheader-rows>
-																<children>
-																	<tgridrow>
+																	</tgridbody-cols>
+																	<tgridbody-rows>
 																		<children>
-																			<tgridcell>
-																				<styles padding="5px" text-align="left"/>
+																			<tgridrow>
 																				<children>
-																					<text fixtext="Meno a priezvisko poisteného">
-																						<styles font-weight="bold"/>
-																					</text>
-																				</children>
-																			</tgridcell>
-																			<tgridcell>
-																				<styles border-left="1px solid black" padding="5px" text-align="left"/>
-																				<children>
-																					<text fixtext="Dátum narodenia">
-																						<styles font-weight="bold"/>
-																					</text>
-																				</children>
-																			</tgridcell>
-																		</children>
-																	</tgridrow>
-																</children>
-															</tgridheader-rows>
-															<tgridbody-rows>
-																<children>
-																	<template subtype="source" match="XML">
-																		<children>
-																			<template subtype="element" match="agreement">
-																				<children>
-																					<template subtype="element" match="insuredPersons">
+																					<tgridcell>
+																						<styles padding="5px" vertical-align="top"/>
 																						<children>
-																							<template subtype="element" match="person">
+																							<text fixtext="Poistenie">
+																								<styles font-weight="bold"/>
+																							</text>
+																						</children>
+																					</tgridcell>
+																					<tgridcell>
+																						<styles border-left="1px solid black" padding="5px"/>
+																						<children>
+																							<text fixtext="poistenie nákladov na zásah Horskej záchrannej služby ">
+																								<styles font-weight="bold"/>
+																							</text>
+																							<newline/>
+																							<text fixtext="časť H VPPIKCP/0114"/>
+																							<newline/>
+																							<newline/>
+																						</children>
+																					</tgridcell>
+																					<tgridcell>
+																						<styles border-left="1px solid black" padding="5px" vertical-align="top"/>
+																						<children>
+																							<text fixtext="Poistná suma">
+																								<styles font-weight="bold"/>
+																							</text>
+																						</children>
+																					</tgridcell>
+																					<tgridcell>
+																						<styles border-left="1px solid black" padding="5px" text-align="right"/>
+																						<children>
+																							<text fixtext="je uvedená v prílohe k poistnej zmluve typu 701/702 **"/>
+																							<newline/>
+																						</children>
+																					</tgridcell>
+																				</children>
+																			</tgridrow>
+																		</children>
+																	</tgridbody-rows>
+																</children>
+															</tgrid>
+															<newline/>
+															<tgrid>
+																<properties border="0" cellpadding="0" cellspacing="0"/>
+																<styles border="1px solid black"/>
+																<children>
+																	<tgridbody-cols>
+																		<children>
+																			<tgridcol>
+																				<properties width="80%"/>
+																			</tgridcol>
+																			<tgridcol>
+																				<properties width="20%"/>
+																			</tgridcol>
+																		</children>
+																	</tgridbody-cols>
+																	<tgridheader-rows>
+																		<children>
+																			<tgridrow>
+																				<children>
+																					<tgridcell>
+																						<styles padding="5px" text-align="left"/>
+																						<children>
+																							<text fixtext="Meno a priezvisko poisteného">
+																								<styles font-weight="bold"/>
+																							</text>
+																						</children>
+																					</tgridcell>
+																					<tgridcell>
+																						<styles border-left="1px solid black" padding="5px" text-align="left"/>
+																						<children>
+																							<text fixtext="Dátum narodenia">
+																								<styles font-weight="bold"/>
+																							</text>
+																						</children>
+																					</tgridcell>
+																				</children>
+																			</tgridrow>
+																		</children>
+																	</tgridheader-rows>
+																	<tgridbody-rows>
+																		<children>
+																			<template subtype="source" match="XML">
+																				<children>
+																					<template subtype="element" match="agreement">
+																						<children>
+																							<template subtype="element" match="insuredPersons">
 																								<children>
-																									<tgridrow>
+																									<template subtype="element" match="person">
 																										<children>
-																											<tgridcell>
-																												<styles border-top="1px solid black" padding="5px"/>
+																											<tgridrow>
 																												<children>
-																													<template subtype="element" match="name">
+																													<tgridcell>
+																														<styles border-top="1px solid black" padding="5px"/>
 																														<children>
-																															<content subtype="regular"/>
-																														</children>
-																														<variables/>
-																													</template>
-																													<text fixtext=" "/>
-																													<template subtype="element" match="surname">
-																														<children>
-																															<content subtype="regular"/>
-																														</children>
-																														<variables/>
-																													</template>
-																												</children>
-																											</tgridcell>
-																											<tgridcell>
-																												<styles border-left="1px solid black" border-top="1px solid black" padding="5px"/>
-																												<children>
-																													<template subtype="element" match="birthDate">
-																														<children>
-																															<template subtype="attribute" match="sk">
+																															<template subtype="element" match="name">
+																																<children>
+																																	<content subtype="regular"/>
+																																</children>
+																																<variables/>
+																															</template>
+																															<text fixtext=" "/>
+																															<template subtype="element" match="surname">
 																																<children>
 																																	<content subtype="regular"/>
 																																</children>
 																																<variables/>
 																															</template>
 																														</children>
-																														<variables/>
-																													</template>
+																													</tgridcell>
+																													<tgridcell>
+																														<styles border-left="1px solid black" border-top="1px solid black" padding="5px"/>
+																														<children>
+																															<template subtype="element" match="birthDate">
+																																<children>
+																																	<template subtype="attribute" match="sk">
+																																		<children>
+																																			<content subtype="regular"/>
+																																		</children>
+																																		<variables/>
+																																	</template>
+																																</children>
+																																<variables/>
+																															</template>
+																														</children>
+																													</tgridcell>
 																												</children>
-																											</tgridcell>
+																											</tgridrow>
 																										</children>
-																									</tgridrow>
+																										<variables/>
+																									</template>
 																								</children>
 																								<variables/>
 																							</template>
@@ -2293,15 +2296,14 @@
 																				<variables/>
 																			</template>
 																		</children>
-																		<variables/>
-																	</template>
+																	</tgridbody-rows>
 																</children>
-															</tgridbody-rows>
+															</tgrid>
 														</children>
-													</tgrid>
+													</conditionbranch>
 												</children>
-												<variables/>
-											</template>
+											</condition>
+											<newline/>
 											<condition>
 												<children>
 													<conditionbranch xpath="../storno=&apos;true&apos;">
@@ -2999,14 +3001,14 @@
 																						<children>
 																							<template subtype="element" match="discounts">
 																								<children>
-																									<template subtype="element" match="discountItem">
+																									<template subtype="element" match="discount">
 																										<children>
 																											<tgridrow conditional-processing="persons=&apos;false&apos;">
 																												<children>
 																													<tgridcell>
 																														<styles border-top="1px solid black"/>
 																														<children>
-																															<template subtype="element" match="mnemo">
+																															<template subtype="element" match="type">
 																																<children>
 																																	<content subtype="regular"/>
 																																</children>
@@ -3017,7 +3019,7 @@
 																													<tgridcell>
 																														<styles border-left="1px solid black" border-top="1px solid black"/>
 																														<children>
-																															<template subtype="element" match="percentText">
+																															<template subtype="element" match="priceText">
 																																<children>
 																																	<content subtype="regular"/>
 																																</children>
@@ -3079,7 +3081,7 @@
 																	<tgridcell>
 																		<styles text-align="right"/>
 																		<children>
-																			<template subtype="element" match="discountPriceText">
+																			<template subtype="element" match="totalPriceText">
 																				<children>
 																					<content subtype="regular">
 																						<styles font-weight="bold"/>

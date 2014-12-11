@@ -51,6 +51,7 @@
 				<xs:element name="hasAnyoneResponsibility" maxOccurs="unbounded" type="xs:boolean"/>
 				<xs:element name="hasAnyoneAccident" maxOccurs="unbounded" type="xs:boolean"/>
 				<xs:element name="hasAnyoneTechnicalHelp" maxOccurs="unbounded" type="xs:boolean"/>
+				<xs:element name="hasAnyoneRescueService" maxOccurs="unbounded" type="xs:boolean"/>
 				<xs:element name="insurer" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
