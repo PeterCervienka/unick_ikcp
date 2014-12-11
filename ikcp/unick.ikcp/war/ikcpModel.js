@@ -524,7 +524,7 @@ function IkcpModel( modelData ){
     this.watchTotalPrice = ko.computed(function() {
         var self = this;
 
-        if ( this.validateStep1() ) {
+        if ( ( this.step() == 1 || this.step() == 3 ) && this.validateStep1() ) {
 
             window.service('calcIkcp', ko.toJS( self ),
                 function(data){
