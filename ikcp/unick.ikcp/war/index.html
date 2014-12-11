@@ -61,25 +61,25 @@
 	</tr>
 	</thead>
 	<tfoot>
-	<tr>
-	    <td><strong>Cena spolu:</strong></td>
-	    <td></td>
-	    <td colspan="9">
-	        <strong data-bind="html: $data.totalPriceText"></strong>
-	        <div data-bind="visible: showFamilyDiscount" class="alert">
-	            Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
-	        </div>
-	    </td>
-	</tr>
+        <tr>
+            <td><strong>Cena spolu:</strong></td>
+            <td></td>
+            <td data-bind="attr:{ colspan: $root.insuredPersons().length+1}">
+                <strong data-bind="html: $data.totalPriceText"></strong>
+                <div data-bind="visible: showFamilyDiscount" class="alert">
+                    Využite rodinnú zľavu: ušetríte <strong>3,50 €</strong>. <a href="#set_discount" class="button small inline">Uplatniť zľavu</a>
+                </div>
+            </td>
+        </tr>
 	</tfoot>
 	<tbody>
 	<tr class="section">
 	    <td>Osoba</td>
 	    <td></td>
 	    <!-- ko foreach: insuredPersons -->
-	    <td></td>
+	    <td>&nbsp;</td>
 	    <!-- /ko -->
-	    <td></td>
+	    <td width="28">&nbsp;</td>
 	</tr>
 	<tr class="has-fields personAges">
 	    <td><!--Dieťa do 15 rokov vrátane-->Vek osoby (v rokoch)</td>
@@ -209,8 +209,8 @@
 	</tr>
 	</tbody>
 	</table>
-	<div class="cta">
-	    <a data-bind="click: goToStep2" href="#" class="button primary next">Ďalej</a>
+	<div class="cta-panel">
+        <button data-bind="click: goToStep2" class="button primary next resetDirty">Ďalej</button>
 	</div>
 </div>
 
@@ -224,7 +224,7 @@
         </div>
 	</div>
 
-	<div class="left">
+	<div class="">
 	    <div class="section">
 	        <h2>Poistník - <span>Fyzická osoba</span>
 	        	<select data-bind="value: insurer.typ,options: insurerTypes, optionsText: 'text', optionsValue: 'forma'"
@@ -293,7 +293,7 @@
 	
 	            <div class="error">&nbsp;</div>
 	        </div>
-	        <div class="double">
+	        <div class="single">
 	            <label>Štátna príslušnosť</label>
 	            <select data-bind="value: insurer.citizen, options: countryList, optionsText: 'label', optionsValue: 'key', error: insurer.citizenError"></select>
 	            <div class="error">&nbsp;</div>
@@ -308,7 +308,7 @@
 	        </h4>
 	    </div>
 	    <div class="row-4" data-bind="jq: 'addressAutocomplete'">
-	        <div class="extended required">
+	        <div class="single required">
 	            <label>Ulica</label>
 	            <input data-bind="value: insurer.address.street, error: insurer.addressStreetError" type="text"
 	                   name="addressStreet" data-name="street" value="">
@@ -352,7 +352,7 @@
 	            <h4>Korešpondenčná adresa</h4>
 	        </div>
 	        <div class="row-4" data-bind="jq: 'addressAutocomplete'">
-	            <div class="extended required">
+	            <div class="single required">
 	                <label>Ulica</label>
 	                <input data-bind="value: insurer.postalAddress.street, error: insurer.postalAddressStreetError"
 	                       type="text" name="postalAddressStreet" data-name="street" value="">
@@ -410,7 +410,7 @@
 	            </div>
 	            <div class="single required">
 	                <label>Dátum narodenia</label>
-			        <div class="dob">
+			        <div class="dob dateFields">
 			            <input data-bind="value: $data.birthDateDay, attr: {id:'step2_birthDateDay'+$index()}, error: birthDateError" type="text" placeholder="DD"/>
 			            <input data-bind="value: $data.birthDateMonth, attr: {id:'step2_birthDateMonth'+$index()}, error: birthDateError" type="text" placeholder="MM"/>
 			            <input data-bind="value: $data.birthDateYear, attr: {id:'step2_birthDateYear'+$index()}, error: birthDateError" type="text" placeholder="YYYY"/>
@@ -484,7 +484,7 @@
                             </div>
                         </div>
 
-                        <div class="single required">
+                        <div class="double required">
                             <label>Číslo medzinárodného očkovacieho preukazu / pasu</label>
                             <input data-bind="value: $data.petLicence, error: $data.petLicenceError, attr: {id:'petLicence'+$index()}" type="text">
                             <div class="error">&nbsp;</div>
@@ -758,34 +758,60 @@
             };
         }
 
-        //fixed table
-        var tbody_width = $("table tbody").css('width');
-        $("thead").css('width', tbody_width);
-        $("tfoot").css('width', tbody_width);
-        $("thead th").each(function()	{
-            var idx = $(this).index()+1;
-            var new_width = $("tbody tr:nth-child(2) td:nth-child("+idx+")").css('width');
-            $(this).css('width', new_width);
-            $("tfoot td:nth-child("+idx+")").css('width', new_width);
-            console.log(idx, new_width);
-        });
+        function unfixTable(){
+            $("thead th").each(function(a,b)	{
+                var idx = a + 1;
 
-        var move = function()	{
+                if( idx > 2 ){
+                    $(this).css('width', "auto");
+                    if(idx < 3){
+                        $("tfoot td:nth-child("+idx+")").css('width', "auto");
+                    }
+                }
+
+            });
+        };
+
+        //fixed table
+        function fixTable(){
+            var tbody_width = $("table tbody").css('width');
+            $("thead").css('width', tbody_width);
+            $("tfoot").css('width', tbody_width);
+            $("thead th").each(function(a,b)	{
+                var idx = a + 1;
+                var new_width = $("tbody tr:nth-child(2) td:nth-child("+idx+")").css('width');
+                $(this).css('width', new_width);
+
+                if(idx < 3){
+                    $("tfoot td:nth-child("+idx+")").css('width', new_width);
+                }
+                //console.log(idx, new_width);
+            });
+        };
+        fixTable();
+
+        $(window).resize(fixTable);
+
+        function scrollWindow()	{
             var st = $(window).scrollTop();
             var ot = $("table.edit-grid tbody").offset().top - $("table.edit-grid thead").height();
             var sb = st + $(window).height();
             var ob = ot + $("table.edit-grid tbody").height() + $("table.edit-grid thead").height() + $("table.edit-grid tfoot").height();
             console.log(ob);
             if( st > ot && sb < ob )	{
+                fixTable();
                 $("table.edit-grid").addClass("fixed");
             } else if( st > ot && sb > ob )	{
+                unfixTable();
                 $("table.edit-grid").removeClass("fixed");
             } else	{
+                unfixTable();
                 $("table.edit-grid").removeClass("fixed");
             }
-        }
-        move();
-        $(window).scroll(move);
+        };
+
+        scrollWindow();
+        $(window).scroll(scrollWindow);
 
         //focus handling
         $(".required input").focus(function()	{
