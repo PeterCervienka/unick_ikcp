@@ -19,6 +19,7 @@
     <hasAnyoneResponsibility>true</hasAnyoneResponsibility>
     <hasAnyoneAccident>true</hasAnyoneAccident>
     <hasAnyoneTechnicalHelp>false</hasAnyoneTechnicalHelp>
+    <hasAnyoneRescueService>false</hasAnyoneRescueService>
     <insurer>
         <typ>FO</typ>
         <companyName></companyName>
