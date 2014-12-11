@@ -244,9 +244,9 @@ window._service.save = function( data ) {
 	
 	console.log("XML",modelJson, xml);
 	
-	pdf1 = window._apiJson("createPdf", { name: vs + "_zmluva.pdf", template:"ck_agreement.xslt", data: "@ikcp.xml" } );
-	pdf2 = window._apiJson("createPdf", { name: vs + "_poistna-karta.pdf", template:"ck_card.xslt", data: "@ikcp.xml" } );
-	pdf3 = window._apiJson("createPdf", { name: vs + "_prijmovy-pokladnickny-doklad.pdf", template:"ck_payment_order.xslt", data: "@ikcp.xml" } );
+	pdf1 = window._apiJson("createPdf", { name: vs + "_zmluva.pdf", template:"ikcp_agreement.xslt", data: "@ikcp.xml" } );
+	pdf2 = window._apiJson("createPdf", { name: vs + "_poistna-karta.pdf", template:"ikcp_card.xslt", data: "@ikcp.xml" } );
+	pdf3 = window._apiJson("createPdf", { name: vs + "_prijmovy-pokladnickny-doklad.pdf", template:"ikcp_payment_order.xslt", data: "@ikcp.xml" } );
 
 	window._apiJson("saveIkcpZip", {vs:vs, docs: [ 'ikcp.xml', pdf1, pdf2, pdf3 ] });
 
