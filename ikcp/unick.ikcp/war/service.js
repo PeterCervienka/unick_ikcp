@@ -30,8 +30,8 @@ window._service.calcIkcp = function ( data ) {
         input.data.header = {
             partner: "Aston",
             dpo: data.predmet,
-            od: data.insuredFrom,
-            do: data.insuredTo,
+            od: data.insuredFromUS + "T00:00:00",
+            do: data.insuredToUS + "T00:00:00",
             uzemie: data.land.key,
             platenie: 4,
             zlavy_zmluva: []
@@ -211,7 +211,8 @@ window._service.save = function( data ) {
 		xml,
 		pdf1,
 		pdf2,
-		pdf3;
+		pdf3,
+        pdf4;
 
 	//valid
 	step1Valid = model.validateStep1();
@@ -245,8 +246,9 @@ window._service.save = function( data ) {
 	console.log("XML",modelJson, xml);
 	
 	pdf1 = window._apiJson("createPdf", { name: vs + "_zmluva.pdf", template:"ikcp_agreement.xslt", data: "@ikcp.xml" } );
-	pdf2 = window._apiJson("createPdf", { name: vs + "_poistna-karta.pdf", template:"ikcp_card.xslt", data: "@ikcp.xml" } );
-	pdf3 = window._apiJson("createPdf", { name: vs + "_prijmovy-pokladnickny-doklad.pdf", template:"ikcp_payment_order.xslt", data: "@ikcp.xml" } );
+    pdf2 = window._apiJson("createPdf", { name: vs + "_zmluva_navrh.pdf", template:"ikcp_agreement_ckm.xslt", data: "@ikcp.xml" } );
+	pdf3 = window._apiJson("createPdf", { name: vs + "_poistna-karta.pdf", template:"ikcp_card.xslt", data: "@ikcp.xml" } );
+	pdf4 = window._apiJson("createPdf", { name: vs + "_prijmovy-pokladnickny-doklad.pdf", template:"ikcp_payment_order.xslt", data: "@ikcp.xml" } );
 
 	window._apiJson("saveIkcpZip", {vs:vs, docs: [ 'ikcp.xml', pdf1, pdf2, pdf3 ] });
 
@@ -254,7 +256,8 @@ window._service.save = function( data ) {
 		status: "ok",
 		vs: vs,
 		pdf1: "document/" + pdf1,
-		pdf2: "document/" + pdf2,
-		pdf3: "document/" + pdf3
+        pdf2: "document/" + pdf2,
+		pdf2: "document/" + pdf3,
+		pdf3: "document/" + pdf4
 	};
 };

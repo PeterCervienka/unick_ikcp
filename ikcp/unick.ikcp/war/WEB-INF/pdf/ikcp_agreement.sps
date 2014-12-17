@@ -1070,7 +1070,7 @@
 																			<template subtype="element" match="signingDate">
 																				<children>
 																					<content subtype="regular">
-																						<format basic-type="xsd" string="DD.MM.YYYY" datatype="date"/>
+																						<format basic-type="xsd" string="DD.MM.YYYY" datatype="dateTime"/>
 																					</content>
 																				</children>
 																				<variables/>
@@ -1083,7 +1083,7 @@
 																			<template subtype="element" match="signingDate">
 																				<children>
 																					<content subtype="regular">
-																						<format basic-type="xsd" string="hh:mm" datatype="time"/>
+																						<format basic-type="xsd" string="hh:mm" datatype="dateTime"/>
 																					</content>
 																				</children>
 																				<variables/>
@@ -2306,7 +2306,7 @@
 											</condition>
 											<condition>
 												<children>
-													<conditionbranch xpath="../storno=&apos;true&apos;">
+													<conditionbranch xpath="hasAnyoneStrono=&apos;true&apos;">
 														<children>
 															<newline/>
 															<tgrid>
@@ -2483,19 +2483,11 @@
 																													<tgridcell>
 																														<styles border-left="1px solid black" border-top="1px solid black" padding="5px" text-align="right"/>
 																														<children>
-																															<template subtype="element" match="personData">
+																															<template subtype="element" match="storno">
 																																<children>
-																																	<template subtype="element" match="stornoData">
-																																		<children>
-																																			<template subtype="element" match="priceText">
-																																				<children>
-																																					<content subtype="regular"/>
-																																				</children>
-																																				<variables/>
-																																			</template>
-																																		</children>
-																																		<variables/>
-																																	</template>
+																																	<content subtype="regular">
+																																		<format basic-type="xsd" string="##0.00" datatype="decimal"/>
+																																	</content>
 																																</children>
 																																<variables/>
 																															</template>
@@ -3081,10 +3073,11 @@
 																	<tgridcell>
 																		<styles text-align="right"/>
 																		<children>
-																			<template subtype="element" match="totalPriceText">
+																			<template subtype="element" match="totalPrice">
 																				<children>
 																					<content subtype="regular">
 																						<styles font-weight="bold"/>
+																						<format basic-type="xsd" string="##0.00" datatype="decimal"/>
 																					</content>
 																				</children>
 																				<variables/>

@@ -20,6 +20,7 @@
     <hasAnyoneAccident>true</hasAnyoneAccident>
     <hasAnyoneTechnicalHelp>false</hasAnyoneTechnicalHelp>
     <hasAnyoneRescueService>false</hasAnyoneRescueService>
+    <hasAnyoneStrono>true</hasAnyoneStrono>
     <insurer>
         <typ>FO</typ>
         <companyName></companyName>
@@ -78,7 +79,7 @@
             <accident>false</accident>
             <technicalHelp>false</technicalHelp>
             <riskGroup>T</riskGroup>
-            <storno>20</storno>
+            <storno>20.15</storno>
             <stornoObj>
                 <type>ZAJ</type>
                 <typeOther></typeOther>

@@ -72,7 +72,11 @@ public class CalculateIkcp implements IApiFunction {
         StringWriter w = new StringWriter();
         data.write(w, o.getAsJsonObject("data"));
 
-        return w.toString();
+        String xml = w.toString();
+
+        xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xml;
+
+        return xml;
 	}
 
 	protected void callProc(String xml, JsonWriter w) throws Exception {

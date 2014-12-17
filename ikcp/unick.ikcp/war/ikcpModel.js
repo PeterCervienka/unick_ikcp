@@ -526,7 +526,11 @@ function IkcpModel( modelData ){
 
         if ( ( this.step() == 1 || this.step() == 3 ) && this.validateStep1() ) {
 
-            window.service('calcIkcp', ko.toJS( self ),
+            var input = ko.toJS( self );
+            input.insuredFromUS = skDatetoUs( input.insuredFrom );
+            input.insuredToUS = skDatetoUs( input.insuredTo );
+
+            window.service('calcIkcp', input,
                 function(data){
                     console.log("calcIkcp", data);
 
@@ -573,6 +577,7 @@ function IkcpModel( modelData ){
                         pdf1: data.pdf1,
                         pdf2: data.pdf2,
                         pdf3: data.pdf3,
+                        pdf4: data.pdf4,
                         status: data.status
                     });
                 }
@@ -752,6 +757,20 @@ function IkcpModel( modelData ){
             for( var i = 0; i < persons.length; i++ ) {
                 var p = persons[i];
                 if ( p.rescueService() == true ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }, this);
+
+    this.hasAnyoneStrono = ko.computed(function() {
+        var persons = this.insuredPersons.peek();
+        if ( persons && persons.length > 0) {
+            for( var i = 0; i < persons.length; i++ ) {
+                var p = persons[i];
+                if ( p.storno() > 0) {
                     return true;
                 }
             }

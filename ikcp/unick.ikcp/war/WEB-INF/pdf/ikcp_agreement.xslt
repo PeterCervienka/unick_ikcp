@@ -1519,9 +1519,9 @@
 															<fo:block text-align="left">
 																<xsl:for-each select="signingDate">
 																	<fo:inline>
-																		<xsl:value-of select="format-number(number(substring(string(string(.)), 1, 2)), '00', 'format1')"/>
+																		<xsl:value-of select="format-number(number(substring(string(string(.)), 12, 2)), '00', 'format1')"/>
 																		<xsl:text>:</xsl:text>
-																		<xsl:value-of select="format-number(number(substring(string(string(.)), 4, 2)), '00', 'format1')"/>
+																		<xsl:value-of select="format-number(number(substring(string(string(.)), 15, 2)), '00', 'format1')"/>
 																	</fo:inline>
 																</xsl:for-each>
 															</fo:block>
@@ -2973,7 +2973,7 @@
 											</fo:table>
 										</xsl:if>
 									</xsl:if>
-									<xsl:if test="../storno=&apos;true&apos;">
+									<xsl:if test="hasAnyoneStrono=&apos;true&apos;">
 										<fo:block>
 											<fo:leader leader-pattern="space"/>
 										</fo:block>
@@ -3175,6 +3175,11 @@
 																					<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="0.05in" display-align="center">
 																						<fo:block-container overflow="hidden">
 																							<fo:block text-align="right">
+																								<xsl:for-each select="storno">
+																									<fo:inline>
+																										<xsl:value-of select="format-number(number(string(.)), '##0,00', 'format1')"/>
+																									</fo:inline>
+																								</xsl:for-each>
 																								<fo:inline>
 																									<xsl:text> EUR</xsl:text>
 																								</fo:inline>
@@ -3212,7 +3217,7 @@
 										</fo:inline-container>
 										<fo:table border="0.01in solid black" table-layout="fixed" width="100%" border-spacing="0">
 											<fo:table-column column-width="proportional-column-width(1)"/>
-											<xsl:variable name="altova:CurrContextGrid_81" select="."/>
+											<xsl:variable name="altova:CurrContextGrid_82" select="."/>
 											<fo:table-body start-indent="0pt">
 												<xsl:variable name="altova:tablerows">
 													<fo:table-row>
@@ -3257,7 +3262,7 @@
 												<fo:table-column column-width="15%"/>
 												<fo:table-column column-width="20%"/>
 												<fo:table-column column-width="40%"/>
-												<xsl:variable name="altova:CurrContextGrid_82" select="."/>
+												<xsl:variable name="altova:CurrContextGrid_83" select="."/>
 												<fo:table-header start-indent="0pt">
 													<xsl:variable name="altova:tablerows">
 														<fo:table-row>
@@ -3343,26 +3348,6 @@
 																						<fo:block-container overflow="hidden">
 																							<fo:block text-align="left">
 																								<xsl:for-each select="name">
-																									<xsl:variable name="value-of-template_83">
-																										<xsl:apply-templates/>
-																									</xsl:variable>
-																									<xsl:choose>
-																										<xsl:when test="contains(string($value-of-template_83),'&#x200B;')">
-																											<fo:block>
-																												<xsl:copy-of select="$value-of-template_83"/>
-																											</fo:block>
-																										</xsl:when>
-																										<xsl:otherwise>
-																											<fo:inline>
-																												<xsl:copy-of select="$value-of-template_83"/>
-																											</fo:inline>
-																										</xsl:otherwise>
-																									</xsl:choose>
-																								</xsl:for-each>
-																								<fo:inline>
-																									<xsl:text>&#160;</xsl:text>
-																								</fo:inline>
-																								<xsl:for-each select="surname">
 																									<xsl:variable name="value-of-template_84">
 																										<xsl:apply-templates/>
 																									</xsl:variable>
@@ -3375,6 +3360,26 @@
 																										<xsl:otherwise>
 																											<fo:inline>
 																												<xsl:copy-of select="$value-of-template_84"/>
+																											</fo:inline>
+																										</xsl:otherwise>
+																									</xsl:choose>
+																								</xsl:for-each>
+																								<fo:inline>
+																									<xsl:text>&#160;</xsl:text>
+																								</fo:inline>
+																								<xsl:for-each select="surname">
+																									<xsl:variable name="value-of-template_85">
+																										<xsl:apply-templates/>
+																									</xsl:variable>
+																									<xsl:choose>
+																										<xsl:when test="contains(string($value-of-template_85),'&#x200B;')">
+																											<fo:block>
+																												<xsl:copy-of select="$value-of-template_85"/>
+																											</fo:block>
+																										</xsl:when>
+																										<xsl:otherwise>
+																											<fo:inline>
+																												<xsl:copy-of select="$value-of-template_85"/>
 																											</fo:inline>
 																										</xsl:otherwise>
 																									</xsl:choose>
@@ -3399,29 +3404,6 @@
 																						<fo:block-container overflow="hidden">
 																							<fo:block text-align="left">
 																								<xsl:for-each select="petType">
-																									<xsl:variable name="value-of-template_86">
-																										<xsl:apply-templates/>
-																									</xsl:variable>
-																									<xsl:choose>
-																										<xsl:when test="contains(string($value-of-template_86),'&#x200B;')">
-																											<fo:block>
-																												<xsl:copy-of select="$value-of-template_86"/>
-																											</fo:block>
-																										</xsl:when>
-																										<xsl:otherwise>
-																											<fo:inline>
-																												<xsl:copy-of select="$value-of-template_86"/>
-																											</fo:inline>
-																										</xsl:otherwise>
-																									</xsl:choose>
-																								</xsl:for-each>
-																							</fo:block>
-																						</fo:block-container>
-																					</fo:table-cell>
-																					<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="0.05in" display-align="center">
-																						<fo:block-container overflow="hidden">
-																							<fo:block text-align="left">
-																								<xsl:for-each select="petLicence">
 																									<xsl:variable name="value-of-template_87">
 																										<xsl:apply-templates/>
 																									</xsl:variable>
@@ -3434,6 +3416,29 @@
 																										<xsl:otherwise>
 																											<fo:inline>
 																												<xsl:copy-of select="$value-of-template_87"/>
+																											</fo:inline>
+																										</xsl:otherwise>
+																									</xsl:choose>
+																								</xsl:for-each>
+																							</fo:block>
+																						</fo:block-container>
+																					</fo:table-cell>
+																					<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="0.05in" display-align="center">
+																						<fo:block-container overflow="hidden">
+																							<fo:block text-align="left">
+																								<xsl:for-each select="petLicence">
+																									<xsl:variable name="value-of-template_88">
+																										<xsl:apply-templates/>
+																									</xsl:variable>
+																									<xsl:choose>
+																										<xsl:when test="contains(string($value-of-template_88),'&#x200B;')">
+																											<fo:block>
+																												<xsl:copy-of select="$value-of-template_88"/>
+																											</fo:block>
+																										</xsl:when>
+																										<xsl:otherwise>
+																											<fo:inline>
+																												<xsl:copy-of select="$value-of-template_88"/>
 																											</fo:inline>
 																										</xsl:otherwise>
 																									</xsl:choose>
@@ -3481,7 +3486,7 @@
 												<fo:table-column column-width="15%"/>
 												<fo:table-column column-width="40%"/>
 												<fo:table-column column-width="20%"/>
-												<xsl:variable name="altova:CurrContextGrid_88" select="."/>
+												<xsl:variable name="altova:CurrContextGrid_89" select="."/>
 												<fo:table-header start-indent="0pt">
 													<xsl:variable name="altova:tablerows">
 														<fo:table-row>
@@ -3564,26 +3569,6 @@
 																						<fo:block-container overflow="hidden">
 																							<fo:block text-align="left">
 																								<xsl:for-each select="name">
-																									<xsl:variable name="value-of-template_89">
-																										<xsl:apply-templates/>
-																									</xsl:variable>
-																									<xsl:choose>
-																										<xsl:when test="contains(string($value-of-template_89),'&#x200B;')">
-																											<fo:block>
-																												<xsl:copy-of select="$value-of-template_89"/>
-																											</fo:block>
-																										</xsl:when>
-																										<xsl:otherwise>
-																											<fo:inline>
-																												<xsl:copy-of select="$value-of-template_89"/>
-																											</fo:inline>
-																										</xsl:otherwise>
-																									</xsl:choose>
-																								</xsl:for-each>
-																								<fo:inline>
-																									<xsl:text>&#160;</xsl:text>
-																								</fo:inline>
-																								<xsl:for-each select="surname">
 																									<xsl:variable name="value-of-template_90">
 																										<xsl:apply-templates/>
 																									</xsl:variable>
@@ -3596,6 +3581,26 @@
 																										<xsl:otherwise>
 																											<fo:inline>
 																												<xsl:copy-of select="$value-of-template_90"/>
+																											</fo:inline>
+																										</xsl:otherwise>
+																									</xsl:choose>
+																								</xsl:for-each>
+																								<fo:inline>
+																									<xsl:text>&#160;</xsl:text>
+																								</fo:inline>
+																								<xsl:for-each select="surname">
+																									<xsl:variable name="value-of-template_91">
+																										<xsl:apply-templates/>
+																									</xsl:variable>
+																									<xsl:choose>
+																										<xsl:when test="contains(string($value-of-template_91),'&#x200B;')">
+																											<fo:block>
+																												<xsl:copy-of select="$value-of-template_91"/>
+																											</fo:block>
+																										</xsl:when>
+																										<xsl:otherwise>
+																											<fo:inline>
+																												<xsl:copy-of select="$value-of-template_91"/>
 																											</fo:inline>
 																										</xsl:otherwise>
 																									</xsl:choose>
@@ -3621,28 +3626,6 @@
 																							<fo:block text-align="left">
 																								<xsl:for-each select="vacationObj">
 																									<xsl:for-each select="street">
-																										<xsl:variable name="value-of-template_92">
-																											<xsl:apply-templates/>
-																										</xsl:variable>
-																										<xsl:choose>
-																											<xsl:when test="contains(string($value-of-template_92),'&#x200B;')">
-																												<fo:block>
-																													<xsl:copy-of select="$value-of-template_92"/>
-																												</fo:block>
-																											</xsl:when>
-																											<xsl:otherwise>
-																												<fo:inline>
-																													<xsl:copy-of select="$value-of-template_92"/>
-																												</fo:inline>
-																											</xsl:otherwise>
-																										</xsl:choose>
-																									</xsl:for-each>
-																								</xsl:for-each>
-																								<fo:inline>
-																									<xsl:text>&#160; </xsl:text>
-																								</fo:inline>
-																								<xsl:for-each select="vacationObj">
-																									<xsl:for-each select="streetNumber">
 																										<xsl:variable name="value-of-template_93">
 																											<xsl:apply-templates/>
 																										</xsl:variable>
@@ -3664,7 +3647,7 @@
 																									<xsl:text>&#160; </xsl:text>
 																								</fo:inline>
 																								<xsl:for-each select="vacationObj">
-																									<xsl:for-each select="postalCode">
+																									<xsl:for-each select="streetNumber">
 																										<xsl:variable name="value-of-template_94">
 																											<xsl:apply-templates/>
 																										</xsl:variable>
@@ -3686,7 +3669,7 @@
 																									<xsl:text>&#160; </xsl:text>
 																								</fo:inline>
 																								<xsl:for-each select="vacationObj">
-																									<xsl:for-each select="city">
+																									<xsl:for-each select="postalCode">
 																										<xsl:variable name="value-of-template_95">
 																											<xsl:apply-templates/>
 																										</xsl:variable>
@@ -3704,15 +3687,11 @@
 																										</xsl:choose>
 																									</xsl:for-each>
 																								</xsl:for-each>
-																								<fo:block/>
-																							</fo:block>
-																						</fo:block-container>
-																					</fo:table-cell>
-																					<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="0.05in" display-align="center">
-																						<fo:block-container overflow="hidden">
-																							<fo:block text-align="left">
+																								<fo:inline>
+																									<xsl:text>&#160; </xsl:text>
+																								</fo:inline>
 																								<xsl:for-each select="vacationObj">
-																									<xsl:for-each select="buildingNr">
+																									<xsl:for-each select="city">
 																										<xsl:variable name="value-of-template_96">
 																											<xsl:apply-templates/>
 																										</xsl:variable>
@@ -3730,11 +3709,15 @@
 																										</xsl:choose>
 																									</xsl:for-each>
 																								</xsl:for-each>
-																								<fo:inline>
-																									<xsl:text>&#160;</xsl:text>
-																								</fo:inline>
+																								<fo:block/>
+																							</fo:block>
+																						</fo:block-container>
+																					</fo:table-cell>
+																					<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="0.05in" display-align="center">
+																						<fo:block-container overflow="hidden">
+																							<fo:block text-align="left">
 																								<xsl:for-each select="vacationObj">
-																									<xsl:for-each select="floorNr">
+																									<xsl:for-each select="buildingNr">
 																										<xsl:variable name="value-of-template_97">
 																											<xsl:apply-templates/>
 																										</xsl:variable>
@@ -3747,6 +3730,28 @@
 																											<xsl:otherwise>
 																												<fo:inline>
 																													<xsl:copy-of select="$value-of-template_97"/>
+																												</fo:inline>
+																											</xsl:otherwise>
+																										</xsl:choose>
+																									</xsl:for-each>
+																								</xsl:for-each>
+																								<fo:inline>
+																									<xsl:text>&#160;</xsl:text>
+																								</fo:inline>
+																								<xsl:for-each select="vacationObj">
+																									<xsl:for-each select="floorNr">
+																										<xsl:variable name="value-of-template_98">
+																											<xsl:apply-templates/>
+																										</xsl:variable>
+																										<xsl:choose>
+																											<xsl:when test="contains(string($value-of-template_98),'&#x200B;')">
+																												<fo:block>
+																													<xsl:copy-of select="$value-of-template_98"/>
+																												</fo:block>
+																											</xsl:when>
+																											<xsl:otherwise>
+																												<fo:inline>
+																													<xsl:copy-of select="$value-of-template_98"/>
 																												</fo:inline>
 																											</xsl:otherwise>
 																										</xsl:choose>
@@ -3794,7 +3799,7 @@
 											<fo:table border="0.01in solid black" table-layout="fixed" width="100%" border-spacing="0">
 												<fo:table-column column-width="40%"/>
 												<fo:table-column column-width="60%"/>
-												<xsl:variable name="altova:CurrContextGrid_98" select="."/>
+												<xsl:variable name="altova:CurrContextGrid_99" select="."/>
 												<fo:table-header start-indent="0pt">
 													<xsl:variable name="altova:tablerows">
 														<fo:table-row>
@@ -3842,29 +3847,6 @@
 																				<fo:block-container overflow="hidden">
 																					<fo:block text-align="left">
 																						<xsl:for-each select="type">
-																							<xsl:variable name="value-of-template_99">
-																								<xsl:apply-templates/>
-																							</xsl:variable>
-																							<xsl:choose>
-																								<xsl:when test="contains(string($value-of-template_99),'&#x200B;')">
-																									<fo:block>
-																										<xsl:copy-of select="$value-of-template_99"/>
-																									</fo:block>
-																								</xsl:when>
-																								<xsl:otherwise>
-																									<fo:inline>
-																										<xsl:copy-of select="$value-of-template_99"/>
-																									</fo:inline>
-																								</xsl:otherwise>
-																							</xsl:choose>
-																						</xsl:for-each>
-																					</fo:block>
-																				</fo:block-container>
-																			</fo:table-cell>
-																			<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="5" display-align="center">
-																				<fo:block-container overflow="hidden">
-																					<fo:block text-align="left">
-																						<xsl:for-each select="priceText">
 																							<xsl:variable name="value-of-template_100">
 																								<xsl:apply-templates/>
 																							</xsl:variable>
@@ -3877,6 +3859,29 @@
 																								<xsl:otherwise>
 																									<fo:inline>
 																										<xsl:copy-of select="$value-of-template_100"/>
+																									</fo:inline>
+																								</xsl:otherwise>
+																							</xsl:choose>
+																						</xsl:for-each>
+																					</fo:block>
+																				</fo:block-container>
+																			</fo:table-cell>
+																			<fo:table-cell border-left="0.01in solid black" border-top="0.01in solid black" padding="5" display-align="center">
+																				<fo:block-container overflow="hidden">
+																					<fo:block text-align="left">
+																						<xsl:for-each select="priceText">
+																							<xsl:variable name="value-of-template_101">
+																								<xsl:apply-templates/>
+																							</xsl:variable>
+																							<xsl:choose>
+																								<xsl:when test="contains(string($value-of-template_101),'&#x200B;')">
+																									<fo:block>
+																										<xsl:copy-of select="$value-of-template_101"/>
+																									</fo:block>
+																								</xsl:when>
+																								<xsl:otherwise>
+																									<fo:inline>
+																										<xsl:copy-of select="$value-of-template_101"/>
 																									</fo:inline>
 																								</xsl:otherwise>
 																							</xsl:choose>
@@ -3921,7 +3926,7 @@
 									<fo:table border="0.01in solid black" table-layout="fixed" width="100%" border-spacing="0">
 										<fo:table-column column-width="40%"/>
 										<fo:table-column column-width="60%"/>
-										<xsl:variable name="altova:CurrContextGrid_101" select="."/>
+										<xsl:variable name="altova:CurrContextGrid_102" select="."/>
 										<fo:table-body start-indent="0pt">
 											<xsl:variable name="altova:tablerows">
 												<fo:table-row>
@@ -3937,22 +3942,10 @@
 													<fo:table-cell padding="5" display-align="center">
 														<fo:block-container overflow="hidden">
 															<fo:block text-align="right">
-																<xsl:for-each select="totalPriceText">
-																	<xsl:variable name="value-of-template_102">
-																		<xsl:apply-templates/>
-																	</xsl:variable>
-																	<xsl:choose>
-																		<xsl:when test="contains(string($value-of-template_102),'&#x200B;')">
-																			<fo:block font-weight="bold">
-																				<xsl:copy-of select="$value-of-template_102"/>
-																			</fo:block>
-																		</xsl:when>
-																		<xsl:otherwise>
-																			<fo:inline font-weight="bold">
-																				<xsl:copy-of select="$value-of-template_102"/>
-																			</fo:inline>
-																		</xsl:otherwise>
-																	</xsl:choose>
+																<xsl:for-each select="totalPrice">
+																	<fo:inline font-weight="bold">
+																		<xsl:value-of select="format-number(number(string(.)), '##0,00', 'format1')"/>
+																	</fo:inline>
 																</xsl:for-each>
 																<fo:inline>
 																	<xsl:text>&#160;</xsl:text>
@@ -3997,7 +3990,7 @@
 									<fo:table table-layout="fixed" width="100%" border-spacing="0">
 										<fo:table-column column-width="50%"/>
 										<fo:table-column column-width="50%"/>
-										<xsl:variable name="altova:CurrContextGrid_103" select="."/>
+										<xsl:variable name="altova:CurrContextGrid_104" select="."/>
 										<fo:table-body start-indent="0pt">
 											<xsl:variable name="altova:tablerows">
 												<fo:table-row>
@@ -4054,18 +4047,18 @@
 														<fo:block-container overflow="hidden">
 															<fo:block text-align="left">
 																<xsl:for-each select="insuredFrom">
-																	<xsl:variable name="value-of-template_104">
+																	<xsl:variable name="value-of-template_105">
 																		<xsl:apply-templates/>
 																	</xsl:variable>
 																	<xsl:choose>
-																		<xsl:when test="contains(string($value-of-template_104),'&#x200B;')">
+																		<xsl:when test="contains(string($value-of-template_105),'&#x200B;')">
 																			<fo:block>
-																				<xsl:copy-of select="$value-of-template_104"/>
+																				<xsl:copy-of select="$value-of-template_105"/>
 																			</fo:block>
 																		</xsl:when>
 																		<xsl:otherwise>
 																			<fo:inline>
-																				<xsl:copy-of select="$value-of-template_104"/>
+																				<xsl:copy-of select="$value-of-template_105"/>
 																			</fo:inline>
 																		</xsl:otherwise>
 																	</xsl:choose>
@@ -4148,7 +4141,7 @@
 														<fo:table-column column-width="20%"/>
 														<fo:table-column column-width="60%"/>
 														<fo:table-column column-width="20%"/>
-														<xsl:variable name="altova:CurrContextGrid_105" select="."/>
+														<xsl:variable name="altova:CurrContextGrid_106" select="."/>
 														<fo:table-body start-indent="0pt">
 															<xsl:variable name="altova:tablerows">
 																<fo:table-row>
@@ -4382,7 +4375,7 @@
 								<fo:table table-layout="fixed" width="100%" border-spacing="0">
 									<fo:table-column column-width="50%"/>
 									<fo:table-column column-width="50%"/>
-									<xsl:variable name="altova:CurrContextGrid_106" select="."/>
+									<xsl:variable name="altova:CurrContextGrid_107" select="."/>
 									<fo:table-body start-indent="0pt">
 										<xsl:variable name="altova:tablerows">
 											<fo:table-row>
@@ -4491,7 +4484,7 @@
 										<fo:table-column column-width="proportional-column-width(1)"/>
 										<fo:table-column column-width="0.208in"/>
 										<fo:table-column column-width="proportional-column-width(1)"/>
-										<xsl:variable name="altova:CurrContextGrid_107" select="."/>
+										<xsl:variable name="altova:CurrContextGrid_108" select="."/>
 										<fo:table-body start-indent="0pt">
 											<xsl:variable name="altova:tablerows">
 												<fo:table-row>
@@ -4588,7 +4581,7 @@
 										<fo:table-column column-width="proportional-column-width(1)"/>
 										<fo:table-column column-width="0.208in"/>
 										<fo:table-column column-width="proportional-column-width(1)"/>
-										<xsl:variable name="altova:CurrContextGrid_108" select="."/>
+										<xsl:variable name="altova:CurrContextGrid_109" select="."/>
 										<fo:table-body start-indent="0pt">
 											<xsl:variable name="altova:tablerows">
 												<fo:table-row>
@@ -4683,18 +4676,18 @@
 	<xsl:template name="InsurerAddress">
 		<xsl:for-each select="address">
 			<xsl:for-each select="street">
-				<xsl:variable name="value-of-template_109">
+				<xsl:variable name="value-of-template_110">
 					<xsl:apply-templates/>
 				</xsl:variable>
 				<xsl:choose>
-					<xsl:when test="contains(string($value-of-template_109),'&#x200B;')">
+					<xsl:when test="contains(string($value-of-template_110),'&#x200B;')">
 						<fo:block>
-							<xsl:copy-of select="$value-of-template_109"/>
+							<xsl:copy-of select="$value-of-template_110"/>
 						</fo:block>
 					</xsl:when>
 					<xsl:otherwise>
 						<fo:inline>
-							<xsl:copy-of select="$value-of-template_109"/>
+							<xsl:copy-of select="$value-of-template_110"/>
 						</fo:inline>
 					</xsl:otherwise>
 				</xsl:choose>
