@@ -244,10 +244,15 @@ window._service.save = function( data ) {
 	var xml = window._apiRaw("createIkcpXml", modelJson);
 	
 	console.log("XML",modelJson, xml);
+
+    var cardName = "ikcp_card";
+    if ( model.isDomesticalTrip() ) {
+        cardName = cardName + "_sr";
+    }
 	
 	pdf1 = window._apiJson("createPdf", { name: vs + "_zmluva.pdf", template:"ikcp_agreement.xslt", data: "@ikcp.xml" } );
     pdf2 = window._apiJson("createPdf", { name: vs + "_zmluva_navrh.pdf", template:"ikcp_agreement_ckm.xslt", data: "@ikcp.xml" } );
-	pdf3 = window._apiJson("createPdf", { name: vs + "_poistna-karta.pdf", template:"ikcp_card.xslt", data: "@ikcp.xml" } );
+	pdf3 = window._apiJson("createPdf", { name: vs + "_poistna-karta.pdf", template: cardName + ".xslt", data: "@ikcp.xml" } );
 	pdf4 = window._apiJson("createPdf", { name: vs + "_prijmovy-pokladnickny-doklad.pdf", template:"ikcp_payment_order.xslt", data: "@ikcp.xml" } );
 
 	window._apiJson("saveIkcpZip", {vs:vs, docs: [ 'ikcp.xml', pdf1, pdf2, pdf3 ] });
